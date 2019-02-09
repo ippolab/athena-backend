@@ -1,4 +1,5 @@
 import os
+import pathlib
 
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
@@ -11,29 +12,33 @@ class OverwriteStorage(FileSystemStorage):
         return name
 
 
-# todo refactor upload
-def upload_task(instance, file_name):
-    file_path = os.path.join(
-        'tasks_files',
-        # str(instance.group),
-        # str(instance.subject),
-        # str(instance.subject_type),
-        # str(instance.title)
-    )
+def compare_dirs(path: str, filename: str) -> bool:
+    try:
+        abspath = pathlib.Path(settings.MEDIA_ROOT)
+        abspath /= filename
+        return os.path.samefile(abspath, path)
+    except FileNotFoundError:
+        return False
 
+
+# todo refactor upload
+def upload_task(instance, file_name: str):
+    file_path = os.path.join(
+        'templates',
+        str(instance),
+        file_name
+    )
     return file_path
 
 
-# todo
-def upload_work(instance, file_name):
+# todo refactor upload
+def upload_report(instance, file_name: str):
     file_path = os.path.join(
-        'students_files',
-        # str(instance.student.group),
-        # str(instance.student),
-        # str(instance.task.subject),
-        # str(instance.task.subject_type),
-        # str(instance.task.title),
-        file_name
+        'reports',
+        str(instance.student.student_group),
+        str(instance.student),
+        str(instance),
+        str(file_name)
     )
 
     return file_path

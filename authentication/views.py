@@ -1,6 +1,13 @@
 from rest_framework import viewsets
 
-from .serializers import UserSerializer, GroupSerializer, User, Group
+from authentication.models import Student, Tutor, Teacher
+from .serializers import UserSerializer, GroupSerializer, User, Group, StudentSerializer, TutorSerializer, \
+    TeacherSerializer
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -8,6 +15,16 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-class GroupViewSet(viewsets.ModelViewSet):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+class StudentViewSet(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+
+class TutorViewSet(viewsets.ModelViewSet):
+    queryset = Tutor.objects.all()
+    serializer_class = TutorSerializer
+
+
+class TeacherViewSet(viewsets.ModelViewSet):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer

@@ -1,35 +1,41 @@
 from django.core.validators import FileExtensionValidator
 from django.db import models
 
-from authentication.models import User
+from authentication.models import Student
 from edu.models import Subject, StudentGroup
-from works.storage import OverwriteStorage, upload_task, upload_work
+from works.storage import OverwriteStorage, upload_task, upload_report
 
 
 class Task(models.Model):
-    theme = models.CharField(max_length=50)
-    description = models.CharField(max_length=254)
+    theme = models.CharField(max_length=50, blank=False)
+    description = models.CharField(max_length=254, blank=False)
     templates = models.FileField(
         upload_to=upload_task,
         storage=OverwriteStorage(),
         validators=[FileExtensionValidator(allowed_extensions=['zip'])],
         null=True
     )
-    subject = models.OneToOneField(Subject, on_delete=models.CASCADE)
-    group_id = models.ManyToManyField(StudentGroup, related_name='task')
-    deadline = models.DateTimeField(name='deadline')
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    groups = models.ManyToManyField(StudentGroup, related_name='task')
+    deadline = models.DateTimeField()
+
+    class Meta:
+        unique_together = ('subject', 'theme')
+
+    def __str__(self):
+        return '{}. {}'.format(self.subject, self.theme)
 
 
 class Report(models.Model):
-    title = models.CharField(max_length=254)
+    title = models.CharField(max_length=254, blank=False)
     document = models.FileField(
-        upload_to=upload_work,
+        upload_to=upload_report,
         storage=OverwriteStorage(),
         validators=[FileExtensionValidator(allowed_extensions=['pdf'])],
         null=True
     )
     attachment = models.FileField(
-        upload_to=upload_work,
+        upload_to=upload_report,
         storage=OverwriteStorage(),
         validators=[FileExtensionValidator(allowed_extensions=['zip'])],
         null=True
@@ -42,4 +48,10 @@ class Report(models.Model):
     status = models.CharField(max_length=1, choices=STATUSES, default='N', blank=False)
     checked = models.DateTimeField(null=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='reports')
+
+    class Meta:
+        unique_together = ('task', 'student')
+
+    def __str__(self):
+        return '{}. {}'.format(self.task, self.title)
