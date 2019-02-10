@@ -2,7 +2,7 @@ COMPOSE_DEV_FILE=docker-compose-dev.yml
 
 
 bootstrap-environment:
-	mkvirtualenv athena-backend && poetry install
+	mkvirtualenv athena-backend && pip install poetry && poetry install
 
 .PHONY: activate-environment
 activate-environment:
