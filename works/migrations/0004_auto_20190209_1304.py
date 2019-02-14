@@ -5,20 +5,17 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('works', '0003_auto_20190209_1126'),
-    ]
+    dependencies = [("works", "0003_auto_20190209_1126")]
 
     operations = [
-        migrations.RenameField(
-            model_name='task',
-            old_name='group',
-            new_name='groups',
-        ),
+        migrations.RenameField(model_name="task", old_name="group", new_name="groups"),
         migrations.AlterField(
-            model_name='report',
-            name='student',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='reports',
-                                    to='authentication.Student'),
+            model_name="report",
+            name="student",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="reports",
+                to="authentication.Student",
+            ),
         ),
     ]

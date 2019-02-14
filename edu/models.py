@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Model, CharField
+from django.db.models import CharField, Model
 
 
 class Subject(models.Model):
@@ -7,10 +7,10 @@ class Subject(models.Model):
     semester = models.SmallIntegerField(default=1, blank=False)
 
     class Meta:
-        unique_together = ('name', 'semester')
+        unique_together = ("name", "semester")
 
     def __str__(self):
-        return '[{}] {}'.format(self.semester, self.name)
+        return "[{}] {}".format(self.semester, self.name)
 
 
 class StudentGroup(Model):

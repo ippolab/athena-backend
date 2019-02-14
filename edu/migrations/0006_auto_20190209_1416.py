@@ -4,18 +4,15 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('edu', '0005_subject_semester'),
-    ]
+    dependencies = [("edu", "0005_subject_semester")]
 
     operations = [
         migrations.AlterField(
-            model_name='studentgroup',
-            name='name',
+            model_name="studentgroup",
+            name="name",
             field=models.CharField(max_length=30, unique=True),
         ),
         migrations.AlterUniqueTogether(
-            name='subject',
-            unique_together={('name', 'semester')},
+            name="subject", unique_together={("name", "semester")}
         ),
     ]

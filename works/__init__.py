@@ -1,1 +1,1 @@
-default_app_config = 'works.apps.WorksConfig'
+default_app_config = "works.apps.WorksConfig"

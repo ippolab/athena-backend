@@ -1,16 +1,6 @@
 version: '3'
 
 services:
-  nginx:
-    image: nginx:1.15.8
-    container_name: athena_nginx
-    volumes:
-      - ./config/nginx:/etc/nginx/conf.d
-      - ./static:/static
-    depends_on:
-      - web
-    ports:
-      - "8000:80"
   web:
     image: ippolab/athena-backend:dev
     container_name: athena_back
@@ -18,8 +8,8 @@ services:
       - db
     env_file:
       - .env
-    volumes:
-      - ./static:/app/static
+    ports:
+      - "8000:8000"
   db:
     image: postgres:11.1
     container_name: athena_pgdb

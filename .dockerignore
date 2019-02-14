@@ -1,10 +1,9 @@
-.env
-.env.example
-.git
-.gitignore
+.env*
+.git*
 static
 docker*
 Dockerfile*
 LICENSE
 README*
 Makefile
+**/__pycache__
