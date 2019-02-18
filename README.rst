@@ -1,13 +1,18 @@
 Quickstart
 ----------
 
+You need poetry_ installed on your machine to bootstrap environment.
+
+.. _poetry: https://github.com/sdispater/poetry
+
 Rename ``.env.example`` to ``.env`` and change values if need.
 
 ``Makefile`` contains all necessary commands to start application::
 
     bootstrap-environment  - create virtualenv and install dependencies
-    activate-environment   - enter in vrtialenv
-    collectstatic          - collect static files for serving by nginx in docker
+    makemigrations         - create migrations using project django
+    reformat               - remove unused import and format code with black
+    migrate                - run db migrations using project django
     startapp               - run django development server
     startdb                - start postgres in docker
     dbip                   - get postgres ip for local development

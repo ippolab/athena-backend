@@ -4,14 +4,12 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('edu', '0004_auto_20190209_1117'),
-    ]
+    dependencies = [("edu", "0004_auto_20190209_1117")]
 
     operations = [
         migrations.AddField(
-            model_name='subject',
-            name='semester',
+            model_name="subject",
+            name="semester",
             field=models.SmallIntegerField(default=1),
-        ),
+        )
     ]

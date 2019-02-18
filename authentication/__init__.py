@@ -1,1 +1,1 @@
-default_app_config = 'authentication.apps.AuthConfig'
+default_app_config = "authentication.apps.AuthConfig"

@@ -14,5 +14,4 @@ RUN pip install poetry && \
 COPY . /app
 
 CMD python manage.py migrate && \
-    python manage.py collectstatic --noinput && \
     gunicorn athena.wsgi -w 4 -b 0.0.0.0

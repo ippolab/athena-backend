@@ -3,7 +3,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 
 from works.storage import compare_dirs
-from .serializers import Task, TaskSerializer, Report, ReportSerializer
+
+from .serializers import Report, ReportSerializer, Task, TaskSerializer
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -17,11 +18,8 @@ class ReportViewSet(viewsets.ModelViewSet):
 
 
 def download_file(file, content_type: str) -> HttpResponse:
-    response = HttpResponse(
-        file,
-        content_type='application/{}'.format(content_type)
-    )
-    response['Content-Disposition'] = 'attachment; filename="{}"'.format(file.name)
+    response = HttpResponse(file, content_type="application/{}".format(content_type))
+    response["Content-Disposition"] = 'attachment; filename="{}"'.format(file.name)
     return response
 
 
@@ -30,7 +28,7 @@ def templates_view(request, pk, filename):
 
     if compare_dirs(task.templates.path, filename):
         file = task.templates.open()
-        return download_file(file, 'zip')
+        return download_file(file, "zip")
 
     return HttpResponse(status=404)
 
@@ -40,7 +38,7 @@ def document_view(request, pk, filename):
 
     if compare_dirs(report.document.path, filename):
         document = report.document.open()
-        return download_file(document, 'pdf')
+        return download_file(document, "pdf")
     return HttpResponse(status=404)
 
 
@@ -48,5 +46,5 @@ def attachment_view(request, pk, filename):
     report = get_object_or_404(Report, pk=pk)
     if compare_dirs(report.attachment.path, filename):
         file = report.attachment.open()
-        return download_file(file, 'zip')
+        return download_file(file, "zip")
     return HttpResponse(status=404)

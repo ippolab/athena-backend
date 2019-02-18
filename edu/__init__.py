@@ -1,1 +1,1 @@
-default_app_config = 'edu.apps.EduConfig'
+default_app_config = "edu.apps.EduConfig"

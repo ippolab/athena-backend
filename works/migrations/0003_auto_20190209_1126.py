@@ -5,24 +5,24 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('works', '0002_auto_20190209_0156'),
-    ]
+    dependencies = [("works", "0002_auto_20190209_0156")]
 
     operations = [
         migrations.RenameField(
-            model_name='task',
-            old_name='group_id',
-            new_name='group',
+            model_name="task", old_name="group_id", new_name="group"
         ),
         migrations.AlterField(
-            model_name='report',
-            name='student',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='authentication.Student'),
+            model_name="report",
+            name="student",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="authentication.Student"
+            ),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='subject',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='edu.Subject'),
+            model_name="task",
+            name="subject",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="edu.Subject"
+            ),
         ),
     ]

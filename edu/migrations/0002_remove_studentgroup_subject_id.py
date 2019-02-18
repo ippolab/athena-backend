@@ -4,13 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('edu', '0001_initial'),
-    ]
+    dependencies = [("edu", "0001_initial")]
 
-    operations = [
-        migrations.RemoveField(
-            model_name='studentgroup',
-            name='subject_id',
-        ),
-    ]
+    operations = [migrations.RemoveField(model_name="studentgroup", name="subject_id")]

@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class EduConfig(AppConfig):
-    name = 'edu'
+    name = "edu"
     verbose_name = "Education"

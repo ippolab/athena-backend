@@ -1,8 +1,16 @@
 from rest_framework import viewsets
 
-from authentication.models import Student, Tutor, Teacher
-from .serializers import UserSerializer, GroupSerializer, User, Group, StudentSerializer, TutorSerializer, \
-    TeacherSerializer
+from authentication.models import Student, Teacher, Tutor
+
+from .serializers import (
+    Group,
+    GroupSerializer,
+    StudentSerializer,
+    TeacherSerializer,
+    TutorSerializer,
+    User,
+    UserSerializer,
+)
 
 
 class GroupViewSet(viewsets.ModelViewSet):
