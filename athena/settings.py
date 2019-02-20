@@ -4,7 +4,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = True
+DEBUG = bool(os.getenv('DEBUG', True))
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0", "web"]
 
@@ -92,13 +92,15 @@ STATIC_ROOT = "static"
 CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
-    "DEFAULT_RENDERER_CLASSES": (
+    "DEFAULT_RENDERER_CLASSES": [
         "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
-        "rest_framework.renderers.BrowsableAPIRenderer",
-    ),
-    "DEFAULT_PARSER_CLASSES": (
+    ],
+    "DEFAULT_PARSER_CLASSES": [
         "djangorestframework_camel_case.parser.CamelCaseFormParser",
         "djangorestframework_camel_case.parser.CamelCaseMultiPartParser",
         "djangorestframework_camel_case.parser.CamelCaseJSONParser",
-    ),
+    ],
 }
+
+if DEBUG:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'].append("rest_framework.renderers.BrowsableAPIRenderer")
