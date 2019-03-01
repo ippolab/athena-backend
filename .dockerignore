@@ -1,9 +1,11 @@
 .env*
 .git*
 static
+.dockerignore
 docker*
 Dockerfile*
 LICENSE
 README*
 Makefile
 **/__pycache__
+**/.pytest_cache

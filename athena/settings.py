@@ -1,12 +1,18 @@
 import os
 
+import dotenv
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+try:
+    dotenv.read_dotenv(dotenv=BASE_DIR)
+except IsADirectoryError:
+    pass
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY", "secret")
 
-DEBUG = bool(os.getenv('DEBUG', True))
+DEBUG = bool(os.getenv("DEBUG", True))
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0", "web"]
+ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -16,10 +22,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
+    "django_extensions",
     "rest_framework",
-    "authentication",
-    "edu",
-    "works",
+    "drf_yasg",
+    "athena.authentication",
+    "athena.edu",
+    "athena.works",
 ]
 
 MIDDLEWARE = [
@@ -34,7 +42,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "athena.urls"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.getenv("MEDIA_ROOT", os.path.join(BASE_DIR, "media"))
 
 TEMPLATES = [
     {
@@ -62,6 +70,7 @@ DATABASES = {
         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
         "HOST": os.getenv("POSTGRES_HOST"),
         "PORT": os.getenv("POSTGRES_PORT"),
+        "TEST": {"NAME": "testing"},
     }
 }
 
@@ -93,7 +102,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
-        "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
+        "djangorestframework_camel_case.render.CamelCaseJSONRenderer"
     ],
     "DEFAULT_PARSER_CLASSES": [
         "djangorestframework_camel_case.parser.CamelCaseFormParser",
@@ -103,4 +112,6 @@ REST_FRAMEWORK = {
 }
 
 if DEBUG:
-    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'].append("rest_framework.renderers.BrowsableAPIRenderer")
+    REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"].append(
+        "rest_framework.renderers.BrowsableAPIRenderer"
+    )

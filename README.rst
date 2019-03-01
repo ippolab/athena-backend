@@ -65,6 +65,7 @@ Makefile commands
     makemigrations         - create migrations using project django
     reformat               - remove unused import and format code with black
     migrate                - run db migrations using project django
+    tests                  - run tests with pytest
     startapp               - run django development server
     startdb                - start postgres in docker
     dbip                   - get postgres ip for local development
