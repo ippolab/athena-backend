@@ -71,7 +71,7 @@ jobs:
       - run:
           name: connect to droplet and update instance
           command: |
-            ssh $SSH_USER@$SSH_HOST "cd athena && docker-compose stop web && docker-compose rm --force web && docker-compose pull web && docker-compose up -d"
+            ssh $SSH_USER@$SSH_HOST "export ATHENA_FRONT_HOST=$ATHENA_FRONT_HOST && export ATHENA_API_HOST=$ATHENA_API_HOST && cd athena && docker-compose stop web && docker-compose rm --force web && docker-compose pull web && docker-compose up -d"
 workflows:
   version: 2
   main:
