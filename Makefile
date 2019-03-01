@@ -1,4 +1,4 @@
-COMPOSE_DEV_FILE=docker-compose-dev.yml
+COMPOSE_DEV_FILE=docker-compose.yml
 
 
 bootstrap-environment:
@@ -15,6 +15,9 @@ makemigrations:
 .PHONY: migate
 migrate:
 	poetry run python manage.py migrate
+
+tests:
+	poetry run pytest
 
 .PHONY: startapp
 startapp: reformat migrate
