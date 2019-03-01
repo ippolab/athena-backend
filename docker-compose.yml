@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  web:
+    image: ippolab/athena-backend
+    container_name: athena_back
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+  db:
+    image: postgres:11.1
+    container_name: athena_pgdb
+    env_file:
+      - .env
