@@ -4,6 +4,19 @@
 .. _localhost:8000: http://localhost:8000/
 .. _postman: https://www.getpostman.com/downloads/
 
+
+.. image:: https://circleci.com/gh/IppoLab/Athena-backend/tree/master.svg?style=svg
+    :target: https://circleci.com/gh/IppoLab/Athena-backend/tree/master
+
+.. image:: https://circleci.com/gh/IppoLab/Athena-backend/tree/dev.svg?style=svg
+    :target: https://circleci.com/gh/IppoLab/Athena-backend/tree/dev
+
+.. image:: https://img.shields.io/github/license/Naereen/StrapDown.js.svg
+   :target: https://github.com/nikelwolf/Athena-backend/blob/master/LICENSE
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/ambv/black
+
 Quickstart
 ----------
 
