@@ -1,3 +1,9 @@
+.. |backend_master_build| image:: https://circleci.com/gh/IppoLab/Athena-backend/tree/master.svg?style=svg
+    :target: https://circleci.com/gh/IppoLab/Athena-backend/tree/master
+
+.. |backend_dev_build| image:: https://circleci.com/gh/IppoLab/Athena-backend/tree/dev.svg?style=svg
+    :target: https://circleci.com/gh/IppoLab/Athena-backend/tree/dev
+
 .. _poetry: https://github.com/sdispater/poetry
 .. _docker: https://www.docker.com/get-started
 .. _docker-compose: https://docs.docker.com/compose/install/
@@ -5,17 +11,23 @@
 .. _postman: https://www.getpostman.com/downloads/
 
 
-.. image:: https://circleci.com/gh/IppoLab/Athena-backend/tree/master.svg?style=svg
-    :target: https://circleci.com/gh/IppoLab/Athena-backend/tree/master
-
-.. image:: https://circleci.com/gh/IppoLab/Athena-backend/tree/dev.svg?style=svg
-    :target: https://circleci.com/gh/IppoLab/Athena-backend/tree/dev
-
 .. image:: https://img.shields.io/github/license/Naereen/StrapDown.js.svg
    :target: https://github.com/nikelwolf/Athena-backend/blob/master/LICENSE
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/ambv/black
+
+
+Build status
+------------
+
++------------+------------------------+
+|   BRANCH   | BUILD STATUS           |
++============+========================+
+| master     | |backend_master_build| |
++------------+------------------------+
+| dev        | |backend_dev_build|    |
++------------+------------------------+
 
 Quickstart
 ----------
