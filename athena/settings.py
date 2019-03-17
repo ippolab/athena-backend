@@ -1,6 +1,8 @@
+from datetime import timedelta
 import os
 
 import dotenv
+from kombu import Exchange, Queue
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 try:
@@ -10,7 +12,7 @@ except IsADirectoryError:
 
 SECRET_KEY = os.getenv("SECRET_KEY", "secret")
 
-DEBUG = bool(os.getenv("DEBUG", True))
+DEBUG = bool(os.getenv("DEBUG", False))
 
 ALLOWED_HOSTS = ["*"]
 
@@ -34,6 +36,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -73,7 +76,7 @@ DATABASES = {
         "PORT": os.getenv("POSTGRES_PORT"),
         "TEST": {"NAME": "testing"},
     },
-    "sqlite3": {
+    "default": {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
@@ -103,15 +106,63 @@ STATIC_ROOT = "static"
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+REDIS_HOST = os.getenv("REDIS_HOST")
+REDIS_PORT = os.getenv("REDIS_PORT")
+
+RABBIT_USER = os.getenv("RABBIT_USER")
+RABBIT_PASS = os.getenv("RABBIT_PASS")
+RABBIT_VHOST = os.getenv("RABBIT_VHOST", "")
+RABBIT_HOST = os.getenv("RABBIT_HOST")
+RABBIT_PORT = os.getenv("RABBIT_PORT")
+
+BROKER_URL = os.getenv("CELERY_BROKER_URL")
+if not BROKER_URL:
+    BROKER_URL = "amqp://{rabbit_user}:{rabbit_pass}@{rabbit_host}:{rabbit_port}/{rabbit_vhost}/?heartbeat=30".format(
+        rabbit_user=RABBIT_USER,
+        rabbit_pass=RABBIT_PASS,
+        rabbit_host=RABBIT_HOST,
+        rabbit_port=RABBIT_PORT,
+        rabbit_vhost=RABBIT_VHOST,
+    )
+BROKER_POOL_LIMIT = 1
+BROKER_CONNECTION_TIMEOUT = 10
+
+CELERY_DEFAULT_QUEUE = "default"
+CELERY_QUEUES = (Queue("default", Exchange("default"), routing_key="default"),)
+
+CELERY_ALWAYS_EAGER = False
+CELERY_ACKS_LATE = True
+CELERY_TASK_PUBLISH_RETRY = True
+CELERY_DISABLE_RATE_LIMITS = False
+CELERY_IGNORE_RESULT = True
+CELERY_SEND_TASK_ERROR_EMAILS = False
+CELERY_TASK_RESULT_EXPIRES = 600
+CELERY_BROKER_URL = BROKER_URL
+CELERY_RESULT_BACKEND = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
+CELERY_REDIS_MAX_CONNECTIONS = 1
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERYD_HIJACK_ROOT_LOGGER = False
+CELERYD_PREFETCH_MULTIPLIER = 1
+CELERYD_MAX_TASKS_PER_CHILD = 1000
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_HOST_USER = os.getenv("EMAIL_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
         "djangorestframework_camel_case.render.CamelCaseJSONRenderer"
     ],
-    "DEFAULT_PARSER_CLASSES": [
+    "DEFAULT_PARSER_CLASSES": (
         "djangorestframework_camel_case.parser.CamelCaseFormParser",
         "djangorestframework_camel_case.parser.CamelCaseMultiPartParser",
         "djangorestframework_camel_case.parser.CamelCaseJSONParser",
-    ],
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
@@ -124,3 +175,40 @@ if DEBUG:
     REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"].append(
         "rest_framework.renderers.BrowsableAPIRenderer"
     )
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+
+    'AUTH_TOKEN_CLASSES': (
+        'rest_framework_simplejwt.tokens.SlidingToken',
+        'rest_framework_simplejwt.tokens.AccessToken'
+    ),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=7),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=7),
+}
+
+SWAGGER_SETTINGS = {
+    "PERSIST_AUTH": True,
+    "REFETCH_SCHEMA_WITH_AUTH": True,
+    "REFETCH_SCHEMA_ON_LOGOUT": True,
+    "USE_SESSION_AUTH": False,
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {"in": "header", "name": "Authorization", "type": "apiKey"}
+    },
+}
+
+REDOC_SETTINGS = {"SPEC_URL": ("schema-json", {"format": ".json"})}

@@ -1,9 +1,8 @@
-from rest_framework_simplejwt.views import TokenRefreshView
 from rest_framework import routers
 from django.urls import path
 
 from .views import (
-    CustomTokenObtainPairView,
+    RolesTokenObtainSlidingView,
     StudentViewSet,
     TeacherViewSet,
     TutorViewSet,
@@ -15,8 +14,7 @@ router.register("tutors", TutorViewSet)
 router.register("teachers", TeacherViewSet)
 
 urlpatterns = [
-    path("login/", CustomTokenObtainPairView.as_view(), name='login'),
-    path("token-refresh/", TokenRefreshView.as_view(), name='token_refresh'),
+    path("login/", RolesTokenObtainSlidingView.as_view(), name='login'),
 ]
 
 urlpatterns += router.urls

@@ -3,10 +3,10 @@ from rest_framework import serializers
 from .models import Student, Teacher, Tutor
 from django.contrib.auth.models import User
 
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.serializers import TokenObtainSlidingSerializer
 
 
-class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+class RolesTokenObtainSlidingSerializer(TokenObtainSlidingSerializer):
     @classmethod
     def get_token(cls, user: User):
         token = super().get_token(user)

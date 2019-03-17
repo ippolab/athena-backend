@@ -6,12 +6,12 @@ from .serializers import (
     TeacherSerializer,
     TutorSerializer,
 )
-from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import CustomTokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainSlidingView
+from .serializers import RolesTokenObtainSlidingSerializer
 
 
-class CustomTokenObtainPairView(TokenObtainPairView):
-    serializer_class = CustomTokenObtainPairSerializer
+class RolesTokenObtainSlidingView(TokenObtainSlidingView):
+    serializer_class = RolesTokenObtainSlidingSerializer
 
 
 class StudentViewSet(viewsets.ModelViewSet):

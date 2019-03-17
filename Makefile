@@ -3,6 +3,7 @@ COMPOSE_DEV_FILE=docker-compose.yml
 
 bootstrap-environment:
 	poetry install
+	$(RM) -rf athena.egg-info pip-wheel-metadata
 
 
 reformat:
