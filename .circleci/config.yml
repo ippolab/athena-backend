@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  app:
+  app-unit:
     docker:
       - image: circleci/python:3.7-node
         user: root
@@ -34,6 +34,37 @@ jobs:
       - run:
           name: run django tests
           command: pytest
+  app-integ:
+    docker:
+      - image: circleci/python:3.7-node
+        user: root
+        environment:
+          SECRET_KEY: secret
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+      - image: postgres:11.1
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "poetry.lock" }}
+      - run:
+          name: install python deps
+          command: |
+            pip install poetry
+            poetry config settings.virtualenvs.create false
+            poetry install
+      - save_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "poetry.lock" }}
+          paths:
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.7/site-packages"
+      - run:
+          name: run migrations
+          command: |
+            python manage.py migrate
       - run:
           name: run postman tests
           command: |
@@ -71,15 +102,17 @@ jobs:
       - run:
           name: connect to droplet and update instance
           command: |
-            ssh $SSH_USER@$SSH_HOST "export ATHENA_FRONT_HOST=$ATHENA_FRONT_HOST && export ATHENA_API_HOST=$ATHENA_API_HOST && cd athena && docker-compose stop web && docker-compose rm --force web && docker-compose pull web && docker-compose up -d"
+            ssh $SSH_USER@$SSH_HOST "export HOSTNAME=$ATHENA_HOSTNAME && cd athena && docker-compose stop web && docker-compose rm --force web && docker-compose pull web && docker-compose up -d"
 workflows:
   version: 2
   main:
     jobs:
-      - app
+      - app-unit
+      - app-integ
       - build-prod:
           requires:
-            - app
+            - app-unit
+            - app-integ
           filters:
             branches:
               only: master

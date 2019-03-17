@@ -12,7 +12,7 @@
 
 
 .. image:: https://img.shields.io/github/license/Naereen/StrapDown.js.svg
-   :target: https://github.com/nikelwolf/Athena-backend/blob/master/LICENSE
+   :target: https://github.com/IppoLab/Athena-backend/blob/master/LICENSE
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/ambv/black
