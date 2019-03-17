@@ -104,19 +104,21 @@ CORS_ORIGIN_ALLOW_ALL = True
 REDIS_HOST = os.getenv("REDIS_HOST")
 REDIS_PORT = os.getenv("REDIS_PORT")
 
-RABBIT_USER = os.getenv("RABBITMQ_USER")
-RABBIT_PASS = os.getenv("RABBITMQ_PASS")
+RABBIT_USER = os.getenv("RABBIT_USER")
+RABBIT_PASS = os.getenv("RABBIT_PASS")
 RABBIT_VHOST = os.getenv("RABBIT_VHOST", "")
 RABBIT_HOST = os.getenv("RABBIT_HOST")
 RABBIT_PORT = os.getenv("RABBIT_PORT")
 
-BROKER_URL = "amqp://{rabbit_user}:{rabbit_pass}@{rabbit_host}:{rabbit_port}/{rabbit_vhost}/?heartbeat=30".format(
-    rabbit_user=RABBIT_USER,
-    rabbit_pass=RABBIT_PASS,
-    rabbit_host=RABBIT_HOST,
-    rabbit_port=RABBIT_PORT,
-    rabbit_vhost=RABBIT_VHOST,
-)
+BROKER_URL = os.getenv("CELERY_BROKER_URL")
+if not BROKER_URL:
+    BROKER_URL = "amqp://{rabbit_user}:{rabbit_pass}@{rabbit_host}:{rabbit_port}/{rabbit_vhost}/?heartbeat=30".format(
+        rabbit_user=RABBIT_USER,
+        rabbit_pass=RABBIT_PASS,
+        rabbit_host=RABBIT_HOST,
+        rabbit_port=RABBIT_PORT,
+        rabbit_vhost=RABBIT_VHOST,
+    )
 BROKER_POOL_LIMIT = 1
 BROKER_CONNECTION_TIMEOUT = 10
 
