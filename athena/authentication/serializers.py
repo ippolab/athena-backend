@@ -1,17 +1,16 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainSlidingSerializer
 
 from .models import Student, Teacher, Tutor
-from django.contrib.auth.models import User
-
-from rest_framework_simplejwt.serializers import TokenObtainSlidingSerializer
 
 
 class RolesTokenObtainSlidingSerializer(TokenObtainSlidingSerializer):
     @classmethod
     def get_token(cls, user: User):
         token = super().get_token(user)
-        token['username'] = user.username
-        token['roles'] = [group.name.lower() for group in user.groups.all()]
+        token["username"] = user.username
+        token["roles"] = [group.name.lower() for group in user.groups.all()]
         return token
 
 

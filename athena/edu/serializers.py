@@ -6,10 +6,10 @@ from .models import StudentGroup, Subject
 class SubjectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Subject
-        fields = ("id", "url", "name",)
+        fields = ("id", "url", "name")
 
 
 class StudentGroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = StudentGroup
-        fields = ("id", "url", "name", "quantity",)
+        fields = ("id", "url", "name", "quantity")
