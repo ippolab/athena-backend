@@ -1,13 +1,13 @@
 from rest_framework import viewsets
+from rest_framework_simplejwt.views import TokenObtainSlidingView
 
 from .models import Student, Teacher, Tutor
 from .serializers import (
+    RolesTokenObtainSlidingSerializer,
     StudentSerializer,
     TeacherSerializer,
     TutorSerializer,
 )
-from rest_framework_simplejwt.views import TokenObtainSlidingView
-from .serializers import RolesTokenObtainSlidingSerializer
 
 
 class RolesTokenObtainSlidingView(TokenObtainSlidingView):

@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from athena.edu.models import StudentGroup, Subject
 from athena.core.models import UUIDModel
+from athena.edu.models import StudentGroup, Subject
 
 
 class Student(UUIDModel):

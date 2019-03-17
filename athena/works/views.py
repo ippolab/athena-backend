@@ -2,8 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 
-from .serializers import Report, ReportSerializer, Task, TaskSerializer
 from athena.core.storage import compare_dirs
+
+from .serializers import Report, ReportSerializer, Task, TaskSerializer
 
 
 class TaskViewSet(viewsets.ModelViewSet):

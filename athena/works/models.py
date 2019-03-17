@@ -1,11 +1,36 @@
+import os
+
 from django.core.validators import FileExtensionValidator
 from django.db import models
 
 from athena.authentication.models import Student
-from athena.edu.models import StudentGroup, Subject
 from athena.core.models import UUIDModel
+from athena.core.storage import OverwriteStorage
+from athena.edu.models import StudentGroup, Subject
 
-from athena.core.storage import os, OverwriteStorage
+
+def report_upload(instance, file_name):
+    return os.path.join(
+        "reports",
+        str(instance.created_datetime.year),
+        str(instance.task.subject.semester),
+        str(instance.task.subject.name),
+        str(instance.student.student_group),
+        str(instance.student),
+        str(instance.task.theme),
+        str(file_name),
+    )
+
+
+def task_upload(instance, file_name):
+    return os.path.join(
+        "templates",
+        str(instance.created_datetime.year),
+        str(instance.subject.semester),
+        str(instance.subject.name),
+        str(instance.theme),
+        str(file_name),
+    )
 
 
 class Task(UUIDModel):
@@ -14,14 +39,7 @@ class Task(UUIDModel):
     created_datetime = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField()
     templates = models.FileField(
-        upload_to=lambda instance, file_name: os.path.join(
-            "templates",
-            str(instance.created_datetime.year),
-            str(instance.subject.semester),
-            str(instance.subject.name),
-            str(instance.theme),
-            str(file_name)
-        ),
+        upload_to=task_upload,
         storage=OverwriteStorage(),
         validators=[FileExtensionValidator(allowed_extensions=["zip"])],
         null=True,
@@ -39,27 +57,15 @@ class Task(UUIDModel):
 class Report(UUIDModel):
     STATUSES = (("A", "Accepted"), ("F", "To fix"), ("N", "Not done"))
 
-    @staticmethod
-    def upload_to(instance, file_name): os.path.join(
-        "reports",
-        str(instance.created_datetime.year),
-        str(instance.task.subject.semester),
-        str(instance.task.subject.name),
-        str(instance.student.student_group),
-        str(instance.student),
-        str(instance.task.theme),
-        str(file_name)
-    )
-
     title = models.CharField(max_length=254, blank=False)
     document = models.FileField(
-        upload_to=upload_to,
+        upload_to=report_upload,
         storage=OverwriteStorage(),
         validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
         null=True,
     )
     attachment = models.FileField(
-        upload_to=upload_to,
+        upload_to=report_upload,
         storage=OverwriteStorage(),
         validators=[FileExtensionValidator(allowed_extensions=["zip"])],
         null=True,
@@ -68,7 +74,9 @@ class Report(UUIDModel):
     created_datetime = models.DateTimeField(auto_now_add=True)
     checked = models.DateTimeField(null=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="reports")
+    student = models.ForeignKey(
+        Student, on_delete=models.CASCADE, related_name="reports"
+    )
 
     class Meta:
         unique_together = ("task", "student")

@@ -1,5 +1,5 @@
-from rest_framework import routers
 from django.urls import path
+from rest_framework import routers
 
 from .views import (
     RolesTokenObtainSlidingView,
@@ -13,8 +13,6 @@ router.register("students", StudentViewSet)
 router.register("tutors", TutorViewSet)
 router.register("teachers", TeacherViewSet)
 
-urlpatterns = [
-    path("login/", RolesTokenObtainSlidingView.as_view(), name='login'),
-]
+urlpatterns = [path("login/", RolesTokenObtainSlidingView.as_view(), name="login")]
 
 urlpatterns += router.urls
