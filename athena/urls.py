@@ -1,15 +1,11 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from django.views.generic import RedirectView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
-from rest_framework.routers import DefaultRouter
 
-from .authentication.urls import auth_router
-from .edu.urls import edu_router
-from .works.urls import works_router
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -22,18 +18,6 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-
-class ContainerRouter(DefaultRouter):
-    """Router class that collect all urls from other apps routers"""
-
-    def register_router(self, router):
-        self.registry.extend(router.registry)
-
-
-root_router = ContainerRouter()
-root_router.register_router(auth_router)
-root_router.register_router(edu_router)
-root_router.register_router(works_router)
 
 urlpatterns = [
     re_path(
@@ -50,7 +34,10 @@ urlpatterns = [
         r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
     ),
     path("", RedirectView.as_view(pattern_name="schema-redoc")),
+    path("api/", include("athena.authentication.urls")),
+    path("api/", include("athena.edu.urls")),
+    path("api/", include("athena.works.urls")),
+
 ]
 
-urlpatterns += root_router.urls
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

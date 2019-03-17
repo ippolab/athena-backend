@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 
 from .serializers import Report, ReportSerializer, Task, TaskSerializer
-from .storage import compare_dirs
+from athena.core.storage import compare_dirs
 
 
 class TaskViewSet(viewsets.ModelViewSet):

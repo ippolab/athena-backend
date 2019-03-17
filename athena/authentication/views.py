@@ -2,24 +2,16 @@ from rest_framework import viewsets
 
 from .models import Student, Teacher, Tutor
 from .serializers import (
-    Group,
-    GroupSerializer,
     StudentSerializer,
     TeacherSerializer,
     TutorSerializer,
-    User,
-    UserSerializer,
 )
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import CustomTokenObtainPairSerializer
 
 
-class GroupViewSet(viewsets.ModelViewSet):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
 
 
 class StudentViewSet(viewsets.ModelViewSet):

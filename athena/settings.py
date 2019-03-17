@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "rest_framework",
     "drf_yasg",
+    "athena.core",
     "athena.authentication",
     "athena.edu",
     "athena.works",
@@ -71,10 +72,12 @@ DATABASES = {
         "HOST": os.getenv("POSTGRES_HOST"),
         "PORT": os.getenv("POSTGRES_PORT"),
         "TEST": {"NAME": "testing"},
+    },
+    "sqlite3": {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-AUTH_USER_MODEL = "authentication.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -109,6 +112,12 @@ REST_FRAMEWORK = {
         "djangorestframework_camel_case.parser.CamelCaseMultiPartParser",
         "djangorestframework_camel_case.parser.CamelCaseJSONParser",
     ],
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
+    ),
 }
 
 if DEBUG:

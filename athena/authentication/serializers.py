@@ -1,19 +1,18 @@
-from django.contrib.auth.models import Group
 from rest_framework import serializers
 
-from .models import Student, Teacher, Tutor, User
+from .models import Student, Teacher, Tutor
+from django.contrib.auth.models import User
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Group
-        fields = ("url", "name")
-
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ("url", "username", "first_name", "last_name", "email", "groups")
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user: User):
+        token = super().get_token(user)
+        token['username'] = user.username
+        token['roles'] = [group.name.lower() for group in user.groups.all()]
+        return token
 
 
 class StudentSerializer(serializers.HyperlinkedModelSerializer):

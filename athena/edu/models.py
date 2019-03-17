@@ -1,19 +1,21 @@
 from django.db import models
+from athena.core.models import UUIDModel
 
 
-class Subject(models.Model):
+class Subject(UUIDModel):
     name = models.CharField(max_length=50)
-    semester = models.SmallIntegerField(default=1, blank=False)
+    semester = models.PositiveSmallIntegerField(default=1)
 
     class Meta:
         unique_together = ("name", "semester")
 
     def __str__(self):
-        return "[{}] {}".format(self.semester, self.name)
+        return "{} [{}]".format(self.name, self.semester)
 
 
-class StudentGroup(models.Model):
-    name = models.CharField(max_length=30, unique=True, blank=False)
+class StudentGroup(UUIDModel):
+    name = models.CharField(max_length=30, unique=True)
+    quantity = models.PositiveSmallIntegerField()
 
     def __str__(self):
         return self.name

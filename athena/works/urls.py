@@ -9,12 +9,15 @@ from .views import (
     templates_view,
 )
 
-works_router = routers.DefaultRouter()
-works_router.register("reports", ReportViewSet)
-works_router.register("tasks", TaskViewSet)
+router = routers.DefaultRouter()
+router.register("reports", ReportViewSet)
+router.register("tasks", TaskViewSet)
 
 urlpatterns = [
-    path(r"tasks/<int:pk>/<path:filename>", templates_view),
-    path(r"reports/<int:pk>/<path:filename>", document_view),
-    path(r"reports/<int:pk>/<path:filename>", attachment_view),
+    path(r"tasks/<uuid:pk>/<path:filename>", templates_view),
+    path(r"reports/<uuid:pk>/<path:filename>", document_view),
+    path(r"reports/<uuid:pk>/<path:filename>", attachment_view),
 ]
+
+urlpatterns += router.urls
+

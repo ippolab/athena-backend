@@ -3,54 +3,75 @@ from django.db import models
 
 from athena.authentication.models import Student
 from athena.edu.models import StudentGroup, Subject
+from athena.core.models import UUIDModel
 
-from .storage import OverwriteStorage, upload_report, upload_task
+from athena.core.storage import os, OverwriteStorage
 
 
-class Task(models.Model):
-    theme = models.CharField(max_length=50, blank=False)
-    description = models.CharField(max_length=254, blank=False)
+class Task(UUIDModel):
+    theme = models.CharField(max_length=63)
+    description = models.CharField(max_length=254)
+    created_datetime = models.DateTimeField(auto_now_add=True)
+    deadline = models.DateTimeField()
     templates = models.FileField(
-        upload_to=upload_task,
+        upload_to=lambda instance, file_name: os.path.join(
+            "templates",
+            str(instance.created_datetime.year),
+            str(instance.subject.semester),
+            str(instance.subject.name),
+            str(instance.theme),
+            str(file_name)
+        ),
         storage=OverwriteStorage(),
         validators=[FileExtensionValidator(allowed_extensions=["zip"])],
         null=True,
     )
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="task")
     groups = models.ManyToManyField(StudentGroup, related_name="task")
-    deadline = models.DateTimeField()
 
     class Meta:
         unique_together = ("subject", "theme")
 
     def __str__(self):
-        return "{}. {}".format(self.subject, self.theme)
+        return self.theme
 
 
-class Report(models.Model):
+class Report(UUIDModel):
+    STATUSES = (("A", "Accepted"), ("F", "To fix"), ("N", "Not done"))
+
+    @staticmethod
+    def upload_to(instance, file_name): os.path.join(
+        "reports",
+        str(instance.created_datetime.year),
+        str(instance.task.subject.semester),
+        str(instance.task.subject.name),
+        str(instance.student.student_group),
+        str(instance.student),
+        str(instance.task.theme),
+        str(file_name)
+    )
+
     title = models.CharField(max_length=254, blank=False)
     document = models.FileField(
-        upload_to=upload_report,
+        upload_to=upload_to,
         storage=OverwriteStorage(),
         validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
         null=True,
     )
     attachment = models.FileField(
-        upload_to=upload_report,
+        upload_to=upload_to,
         storage=OverwriteStorage(),
         validators=[FileExtensionValidator(allowed_extensions=["zip"])],
         null=True,
     )
-    STATUSES = (("A", "Accepted"), ("F", "To fix"), ("N", "Not done"))
     status = models.CharField(max_length=1, choices=STATUSES, default="N", blank=False)
+    created_datetime = models.DateTimeField(auto_now_add=True)
     checked = models.DateTimeField(null=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    student = models.ForeignKey(
-        Student, on_delete=models.CASCADE, related_name="reports"
-    )
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="reports")
 
     class Meta:
         unique_together = ("task", "student")
 
     def __str__(self):
-        return "{}. {}".format(self.task, self.title)
+        return self.title

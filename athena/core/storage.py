@@ -19,22 +19,3 @@ def compare_dirs(path: str, filename: str) -> bool:
         return os.path.samefile(abspath, path)
     except FileNotFoundError:
         return False
-
-
-# todo refactor upload
-def upload_task(instance, file_name: str):
-    file_path = os.path.join("templates", str(instance), file_name)
-    return file_path
-
-
-# todo refactor upload
-def upload_report(instance, file_name: str):
-    file_path = os.path.join(
-        "reports",
-        str(instance.student.student_group),
-        str(instance.student),
-        str(instance),
-        str(file_name),
-    )
-
-    return file_path
