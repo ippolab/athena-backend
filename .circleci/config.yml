@@ -102,7 +102,7 @@ jobs:
       - run:
           name: connect to droplet and update instance
           command: |
-            ssh $SSH_USER@$SSH_HOST "cd athena && docker-compose stop back && docker-compose rm --force back && docker-compose pull back && docker-compose up -d"
+            ssh $SSH_USER@$SSH_HOST "cd athena && export HOSTNAME=$ATHENA_BASE_HOSTNAME && docker-compose stop back && docker-compose rm --force back && docker-compose pull back && docker-compose up -d"
 workflows:
   version: 2
   main:
