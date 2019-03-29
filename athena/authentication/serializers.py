@@ -1,7 +1,7 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainSlidingSerializer
 
+from athena.authentication.models import User
 from .models import Student, Teacher, Tutor
 
 
@@ -10,23 +10,29 @@ class RolesTokenObtainSlidingSerializer(TokenObtainSlidingSerializer):
     def get_token(cls, user: User):
         token = super().get_token(user)
         token["username"] = user.username
-        token["roles"] = [group.name.lower() for group in user.groups.all()]
+        token["roles"] = [role.name.lower() for role in user.roles.all()]
         return token
 
 
-class StudentSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("id", "username", "first_name", "second_name", "last_name", "roles")
+
+
+class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = "__all__"
+        fields = ("user", "cipher", "student_group",)
 
 
-class TutorSerializer(serializers.HyperlinkedModelSerializer):
+class TutorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tutor
-        fields = "__all__"
+        fields = ("user",)
 
 
-class TeacherSerializer(serializers.HyperlinkedModelSerializer):
+class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = "__all__"
+        fields = ("user", "subjects",)
