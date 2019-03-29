@@ -20,6 +20,7 @@ psycopg2-binary = "^2.7"
 drf-yasg = "^1.13"
 redis = "^3.2"
 celery = {version = "^4.2",allows-prereleases = true}
+django-filter = "^2.1"
 
 [tool.poetry.dev-dependencies]
 black = {version = "^18.3-alpha.0",allows-prereleases = true}
