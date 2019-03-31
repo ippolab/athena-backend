@@ -1,9 +1,8 @@
-from uuid import uuid4
+import uuid
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 from athena.core.models import UUIDModel
 from athena.edu.models import StudentGroup, Subject
@@ -54,57 +53,31 @@ class User(AbstractBaseUser):
 
     Username and password are required. Other fields are optional.
     """
-    id = models.UUIDField(primary_key=True, default=uuid4)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     username = models.CharField(
-        _('username'),
         max_length=150,
         unique=True,
-        help_text=_('Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'),
         validators=[UnicodeUsernameValidator()],
         error_messages={
-            'unique': _("A user with that username already exists."),
+            'unique': "A user with that username already exists.",
         },
     )
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    second_name = models.CharField(_('second name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=30, blank=True)
-    is_staff = models.BooleanField(
-        _('staff status'),
-        default=False,
-        help_text=_('Designates whether the user can log into this admin site.'),
-    )
-    is_superuser = models.BooleanField(
-        _('superuser status'),
-        default=False,
-        help_text=_(
-            'Designates that this user has all permissions without '
-            'explicitly assigning them.'
-        ),
-    )
-    is_active = models.BooleanField(
-        _('active'),
-        default=True,
-        help_text=_(
-            'Designates whether this user should be treated as active. '
-            'Unselect this instead of deleting accounts.'
-        ),
-    )
-    roles = models.ManyToManyField(Role, related_name="user")
+    first_name = models.CharField(max_length=30, blank=True)
+    second_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    roles = models.ManyToManyField(Role, related_name="users")
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
-
-    class Meta(AbstractUser.Meta):
-        verbose_name = _('user')
-        verbose_name_plural = _('users')
 
 
 class Student(UUIDModel):
     cipher = models.CharField(max_length=15, unique=True)
     user = models.OneToOneField(User, related_name="student", on_delete=models.CASCADE)
-    student_group = models.ForeignKey(
-        StudentGroup, related_name="student", null=True, on_delete=models.SET_NULL
-    )
+    student_group = models.ForeignKey(StudentGroup, related_name="students", null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return "{} {} {}".format(self.user.second_name, self.user.first_name, self.user.last_name)
@@ -119,7 +92,7 @@ class Tutor(UUIDModel):
 
 class Teacher(UUIDModel):
     user = models.OneToOneField(User, related_name="teacher", on_delete=models.CASCADE)
-    subjects = models.ManyToManyField(Subject, related_name="teacher")
+    subjects = models.ManyToManyField(Subject, related_name="teachers")
 
     def __str__(self):
         return "{} {} {}".format(self.user.second_name, self.user.first_name, self.user.last_name)

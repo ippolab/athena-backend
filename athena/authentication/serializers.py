@@ -1,8 +1,7 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainSlidingSerializer
 
-from athena.authentication.models import User
-from .models import Student, Teacher, Tutor
+from .models import User, Student, Teacher, Tutor, Role
 
 
 class RolesTokenObtainSlidingSerializer(TokenObtainSlidingSerializer):
@@ -14,25 +13,38 @@ class RolesTokenObtainSlidingSerializer(TokenObtainSlidingSerializer):
         return token
 
 
+class RoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Role
+        fields = ("id", "name",)
+        read_only_fields = ("id",)
+
+
 class UserSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = User
         fields = ("id", "username", "first_name", "second_name", "last_name", "roles")
+        read_only_fields = ("id",)
 
 
 class StudentSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Student
-        fields = ("user", "cipher", "student_group",)
+        fields = ("id", "user", "cipher", "student_group",)
+        read_only_fields = ("id",)
 
 
 class TutorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tutor
-        fields = ("user",)
+        fields = ("id", "user",)
+        read_only_fields = ("id",)
 
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ("user", "subjects",)
+        fields = ("id", "user", "subjects",)
+        read_only_fields = ("id",)
