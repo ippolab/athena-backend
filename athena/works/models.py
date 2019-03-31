@@ -44,7 +44,7 @@ class Task(UUIDModel):
         validators=[FileExtensionValidator(allowed_extensions=["zip"])],
         null=True,
     )
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="task")
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="tasks")
     groups = models.ManyToManyField(StudentGroup, related_name="task")
 
     class Meta:

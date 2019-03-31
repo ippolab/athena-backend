@@ -3,11 +3,11 @@ from rest_framework import serializers
 from .models import Report, Task
 
 
-class TaskSerializer(serializers.HyperlinkedModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = (
-            "url",
+            "id",
             "theme",
             "description",
             "templates",
@@ -15,13 +15,14 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
             "groups",
             "deadline",
         )
+        read_only_fields = ("id",)
 
 
-class ReportSerializer(serializers.HyperlinkedModelSerializer):
+class ReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Report
         fields = (
-            "url",
+            "id",
             "title",
             "document",
             "attachment",
@@ -30,3 +31,4 @@ class ReportSerializer(serializers.HyperlinkedModelSerializer):
             "task",
             "student",
         )
+        read_only_fields = ("id",)
