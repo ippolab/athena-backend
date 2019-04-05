@@ -9,19 +9,17 @@ class RolesTokenObtainSlidingSerializer(TokenObtainSlidingSerializer):
     def get_token(cls, user: User):
         token = super().get_token(user)
         token["username"] = user.username
-        token["roles"] = [role.name.lower() for role in user.roles.all()]
+        token["roles"] = [str(role).lower() for role in user.roles.all()]
         return token
 
 
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Role
-        fields = ("id", "name",)
-        read_only_fields = ("id",)
+        fields = ("name",)
 
 
 class UserSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = User
         fields = ("id", "username", "first_name", "second_name", "last_name", "roles")
@@ -29,7 +27,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class StudentSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Student
         fields = ("id", "user", "cipher", "student_group",)

@@ -3,13 +3,14 @@ import uuid
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
+from django.db.models import Model
 
 from athena.core.models import UUIDModel
 from athena.edu.models import StudentGroup, Subject
 
 
-class Role(UUIDModel):
-    name = models.CharField(max_length=32, unique=True)
+class Role(Model):
+    name = models.CharField(primary_key=True, max_length=32)
 
     def __str__(self):
         return self.name
@@ -33,7 +34,8 @@ class UserManager(BaseUserManager):
     def create_user(self, username, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
-        return self._create_user(username, password, **extra_fields)
+        user = self._create_user(username, password, **extra_fields)
+        return user
 
     def create_superuser(self, username, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
@@ -43,8 +45,10 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
-
-        return self._create_user(username, password, **extra_fields)
+        user = self._create_user(username, password, **extra_fields)
+        admin, _ = Role.objects.get_or_create(name="admin")
+        user.roles.add(admin)
+        return user
 
 
 class User(AbstractBaseUser):
@@ -69,6 +73,7 @@ class User(AbstractBaseUser):
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     roles = models.ManyToManyField(Role, related_name="users")
+
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
