@@ -14,9 +14,6 @@ from .serializers import (
 class TokenObtainSlidingView(TokenView):
     serializer_class = TokenObtainSlidingSerializer
 
-    def post(self, request, *args, **kwargs):
-        super().post(request, *args, **kwargs)
-
 
 class RoleViewSet(viewsets.ModelViewSet):
     queryset = Role.objects.all()
