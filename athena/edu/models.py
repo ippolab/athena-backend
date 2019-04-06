@@ -16,7 +16,7 @@ class Subject(UUIDModel):
 
 class StudentGroup(UUIDModel):
     name = models.CharField(max_length=30, unique=True)
-    quantity = models.PositiveSmallIntegerField()
+    quantity = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
         return self.name

@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "django_extensions",
+    "django_filters",
     "rest_framework",
     "drf_yasg",
     "athena.core",
@@ -76,6 +77,8 @@ DATABASES = {
         "TEST": {"NAME": "testing"},
     }
 }
+
+AUTH_USER_MODEL = "authentication.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -160,16 +163,16 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
+    ),
+    "DEFAULT_FILTER_BACKENDS": (
+        "django_filters.rest_framework.DjangoFilterBackend",
+    )
 }
 
-if DEBUG:
-    REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"].append(
-        "rest_framework.renderers.BrowsableAPIRenderer"
-    )
-
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": True,
