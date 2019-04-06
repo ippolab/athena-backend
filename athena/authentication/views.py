@@ -1,9 +1,9 @@
 from rest_framework import viewsets
-from rest_framework_simplejwt.views import TokenObtainSlidingView
+from rest_framework_simplejwt.views import TokenObtainSlidingView as TokenView
 
 from .models import Student, Teacher, Tutor, User, Role
 from .serializers import (
-    RolesTokenObtainSlidingSerializer,
+    TokenObtainSlidingSerializer,
     StudentSerializer,
     TeacherSerializer,
     TutorSerializer,
@@ -11,8 +11,11 @@ from .serializers import (
     RoleSerializer)
 
 
-class RolesTokenObtainSlidingView(TokenObtainSlidingView):
-    serializer_class = RolesTokenObtainSlidingSerializer
+class TokenObtainSlidingView(TokenView):
+    serializer_class = TokenObtainSlidingSerializer
+
+    def post(self, request, *args, **kwargs):
+        super().post(request, *args, **kwargs)
 
 
 class RoleViewSet(viewsets.ModelViewSet):
