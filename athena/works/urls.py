@@ -1,22 +1,18 @@
 from django.urls import path
 from rest_framework import routers
 
-from .views import (
-    ReportViewSet,
-    TaskViewSet,
-    attachment_view,
-    document_view,
-    templates_view,
-)
+from .views import ReportViewSet, TaskViewSet, task_file_view, task_attachment_view, report_file_view, \
+    report_attachment_view
 
 router = routers.DefaultRouter()
 router.register("reports", ReportViewSet)
 router.register("tasks", TaskViewSet)
 
 urlpatterns = [
-    path(r"tasks/<uuid:pk>/<path:filename>", templates_view),
-    path(r"reports/<uuid:pk>/<path:filename>", document_view),
-    path(r"reports/<uuid:pk>/<path:filename>", attachment_view),
+    path("tasks/<uuid:pk>/file", task_file_view),
+    path("tasks/<uuid:pk>/attachment", task_attachment_view),
+    path("reports/<uuid:pk>/file", report_file_view),
+    path("reports/<uuid:pk>/attachment", report_attachment_view),
 ]
 
 urlpatterns += router.urls
