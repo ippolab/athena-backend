@@ -2,12 +2,11 @@
 
 import uuid
 
+import athena.authentication.models
 import django.contrib.auth.validators
 import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
-
-import athena.authentication.models
 
 
 class Migration(migrations.Migration):

@@ -1,6 +1,5 @@
-from django.db import models
-
 from athena.core.models import UUIDModel
+from django.db import models
 
 
 class Speciality(UUIDModel):
