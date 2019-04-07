@@ -2,12 +2,11 @@
 
 import uuid
 
+import athena.core.storage
+import athena.works.models
 import django.core.validators
 import django.db.models.deletion
 from django.db import migrations, models
-
-import athena.core.storage
-import athena.works.models
 
 
 class Migration(migrations.Migration):

@@ -1,12 +1,11 @@
 import uuid
 
+from athena.core.models import UUIDModel
+from athena.edu.models import StudentGroup, Subject
 from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.db.models import Model
-
-from athena.core.models import UUIDModel
-from athena.edu.models import StudentGroup, Subject
 
 
 class Role(Model):
