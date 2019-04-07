@@ -1,8 +1,9 @@
-from django.http import HttpResponse
+from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
-
-from athena.core.storage import compare_dirs
+from rest_framework.decorators import permission_classes, api_view
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.request import Request
 
 from .serializers import Report, ReportSerializer, Task, TaskSerializer
 
@@ -17,34 +18,30 @@ class ReportViewSet(viewsets.ModelViewSet):
     serializer_class = ReportSerializer
 
 
-def download_file(file, content_type: str) -> HttpResponse:
-    response = HttpResponse(file, content_type="application/{}".format(content_type))
-    response["Content-Disposition"] = 'attachment; filename="{}"'.format(file.name)
-    return response
-
-
-def templates_view(request, pk, filename):
+@api_view(["GET"])
+@permission_classes((IsAuthenticated,))
+def task_file_view(request, pk):
     task = get_object_or_404(Task, pk=pk)
-
-    if compare_dirs(task.templates.path, filename):
-        file = task.templates.open()
-        return download_file(file, "zip")
-
-    return HttpResponse(status=404)
+    return FileResponse(open(task.file.path, "rb"))
 
 
-def document_view(request, pk, filename):
+@api_view(["GET"])
+@permission_classes((IsAuthenticated,))
+def task_attachment_view(request: Request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    return FileResponse(open(task.attachment.path, "rb"))
+
+
+# todo set permissions to IsAdminOrOwner
+@api_view(["GET"])
+@permission_classes((IsAuthenticated,))
+def report_file_view(request, pk):
     report = get_object_or_404(Report, pk=pk)
-
-    if compare_dirs(report.document.path, filename):
-        document = report.document.open()
-        return download_file(document, "pdf")
-    return HttpResponse(status=404)
+    return FileResponse(open(report.file.path, "rb"))
 
 
-def attachment_view(request, pk, filename):
+@api_view(["GET"])
+@permission_classes((IsAuthenticated,))
+def report_attachment_view(request: Request, pk):
     report = get_object_or_404(Report, pk=pk)
-    if compare_dirs(report.attachment.path, filename):
-        file = report.attachment.open()
-        return download_file(file, "zip")
-    return HttpResponse(status=404)
+    return FileResponse(open(report.attachment.path, "rb"))

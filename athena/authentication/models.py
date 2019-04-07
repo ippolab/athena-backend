@@ -19,7 +19,7 @@ class Role(Model):
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, username, password, **extra_fields):
+    def _create_user(self, username: str, password: str, **extra_fields):
         """
         Create and save a user with the given username, and password.
         """
@@ -31,13 +31,13 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, username, password=None, **extra_fields):
+    def create_user(self, username: str, password: str = None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
         user = self._create_user(username, password, **extra_fields)
         return user
 
-    def create_superuser(self, username, password, **extra_fields):
+    def create_superuser(self, username: str, password: str, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 

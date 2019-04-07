@@ -3,8 +3,15 @@ from django.db import models
 from athena.core.models import UUIDModel
 
 
+class Speciality(UUIDModel):
+    name = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Subject(UUIDModel):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=64)
     semester = models.PositiveSmallIntegerField(default=1)
 
     class Meta:
@@ -15,8 +22,9 @@ class Subject(UUIDModel):
 
 
 class StudentGroup(UUIDModel):
-    name = models.CharField(max_length=30, unique=True)
+    name = models.CharField(max_length=32, unique=True)
     quantity = models.PositiveSmallIntegerField(default=0)
+    speciality = models.ForeignKey(Speciality, related_name="groups", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

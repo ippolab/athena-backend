@@ -4,7 +4,7 @@ from rest_framework_simplejwt.serializers import TokenObtainSlidingSerializer
 from .models import User, Student, Teacher, Tutor, Role
 
 
-class RolesTokenObtainSlidingSerializer(TokenObtainSlidingSerializer):
+class TokenSerializer(TokenObtainSlidingSerializer):
     @classmethod
     def get_token(cls, user: User):
         token = super().get_token(user)

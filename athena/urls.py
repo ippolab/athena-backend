@@ -34,8 +34,8 @@ urlpatterns = [
     ),
     path("", RedirectView.as_view(pattern_name="schema-redoc")),
     path("api/auth/", include("athena.authentication.urls")),
-    path("api/edu", include("athena.edu.urls")),
-    path("api/works", include("athena.works.urls")),
+    path("api/edu/", include("athena.edu.urls")),
+    path("api/works/", include("athena.works.urls")),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
