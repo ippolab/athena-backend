@@ -26,10 +26,10 @@ class Migration(migrations.Migration):
                 ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False)),
                 ('title', models.CharField(max_length=254)),
                 ('document', models.FileField(null=True, storage=athena.core.storage.OverwriteStorage(),
-                                              upload_to=athena.works.models.report_upload, validators=[
+                                              upload_to=athena.works.models.report_upload_to, validators=[
                         django.core.validators.FileExtensionValidator(allowed_extensions=['pdf'])])),
                 ('attachment', models.FileField(null=True, storage=athena.core.storage.OverwriteStorage(),
-                                                upload_to=athena.works.models.report_upload, validators=[
+                                                upload_to=athena.works.models.report_upload_to, validators=[
                         django.core.validators.FileExtensionValidator(allowed_extensions=['zip'])])),
                 ('status',
                  models.CharField(choices=[('A', 'Accepted'), ('F', 'To fix'), ('N', 'Not done')], default='N',
@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
                 ('created_datetime', models.DateTimeField(auto_now_add=True)),
                 ('deadline', models.DateTimeField()),
                 ('templates', models.FileField(null=True, storage=athena.core.storage.OverwriteStorage(),
-                                               upload_to=athena.works.models.task_upload, validators=[
+                                               upload_to=athena.works.models.task_upload_to, validators=[
                         django.core.validators.FileExtensionValidator(allowed_extensions=['zip'])])),
                 ('groups', models.ManyToManyField(related_name='task', to='edu.StudentGroup')),
                 ('subject', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tasks',
