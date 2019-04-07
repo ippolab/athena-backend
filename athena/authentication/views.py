@@ -1,18 +1,17 @@
+from rest_framework import status
 from rest_framework import viewsets
-from rest_framework_simplejwt.views import TokenObtainSlidingView as TokenView
+from rest_framework.decorators import api_view
+from rest_framework.request import Request
+from rest_framework.response import Response
+from rest_framework_simplejwt.views import TokenObtainSlidingView
 
 from .models import Student, Teacher, Tutor, User, Role
-from .serializers import (
-    TokenObtainSlidingSerializer,
-    StudentSerializer,
-    TeacherSerializer,
-    TutorSerializer,
-    UserSerializer,
-    RoleSerializer)
+from .serializers import TokenSerializer, StudentSerializer, TeacherSerializer, TutorSerializer, UserSerializer, \
+    RoleSerializer
 
 
-class TokenObtainSlidingView(TokenView):
-    serializer_class = TokenObtainSlidingSerializer
+class TokenView(TokenObtainSlidingView):
+    serializer_class = TokenSerializer
 
 
 class RoleViewSet(viewsets.ModelViewSet):
@@ -38,3 +37,9 @@ class TutorViewSet(viewsets.ModelViewSet):
 class TeacherViewSet(viewsets.ModelViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
+
+
+@api_view(('GET',))
+def get_profile_view(request: Request):
+    serializer = UserSerializer(request.user)
+    return Response(data=serializer.data, status=status.HTTP_200_OK)
