@@ -1,6 +1,6 @@
 from rest_framework import routers
 
-from .views import StudentGroupViewSet, SubjectViewSet, SpecialityViewSet
+from .views import SpecialityViewSet, StudentGroupViewSet, SubjectViewSet
 
 router = routers.DefaultRouter()
 router.register("subjects", SubjectViewSet)

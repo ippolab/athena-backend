@@ -9,31 +9,37 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='StudentGroup',
+            name="StudentGroup",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=30, unique=True)),
-                ('quantity', models.PositiveSmallIntegerField(default=0)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4, primary_key=True, serialize=False
+                    ),
+                ),
+                ("name", models.CharField(max_length=30, unique=True)),
+                ("quantity", models.PositiveSmallIntegerField(default=0)),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.CreateModel(
-            name='Subject',
+            name="Subject",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=50)),
-                ('semester', models.PositiveSmallIntegerField(default=1)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4, primary_key=True, serialize=False
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                ("semester", models.PositiveSmallIntegerField(default=1)),
             ],
         ),
         migrations.AlterUniqueTogether(
-            name='subject',
-            unique_together={('name', 'semester')},
+            name="subject", unique_together={("name", "semester")}
         ),
     ]

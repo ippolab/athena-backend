@@ -7,36 +7,39 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('edu', '0001_initial'),
-    ]
+    dependencies = [("edu", "0001_initial")]
 
     operations = [
         migrations.CreateModel(
-            name='Speciality',
+            name="Speciality",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=64, unique=True)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4, primary_key=True, serialize=False
+                    ),
+                ),
+                ("name", models.CharField(max_length=64, unique=True)),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.AlterField(
-            model_name='studentgroup',
-            name='name',
+            model_name="studentgroup",
+            name="name",
             field=models.CharField(max_length=32, unique=True),
         ),
         migrations.AlterField(
-            model_name='subject',
-            name='name',
-            field=models.CharField(max_length=64),
+            model_name="subject", name="name", field=models.CharField(max_length=64)
         ),
         migrations.AddField(
-            model_name='studentgroup',
-            name='speciality',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, related_name='groups',
-                                    to='edu.Speciality'),
+            model_name="studentgroup",
+            name="speciality",
+            field=models.ForeignKey(
+                default=None,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="groups",
+                to="edu.Speciality",
+            ),
             preserve_default=False,
         ),
     ]

@@ -8,12 +8,15 @@ class TaskSerializer(serializers.ModelSerializer):
         model = Task
         fields = (
             "id",
-            "theme",
+            "name",
             "description",
-            "templates",
-            "subject",
-            "groups",
+            "file",
+            "attachment",
             "deadline",
+            "create_datetime",
+            "edit_datetime",
+            "subject",
+            "student_group",
         )
         read_only_fields = ("id",)
 
@@ -23,12 +26,16 @@ class ReportSerializer(serializers.ModelSerializer):
         model = Report
         fields = (
             "id",
-            "title",
-            "document",
+            "name",
+            "file",
             "attachment",
             "status",
-            "checked",
+            "create_datetime",
+            "edit_datetime",
+            "comment",
             "task",
             "student",
+            "tutor",
+            "teacher",
         )
         read_only_fields = ("id",)

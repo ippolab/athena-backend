@@ -2,71 +2,127 @@
 
 import uuid
 
+import athena.core.storage
+import athena.works.models
 import django.core.validators
 import django.db.models.deletion
 from django.db import migrations, models
-
-import athena.core.storage
-import athena.works.models
 
 
 class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ('authentication', '0001_initial'),
-        ('edu', '0001_initial'),
-    ]
+    dependencies = [("authentication", "0001_initial"), ("edu", "0001_initial")]
 
     operations = [
         migrations.CreateModel(
-            name='Report',
+            name="Report",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=254)),
-                ('document', models.FileField(null=True, storage=athena.core.storage.OverwriteStorage(),
-                                              upload_to=athena.works.models.report_upload_to, validators=[
-                        django.core.validators.FileExtensionValidator(allowed_extensions=['pdf'])])),
-                ('attachment', models.FileField(null=True, storage=athena.core.storage.OverwriteStorage(),
-                                                upload_to=athena.works.models.report_upload_to, validators=[
-                        django.core.validators.FileExtensionValidator(allowed_extensions=['zip'])])),
-                ('status',
-                 models.CharField(choices=[('A', 'Accepted'), ('F', 'To fix'), ('N', 'Not done')], default='N',
-                                  max_length=1)),
-                ('created_datetime', models.DateTimeField(auto_now_add=True)),
-                ('checked', models.DateTimeField(null=True)),
-                ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='reports',
-                                              to='authentication.Student')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4, primary_key=True, serialize=False
+                    ),
+                ),
+                ("title", models.CharField(max_length=254)),
+                (
+                    "document",
+                    models.FileField(
+                        null=True,
+                        storage=athena.core.storage.OverwriteStorage(),
+                        upload_to=athena.works.models.report_upload_to,
+                        validators=[
+                            django.core.validators.FileExtensionValidator(
+                                allowed_extensions=["pdf"]
+                            )
+                        ],
+                    ),
+                ),
+                (
+                    "attachment",
+                    models.FileField(
+                        null=True,
+                        storage=athena.core.storage.OverwriteStorage(),
+                        upload_to=athena.works.models.report_upload_to,
+                        validators=[
+                            django.core.validators.FileExtensionValidator(
+                                allowed_extensions=["zip"]
+                            )
+                        ],
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[("A", "Accepted"), ("F", "To fix"), ("N", "Not done")],
+                        default="N",
+                        max_length=1,
+                    ),
+                ),
+                ("created_datetime", models.DateTimeField(auto_now_add=True)),
+                ("checked", models.DateTimeField(null=True)),
+                (
+                    "student",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="reports",
+                        to="authentication.Student",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Task',
+            name="Task",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False)),
-                ('theme', models.CharField(max_length=63)),
-                ('description', models.CharField(max_length=254)),
-                ('created_datetime', models.DateTimeField(auto_now_add=True)),
-                ('deadline', models.DateTimeField()),
-                ('templates', models.FileField(null=True, storage=athena.core.storage.OverwriteStorage(),
-                                               upload_to=athena.works.models.task_upload_to, validators=[
-                        django.core.validators.FileExtensionValidator(allowed_extensions=['zip'])])),
-                ('groups', models.ManyToManyField(related_name='task', to='edu.StudentGroup')),
-                ('subject', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tasks',
-                                              to='edu.Subject')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4, primary_key=True, serialize=False
+                    ),
+                ),
+                ("theme", models.CharField(max_length=63)),
+                ("description", models.CharField(max_length=254)),
+                ("created_datetime", models.DateTimeField(auto_now_add=True)),
+                ("deadline", models.DateTimeField()),
+                (
+                    "templates",
+                    models.FileField(
+                        null=True,
+                        storage=athena.core.storage.OverwriteStorage(),
+                        upload_to=athena.works.models.task_upload_to,
+                        validators=[
+                            django.core.validators.FileExtensionValidator(
+                                allowed_extensions=["zip"]
+                            )
+                        ],
+                    ),
+                ),
+                (
+                    "groups",
+                    models.ManyToManyField(related_name="task", to="edu.StudentGroup"),
+                ),
+                (
+                    "subject",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tasks",
+                        to="edu.Subject",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='report',
-            name='task',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='works.Task'),
+            model_name="report",
+            name="task",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="works.Task"
+            ),
         ),
         migrations.AlterUniqueTogether(
-            name='task',
-            unique_together={('subject', 'theme')},
+            name="task", unique_together={("subject", "theme")}
         ),
         migrations.AlterUniqueTogether(
-            name='report',
-            unique_together={('task', 'student')},
+            name="report", unique_together={("task", "student")}
         ),
     ]

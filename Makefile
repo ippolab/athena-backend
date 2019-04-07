@@ -51,10 +51,10 @@ compose-stop:
 compose-athena-connect:
 	docker-compose -f $(COMPOSE_DEV_FILE) exec web /bin/bash
 
-docker-dev: reformat 
+docker-dev: reformat
 	docker build -t ippolab/athena-backend:dev .
 
-docker-master: reformat 
+docker-master: reformat
 	docker build -t ippolab/athena-backend .
 
 clean:

@@ -1,12 +1,13 @@
 from rest_framework import viewsets
 
 from .serializers import (
-    StudentGroup,
     Speciality,
+    SpecialitySerializer,
+    StudentGroup,
     StudentGroupSerializer,
     Subject,
     SubjectSerializer,
-    SpecialitySerializer)
+)
 
 
 class SubjectViewSet(viewsets.ModelViewSet):

@@ -1,6 +1,5 @@
-from django.db import models
-
 from athena.core.models import UUIDModel
+from django.db import models
 
 
 class Speciality(UUIDModel):
@@ -24,7 +23,9 @@ class Subject(UUIDModel):
 class StudentGroup(UUIDModel):
     name = models.CharField(max_length=32, unique=True)
     quantity = models.PositiveSmallIntegerField(default=0)
-    speciality = models.ForeignKey(Speciality, related_name="groups", on_delete=models.CASCADE)
+    speciality = models.ForeignKey(
+        Speciality, related_name="groups", on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.name

@@ -2,93 +2,147 @@
 
 import uuid
 
+import athena.authentication.models
 import django.contrib.auth.validators
 import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
-
-import athena.authentication.models
 
 
 class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ('edu', '0001_initial'),
-    ]
+    dependencies = [("edu", "0001_initial")]
 
     operations = [
         migrations.CreateModel(
-            name='User',
+            name="User",
             fields=[
-                ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False)),
-                ('username', models.CharField(error_messages={'unique': 'A user with that username already exists.'},
-                                              max_length=150, unique=True,
-                                              validators=[django.contrib.auth.validators.UnicodeUsernameValidator()])),
-                ('first_name', models.CharField(blank=True, max_length=30)),
-                ('second_name', models.CharField(blank=True, max_length=30)),
-                ('last_name', models.CharField(blank=True, max_length=30)),
-                ('is_staff', models.BooleanField(default=False)),
-                ('is_superuser', models.BooleanField(default=False)),
-                ('is_active', models.BooleanField(default=True)),
+                ("password", models.CharField(max_length=128, verbose_name="password")),
+                (
+                    "last_login",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="last login"
+                    ),
+                ),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4, primary_key=True, serialize=False
+                    ),
+                ),
+                (
+                    "username",
+                    models.CharField(
+                        error_messages={
+                            "unique": "A user with that username already exists."
+                        },
+                        max_length=150,
+                        unique=True,
+                        validators=[
+                            django.contrib.auth.validators.UnicodeUsernameValidator()
+                        ],
+                    ),
+                ),
+                ("first_name", models.CharField(blank=True, max_length=30)),
+                ("second_name", models.CharField(blank=True, max_length=30)),
+                ("last_name", models.CharField(blank=True, max_length=30)),
+                ("is_staff", models.BooleanField(default=False)),
+                ("is_superuser", models.BooleanField(default=False)),
+                ("is_active", models.BooleanField(default=True)),
             ],
-            options={
-                'abstract': False,
-            },
-            managers=[
-                ('objects', athena.authentication.models.UserManager()),
+            options={"abstract": False},
+            managers=[("objects", athena.authentication.models.UserManager())],
+        ),
+        migrations.CreateModel(
+            name="Role",
+            fields=[
+                (
+                    "name",
+                    models.CharField(max_length=32, primary_key=True, serialize=False),
+                )
             ],
         ),
         migrations.CreateModel(
-            name='Role',
+            name="Student",
             fields=[
-                ('name', models.CharField(max_length=32, primary_key=True, serialize=False)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4, primary_key=True, serialize=False
+                    ),
+                ),
+                ("cipher", models.CharField(max_length=15, unique=True)),
+                (
+                    "student_group",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="students",
+                        to="edu.StudentGroup",
+                    ),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="student",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
+            options={"abstract": False},
         ),
         migrations.CreateModel(
-            name='Student',
+            name="Teacher",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False)),
-                ('cipher', models.CharField(max_length=15, unique=True)),
-                ('student_group',
-                 models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='students',
-                                   to='edu.StudentGroup')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='student',
-                                              to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4, primary_key=True, serialize=False
+                    ),
+                ),
+                (
+                    "subjects",
+                    models.ManyToManyField(related_name="teachers", to="edu.Subject"),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="teacher",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.CreateModel(
-            name='Teacher',
+            name="Tutor",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False)),
-                ('subjects', models.ManyToManyField(related_name='teachers', to='edu.Subject')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='teacher',
-                                              to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4, primary_key=True, serialize=False
+                    ),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tutor",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-        ),
-        migrations.CreateModel(
-            name='Tutor',
-            fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='tutor',
-                                              to=settings.AUTH_USER_MODEL)),
-            ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.AddField(
-            model_name='user',
-            name='roles',
-            field=models.ManyToManyField(related_name='users', to='authentication.Role'),
+            model_name="user",
+            name="roles",
+            field=models.ManyToManyField(
+                related_name="users", to="authentication.Role"
+            ),
         ),
     ]

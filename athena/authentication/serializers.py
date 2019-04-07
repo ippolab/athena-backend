@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainSlidingSerializer
 
-from .models import User, Student, Teacher, Tutor, Role
+from .models import Role, Student, Teacher, Tutor, User
 
 
 class TokenSerializer(TokenObtainSlidingSerializer):
@@ -29,19 +29,19 @@ class UserSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ("id", "user", "cipher", "student_group",)
+        fields = ("id", "user", "cipher", "student_group")
         read_only_fields = ("id",)
 
 
 class TutorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tutor
-        fields = ("id", "user",)
+        fields = ("id", "user")
         read_only_fields = ("id",)
 
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ("id", "user", "subjects",)
+        fields = ("id", "user", "subjects")
         read_only_fields = ("id",)

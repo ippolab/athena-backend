@@ -1,12 +1,11 @@
 import uuid
 
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, AbstractUser
+from athena.core.models import UUIDModel
+from athena.edu.models import StudentGroup, Subject
+from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.db.models import Model
-
-from athena.core.models import UUIDModel
-from athena.edu.models import StudentGroup, Subject
 
 
 class Role(Model):
@@ -24,7 +23,7 @@ class UserManager(BaseUserManager):
         Create and save a user with the given username, and password.
         """
         if not username:
-            raise ValueError('The given username must be set')
+            raise ValueError("The given username must be set")
         username = self.model.normalize_username(username)
         user = self.model(username=username, **extra_fields)
         user.set_password(password)
@@ -32,19 +31,19 @@ class UserManager(BaseUserManager):
         return user
 
     def create_user(self, username: str, password: str = None, **extra_fields):
-        extra_fields.setdefault('is_staff', False)
-        extra_fields.setdefault('is_superuser', False)
+        extra_fields.setdefault("is_staff", False)
+        extra_fields.setdefault("is_superuser", False)
         user = self._create_user(username, password, **extra_fields)
         return user
 
     def create_superuser(self, username: str, password: str, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
 
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("Superuser must have is_staff=True.")
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True.")
         user = self._create_user(username, password, **extra_fields)
         admin, _ = Role.objects.get_or_create(name="admin")
         user.roles.add(admin)
@@ -57,14 +56,13 @@ class User(AbstractBaseUser):
 
     Username and password are required. Other fields are optional.
     """
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     username = models.CharField(
         max_length=150,
         unique=True,
         validators=[UnicodeUsernameValidator()],
-        error_messages={
-            'unique': "A user with that username already exists.",
-        },
+        error_messages={"unique": "A user with that username already exists."},
     )
     first_name = models.CharField(max_length=30, blank=True)
     second_name = models.CharField(max_length=30, blank=True)
@@ -76,23 +74,29 @@ class User(AbstractBaseUser):
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'username'
+    USERNAME_FIELD = "username"
 
 
 class Student(UUIDModel):
     cipher = models.CharField(max_length=15, unique=True)
     user = models.OneToOneField(User, related_name="student", on_delete=models.CASCADE)
-    student_group = models.ForeignKey(StudentGroup, related_name="students", null=True, on_delete=models.SET_NULL)
+    student_group = models.ForeignKey(
+        StudentGroup, related_name="students", null=True, on_delete=models.SET_NULL
+    )
 
     def __str__(self):
-        return "{} {} {}".format(self.user.second_name, self.user.first_name, self.user.last_name)
+        return "{} {} {}".format(
+            self.user.second_name, self.user.first_name, self.user.last_name
+        )
 
 
 class Tutor(UUIDModel):
     user = models.OneToOneField(User, related_name="tutor", on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{} {} {}".format(self.user.second_name, self.user.first_name, self.user.last_name)
+        return "{} {} {}".format(
+            self.user.second_name, self.user.first_name, self.user.last_name
+        )
 
 
 class Teacher(UUIDModel):
@@ -100,4 +104,6 @@ class Teacher(UUIDModel):
     subjects = models.ManyToManyField(Subject, related_name="teachers")
 
     def __str__(self):
-        return "{} {} {}".format(self.user.second_name, self.user.first_name, self.user.last_name)
+        return "{} {} {}".format(
+            self.user.second_name, self.user.first_name, self.user.last_name
+        )
