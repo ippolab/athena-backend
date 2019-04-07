@@ -1,3 +1,4 @@
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
@@ -44,6 +45,12 @@ class TeacherViewSet(viewsets.ModelViewSet):
     serializer_class = TeacherSerializer
 
 
+@swagger_auto_schema(
+    method="get",
+    operation_summary="Get Current User Profile",
+    operation_description="Retrieve profile for user that makes request",
+    responses={200: UserSerializer},
+)
 @api_view(("GET",))
 def get_profile_view(request: Request):
     serializer = UserSerializer(request.user)
