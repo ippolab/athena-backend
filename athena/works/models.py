@@ -3,10 +3,10 @@ import os
 from django.core.validators import FileExtensionValidator
 from django.db import models
 
-from athena.authentication.models import Student, Tutor, Teacher
+from athena.authentication.models import Student, Teacher, Tutor
 from athena.core.models import UUIDModel
 from athena.core.storage import OverwriteStorage
-from athena.edu.models import StudentGroup, Subject, Speciality
+from athena.edu.models import Speciality, StudentGroup, Subject
 
 
 def report_upload_to(instance: "Report", file_name: str):
@@ -19,7 +19,7 @@ def report_upload_to(instance: "Report", file_name: str):
         str(instance.student.student_group),
         str(instance.student),
         str(instance.task),
-        file_name
+        file_name,
     )
 
 
@@ -30,7 +30,7 @@ def task_upload_to(instance: "Task", file_name: str):
         str(instance.student_group.speciality),
         str(instance.subject),
         str(instance),
-        file_name
+        file_name,
     )
 
 
@@ -53,10 +53,12 @@ class Task(UUIDModel):
     create_datetime = models.DateTimeField(auto_now_add=True)
     edit_datetime = models.DateTimeField(auto_now=True)
     subject = models.ForeignKey(Subject, related_name="tasks", on_delete=models.CASCADE)
-    student_group = models.ForeignKey(StudentGroup, related_name="tasks", on_delete=models.CASCADE)
+    student_group = models.ForeignKey(
+        StudentGroup, related_name="tasks", on_delete=models.CASCADE
+    )
 
     class Meta:
-        unique_together = ("name", "subject", "student_group",)
+        unique_together = ("name", "subject", "student_group")
 
     def __str__(self):
         return self.name
@@ -84,9 +86,15 @@ class Report(UUIDModel):
     check_datetime = models.DateTimeField(null=True)
     comment = models.CharField(max_length=256, blank=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="reports")
-    student = models.ForeignKey(Student, related_name="reports", on_delete=models.CASCADE)
-    tutor = models.ForeignKey(Tutor, related_name="reports", null=True, on_delete=models.CASCADE)
-    teacher = models.ForeignKey(Teacher, related_name="reports", null=True, on_delete=models.CASCADE)
+    student = models.ForeignKey(
+        Student, related_name="reports", on_delete=models.CASCADE
+    )
+    tutor = models.ForeignKey(
+        Tutor, related_name="reports", null=True, on_delete=models.CASCADE
+    )
+    teacher = models.ForeignKey(
+        Teacher, related_name="reports", null=True, on_delete=models.CASCADE
+    )
 
     class Meta:
         unique_together = ("task", "student")

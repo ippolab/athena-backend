@@ -1,8 +1,14 @@
 from django.urls import path
 from rest_framework import routers
 
-from .views import ReportViewSet, TaskViewSet, task_file_view, task_attachment_view, report_file_view, \
-    report_attachment_view
+from .views import (
+    ReportViewSet,
+    TaskViewSet,
+    report_attachment_view,
+    report_file_view,
+    task_attachment_view,
+    task_file_view,
+)
 
 router = routers.DefaultRouter()
 router.register("reports", ReportViewSet)

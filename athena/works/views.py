@@ -1,7 +1,7 @@
 from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
-from rest_framework.decorators import permission_classes, api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 
