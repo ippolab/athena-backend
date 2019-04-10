@@ -1,12 +1,14 @@
-from athena.core.models import UUIDModel
 from django.db import models
+
+from athena.core.models import UUIDModel
 
 
 class Speciality(UUIDModel):
+    cipher = models.CharField(max_length=15, unique=True)
     name = models.CharField(max_length=64, unique=True)
 
     def __str__(self):
-        return self.name
+        return "{}. {}".format(self.cipher, self.name)
 
 
 class Subject(UUIDModel):

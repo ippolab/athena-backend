@@ -12,8 +12,8 @@ from .serializers import (
     TeacherSerializer,
     TokenSerializer,
     TutorSerializer,
-    UserSerializer,
-)
+    UserInResponseSerializer,
+    UserInCreateSerializer)
 
 
 class TokenView(TokenObtainSlidingView):
@@ -27,7 +27,14 @@ class RoleViewSet(viewsets.ModelViewSet):
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserInResponseSerializer
+
+    def create(self, request, **kwargs):
+        serializer = UserInCreateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class StudentViewSet(viewsets.ModelViewSet):
@@ -49,9 +56,9 @@ class TeacherViewSet(viewsets.ModelViewSet):
     method="get",
     operation_summary="Get Current User Profile",
     operation_description="Retrieve profile for user that makes request",
-    responses={200: UserSerializer},
+    responses={200: UserInResponseSerializer},
 )
 @api_view(("GET",))
 def get_profile_view(request: Request):
-    serializer = UserSerializer(request.user)
+    serializer = UserInResponseSerializer(request.user)
     return Response(data=serializer.data, status=status.HTTP_200_OK)
