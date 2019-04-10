@@ -1,11 +1,12 @@
 import uuid
 
-from athena.core.models import UUIDModel
-from athena.edu.models import StudentGroup, Subject
 from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.db.models import Model
+
+from athena.core.models import UUIDModel
+from athena.edu.models import StudentGroup, Subject
 
 
 class Role(Model):
@@ -77,33 +78,33 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = "username"
 
 
-class Student(UUIDModel):
+class Student(Model):
     cipher = models.CharField(max_length=15, unique=True)
-    user = models.OneToOneField(User, related_name="student", on_delete=models.CASCADE)
+    id = models.OneToOneField(User, primary_key=True, related_name="student", on_delete=models.CASCADE)
     student_group = models.ForeignKey(
         StudentGroup, related_name="students", null=True, on_delete=models.SET_NULL
     )
 
     def __str__(self):
         return "{} {} {}".format(
-            self.user.second_name, self.user.first_name, self.user.last_name
+            self.id.second_name, self.id.first_name, self.id.last_name
         )
 
 
-class Tutor(UUIDModel):
-    user = models.OneToOneField(User, related_name="tutor", on_delete=models.CASCADE)
+class Tutor(Model):
+    id = models.OneToOneField(User, primary_key=True, related_name="tutor", on_delete=models.CASCADE)
 
     def __str__(self):
         return "{} {} {}".format(
-            self.user.second_name, self.user.first_name, self.user.last_name
+            self.id.second_name, self.id.first_name, self.id.last_name
         )
 
 
-class Teacher(UUIDModel):
-    user = models.OneToOneField(User, related_name="teacher", on_delete=models.CASCADE)
+class Teacher(Model):
+    id = models.OneToOneField(User, primary_key=True, related_name="teacher", on_delete=models.CASCADE)
     subjects = models.ManyToManyField(Subject, related_name="teachers")
 
     def __str__(self):
         return "{} {} {}".format(
-            self.user.second_name, self.user.first_name, self.user.last_name
+            self.id.second_name, self.id.first_name, self.id.last_name
         )

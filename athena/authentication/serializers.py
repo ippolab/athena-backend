@@ -19,7 +19,13 @@ class RoleSerializer(serializers.ModelSerializer):
         fields = ("name",)
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserInCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("username", "password", "first_name", "second_name", "last_name", "roles")
+
+
+class UserInResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("id", "username", "first_name", "second_name", "last_name", "roles")
@@ -29,19 +35,19 @@ class UserSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ("id", "user", "cipher", "student_group")
+        fields = ("id", "cipher", "student_group")
         read_only_fields = ("id",)
 
 
 class TutorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tutor
-        fields = ("id", "user")
+        fields = ("id",)
         read_only_fields = ("id",)
 
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ("id", "user", "subjects")
+        fields = ("id", "subjects")
         read_only_fields = ("id",)

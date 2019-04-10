@@ -13,7 +13,7 @@ class SubjectSerializer(serializers.ModelSerializer):
 class SpecialitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Speciality
-        fields = ("id", "name")
+        fields = ("id", "name", "cipher")
         read_only_fields = ("id",)
 
 

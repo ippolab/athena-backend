@@ -1,15 +1,15 @@
 import os
 
+from django.core.validators import FileExtensionValidator
+from django.db import models
+
 from athena.authentication.models import Student, Teacher, Tutor
 from athena.core.models import UUIDModel
 from athena.core.storage import OverwriteStorage
 from athena.edu.models import Speciality, StudentGroup, Subject
-from django.core.validators import FileExtensionValidator
-from django.db import models
 
 
 def report_upload_to(instance: "Report", file_name: str):
-    # Год/Направление/Предмет/Группа/Студент/
     return os.path.join(
         "reports",
         str(instance.task.create_datetime.year),
