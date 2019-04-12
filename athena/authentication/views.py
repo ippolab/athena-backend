@@ -6,14 +6,16 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainSlidingView
 
 from .models import Role, Student, Teacher, Tutor, User
+from .permissions import UserIsAdmin
 from .serializers import (
     RoleSerializer,
     StudentSerializer,
     TeacherSerializer,
     TokenSerializer,
     TutorSerializer,
+    UserInCreateSerializer,
     UserInResponseSerializer,
-    UserInCreateSerializer)
+)
 
 
 class TokenView(TokenObtainSlidingView):
@@ -28,13 +30,16 @@ class RoleViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserInResponseSerializer
+    permission_classes = (UserIsAdmin,)
 
     def create(self, request, **kwargs):
         serializer = UserInCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
 
 
 class StudentViewSet(viewsets.ModelViewSet):

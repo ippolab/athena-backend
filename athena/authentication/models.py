@@ -1,4 +1,5 @@
 import uuid
+from enum import Enum
 
 from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
@@ -9,8 +10,19 @@ from athena.core.models import UUIDModel
 from athena.edu.models import StudentGroup, Subject
 
 
+class RolesEnum(Enum):
+    student = "student"
+    tutor = "tutor"
+    teacher = "teacher"
+    admin = "admin"
+
+
 class Role(Model):
-    name = models.CharField(primary_key=True, max_length=32)
+    name = models.CharField(
+        primary_key=True,
+        max_length=32,
+        choices=[(role, role.value) for role in RolesEnum],
+    )
 
     def __str__(self):
         return self.name
@@ -20,9 +32,6 @@ class UserManager(BaseUserManager):
     use_in_migrations = True
 
     def _create_user(self, username: str, password: str, **extra_fields):
-        """
-        Create and save a user with the given username, and password.
-        """
         if not username:
             raise ValueError("The given username must be set")
         username = self.model.normalize_username(username)
@@ -52,12 +61,6 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    """
-    Default user for authorization and statistics collection.
-
-    Username and password are required. Other fields are optional.
-    """
-
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     username = models.CharField(
         max_length=150,
@@ -77,10 +80,36 @@ class User(AbstractBaseUser):
 
     USERNAME_FIELD = "username"
 
+    def _contains_role(self, role: RolesEnum):
+        try:
+            self.roles.get(name=role)
+        except Role.DoesNotExist:
+            return False
+        else:
+            return True
+
+    @property
+    def is_student(self) -> bool:
+        return self._contains_role(RolesEnum.student)
+
+    @property
+    def is_tutor(self) -> bool:
+        return self._contains_role(RolesEnum.tutor)
+
+    @property
+    def is_teacher(self) -> bool:
+        return self._contains_role(RolesEnum.teacher)
+
+    @property
+    def is_admin(self) -> bool:
+        return self._contains_role(RolesEnum.admin)
+
 
 class Student(Model):
-    cipher = models.CharField(max_length=15, unique=True)
-    id = models.OneToOneField(User, primary_key=True, related_name="student", on_delete=models.CASCADE)
+    cipher = models.CharField(max_length=15, unique=True, null=True)
+    id = models.OneToOneField(
+        User, primary_key=True, related_name="student", on_delete=models.CASCADE
+    )
     student_group = models.ForeignKey(
         StudentGroup, related_name="students", null=True, on_delete=models.SET_NULL
     )
@@ -92,7 +121,9 @@ class Student(Model):
 
 
 class Tutor(Model):
-    id = models.OneToOneField(User, primary_key=True, related_name="tutor", on_delete=models.CASCADE)
+    id = models.OneToOneField(
+        User, primary_key=True, related_name="tutor", on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return "{} {} {}".format(
@@ -101,7 +132,9 @@ class Tutor(Model):
 
 
 class Teacher(Model):
-    id = models.OneToOneField(User, primary_key=True, related_name="teacher", on_delete=models.CASCADE)
+    id = models.OneToOneField(
+        User, primary_key=True, related_name="teacher", on_delete=models.CASCADE
+    )
     subjects = models.ManyToManyField(Subject, related_name="teachers")
 
     def __str__(self):

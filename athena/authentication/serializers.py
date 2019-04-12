@@ -22,7 +22,14 @@ class RoleSerializer(serializers.ModelSerializer):
 class UserInCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("username", "password", "first_name", "second_name", "last_name", "roles")
+        fields = (
+            "username",
+            "password",
+            "first_name",
+            "second_name",
+            "last_name",
+            "roles",
+        )
 
 
 class UserInResponseSerializer(serializers.ModelSerializer):

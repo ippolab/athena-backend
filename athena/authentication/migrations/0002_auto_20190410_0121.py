@@ -6,39 +6,43 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('authentication', '0001_initial'),
-    ]
+    dependencies = [("authentication", "0001_initial")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='student',
-            name='user',
-        ),
-        migrations.RemoveField(
-            model_name='teacher',
-            name='user',
-        ),
-        migrations.RemoveField(
-            model_name='tutor',
-            name='user',
+        migrations.RemoveField(model_name="student", name="user"),
+        migrations.RemoveField(model_name="teacher", name="user"),
+        migrations.RemoveField(model_name="tutor", name="user"),
+        migrations.AlterField(
+            model_name="student",
+            name="id",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                primary_key=True,
+                related_name="student",
+                serialize=False,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='student',
-            name='id',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True,
-                                       related_name='student', serialize=False, to=settings.AUTH_USER_MODEL),
+            model_name="teacher",
+            name="id",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                primary_key=True,
+                related_name="teacher",
+                serialize=False,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='teacher',
-            name='id',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True,
-                                       related_name='teacher', serialize=False, to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AlterField(
-            model_name='tutor',
-            name='id',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True,
-                                       related_name='tutor', serialize=False, to=settings.AUTH_USER_MODEL),
+            model_name="tutor",
+            name="id",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                primary_key=True,
+                related_name="tutor",
+                serialize=False,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]
