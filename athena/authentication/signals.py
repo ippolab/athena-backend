@@ -1,16 +1,20 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import m2m_changed, post_save
 from django.dispatch import receiver
 
-from .models import Student, Teacher, Tutor, User
+from athena.authentication.models import RolesEnum, Role, User
 
 
+def create_roles(sender, **kwargs):
+    """Create default roles in database when server start"""
+    for role in RolesEnum:
+        Role.objects.get_or_create(name=role.value[0])
+
+
+@receiver(m2m_changed, sender=User.roles.through)
 @receiver(post_save, sender=User)
-def create_related_profile(sender, instance: User, created: bool, *args, **kwargs):
-    if instance and created:
-        if instance.is_student:
-            instance.student = Student.objects.get_or_create(id=instance)
-        if instance.is_tutor:
-            instance.tutor = Tutor.objects.get_or_create(id=instance)
-        if instance.is_teacher:
-            instance.teacher = Teacher.objects.get_or_create(id=instance)
-        instance.save()
+def create_related_profile(sender, instance: User, *args, **kwargs):
+    """Use user roles to create profiles"""
+    profiles = {role.value[0]: role.value[1] for role in RolesEnum}
+    if instance:
+        for role in instance.roles.all():
+            profiles[str(role)].objects.get_or_create(id=instance)

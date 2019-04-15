@@ -10,24 +10,6 @@ from athena.core.models import UUIDModel
 from athena.edu.models import StudentGroup, Subject
 
 
-class RolesEnum(Enum):
-    student = "student"
-    tutor = "tutor"
-    teacher = "teacher"
-    admin = "admin"
-
-
-class Role(Model):
-    name = models.CharField(
-        primary_key=True,
-        max_length=32,
-        choices=[(role, role.value) for role in RolesEnum],
-    )
-
-    def __str__(self):
-        return self.name
-
-
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -40,22 +22,13 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, username: str, password: str = None, **extra_fields):
-        extra_fields.setdefault("is_staff", False)
-        extra_fields.setdefault("is_superuser", False)
+    def create_user(self, username: str, password=None, **extra_fields):
         user = self._create_user(username, password, **extra_fields)
         return user
 
     def create_superuser(self, username: str, password: str, **extra_fields):
-        extra_fields.setdefault("is_staff", True)
-        extra_fields.setdefault("is_superuser", True)
-
-        if extra_fields.get("is_staff") is not True:
-            raise ValueError("Superuser must have is_staff=True.")
-        if extra_fields.get("is_superuser") is not True:
-            raise ValueError("Superuser must have is_superuser=True.")
         user = self._create_user(username, password, **extra_fields)
-        admin, _ = Role.objects.get_or_create(name="admin")
+        admin, _ = user.roles.get_or_create(name="admin")
         user.roles.add(admin)
         return user
 
@@ -71,18 +44,16 @@ class User(AbstractBaseUser):
     first_name = models.CharField(max_length=30, blank=True)
     second_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    roles = models.ManyToManyField(Role, related_name="users")
+    roles = models.ManyToManyField('Role', related_name="users")
 
     objects = UserManager()
 
     USERNAME_FIELD = "username"
 
-    def _contains_role(self, role: RolesEnum):
+    def _contains_role(self, role: 'RolesEnum') -> bool:
         try:
-            self.roles.get(name=role)
+            self.roles.get(name=role.value[0])
         except Role.DoesNotExist:
             return False
         else:
@@ -141,3 +112,27 @@ class Teacher(Model):
         return "{} {} {}".format(
             self.id.second_name, self.id.first_name, self.id.last_name
         )
+
+
+class Admin(Model):
+    id = models.OneToOneField(
+        User, primary_key=True, related_name="admin", on_delete=models.CASCADE
+    )
+
+
+class RolesEnum(Enum):
+    student = ("student", Student)
+    tutor = ("tutor", Tutor)
+    teacher = ("teacher", Teacher)
+    admin = ("admin", Admin)
+
+
+class Role(Model):
+    name = models.CharField(
+        primary_key=True,
+        max_length=16,
+        choices=[(role.value[0], role.value[0]) for role in RolesEnum],
+    )
+
+    def __str__(self):
+        return self.name
