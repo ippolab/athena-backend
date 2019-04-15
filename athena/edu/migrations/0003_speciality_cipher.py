@@ -4,15 +4,13 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('edu', '0002_auto_20190406_2037'),
-    ]
+    dependencies = [("edu", "0002_auto_20190406_2037")]
 
     operations = [
         migrations.AddField(
-            model_name='speciality',
-            name='cipher',
-            field=models.CharField(default='null', max_length=15, unique=True),
+            model_name="speciality",
+            name="cipher",
+            field=models.CharField(default="null", max_length=15, unique=True),
             preserve_default=False,
-        ),
+        )
     ]

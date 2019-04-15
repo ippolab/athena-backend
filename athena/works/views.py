@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 
+from athena.authentication.permissions import IsAdmin, IsTutor, IsTeacher
 from .serializers import Report, ReportSerializer, Task, TaskSerializer
 
 
@@ -16,6 +17,14 @@ class TaskViewSet(viewsets.ModelViewSet):
 class ReportViewSet(viewsets.ModelViewSet):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
+    permission_classes = (IsAdmin | IsTutor | IsTeacher,)
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_student:
+            return user.student.reports.all()
+        else:
+            return self.queryset
 
 
 @api_view(["GET"])
