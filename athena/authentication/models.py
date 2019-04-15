@@ -28,7 +28,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, username: str, password: str, **extra_fields):
         user = self._create_user(username, password, **extra_fields)
-        admin, _ = user.roles.get_or_create(name="admin")
+        admin, _ = Role.objects.get_or_create(name="admin")
         user.roles.add(admin)
         return user
 
