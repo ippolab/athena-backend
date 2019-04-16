@@ -13,7 +13,7 @@ def report_upload_to(instance: "Report", file_name: str):
     return os.path.join(
         "reports",
         str(instance.task.create_datetime.year),
-        str(instance.student.student_group.speciality),
+        str(instance.student.student_group.speciality),  # todo check NoneType
         str(instance.task.subject),
         str(instance.student.student_group),
         str(instance.student),
@@ -26,7 +26,7 @@ def task_upload_to(instance: "Task", file_name: str):
     return os.path.join(
         "tasks",
         str(instance.create_datetime.year),
-        str(instance.student_group.speciality),
+        str(instance.student_group.speciality),  # todo check NoneType
         str(instance.subject),
         str(instance),
         file_name,
@@ -34,15 +34,17 @@ def task_upload_to(instance: "Task", file_name: str):
 
 
 class Task(UUIDModel):
-    name = models.CharField(max_length=64)
-    description = models.CharField(max_length=256, blank=True)
+    name = models.CharField(max_length=127)
+    description = models.CharField(max_length=255, blank=True)
     file = models.FileField(
+        max_length=255,
         upload_to=report_upload_to,
         storage=OverwriteStorage(),
         validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
         null=True,
     )
     attachment = models.FileField(
+        max_length=255,
         upload_to=task_upload_to,
         storage=OverwriteStorage(),
         validators=[FileExtensionValidator(allowed_extensions=["zip"])],
@@ -66,14 +68,16 @@ class Task(UUIDModel):
 class Report(UUIDModel):
     STATUSES = (("A", "Accepted"), ("F", "To fix"), ("N", "Not done"))
 
-    name = models.CharField(max_length=254)
+    name = models.CharField(max_length=255)
     file = models.FileField(
+        max_length=255,
         upload_to=report_upload_to,
         storage=OverwriteStorage(),
         validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
         null=True,
     )
     attachment = models.FileField(
+        max_length=255,
         upload_to=report_upload_to,
         storage=OverwriteStorage(),
         validators=[FileExtensionValidator(allowed_extensions=["zip"])],
@@ -83,7 +87,7 @@ class Report(UUIDModel):
     create_datetime = models.DateTimeField(auto_now_add=True)
     edit_datetime = models.DateTimeField(null=True)
     check_datetime = models.DateTimeField(null=True)
-    comment = models.CharField(max_length=256, blank=True)
+    comment = models.CharField(max_length=255, blank=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="reports")
     student = models.ForeignKey(
         Student, related_name="reports", on_delete=models.CASCADE
