@@ -5,7 +5,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 
-from athena.authentication.permissions import IsAdmin, IsTutor, IsTeacher
+from athena.authentication.permissions import IsAdmin, IsTeacher, IsTutor
+
 from .serializers import Report, ReportSerializer, Task, TaskSerializer
 
 

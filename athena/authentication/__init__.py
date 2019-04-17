@@ -9,6 +9,7 @@ class AuthConfig(AppConfig):
 
     def ready(self):
         import athena.authentication.signals
+
         post_migrate.connect(athena.authentication.signals.create_roles, sender=self)
 
 

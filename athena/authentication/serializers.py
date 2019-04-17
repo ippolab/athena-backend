@@ -19,24 +19,17 @@ class RoleSerializer(serializers.ModelSerializer):
         fields = ("name",)
 
 
-class UserInCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = (
-            "username",
-            "password",
-            "first_name",
-            "second_name",
-            "last_name",
-            "roles",
-        )
-
-
 class UserInResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("id", "username", "first_name", "second_name", "last_name", "roles")
         read_only_fields = ("id",)
+
+
+class UserInCreateSerializer(UserInResponseSerializer):
+    class Meta(UserInResponseSerializer.Meta):
+        fields = UserInResponseSerializer.Meta.fields + ("password",)
+        extra_kwargs = {"password": {"write_only": True}}
 
 
 class StudentSerializer(serializers.ModelSerializer):

@@ -66,6 +66,10 @@ jobs:
           command: |
             python manage.py migrate
       - run:
+          name: create admin
+          command: |
+            ./manage.py shell -c "from django.contrib.auth import get_user_model; get_user_model().objects.create_superuser(admin, 'admin')"
+      - run:
           name: run postman tests
           command: |
             python manage.py runserver &

@@ -4,21 +4,27 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('authentication', '0002_auto_20190410_0121'),
-    ]
+    dependencies = [("authentication", "0002_auto_20190410_0121")]
 
     operations = [
         migrations.AlterField(
-            model_name='role',
-            name='name',
+            model_name="role",
+            name="name",
             field=models.CharField(
-                choices=[('student', 'student'), ('tutor', 'tutor'), ('teacher', 'teacher'), ('admin', 'admin')],
-                max_length=32, primary_key=True, serialize=False),
+                choices=[
+                    ("student", "student"),
+                    ("tutor", "tutor"),
+                    ("teacher", "teacher"),
+                    ("admin", "admin"),
+                ],
+                max_length=32,
+                primary_key=True,
+                serialize=False,
+            ),
         ),
         migrations.AlterField(
-            model_name='student',
-            name='cipher',
+            model_name="student",
+            name="cipher",
             field=models.CharField(max_length=15, null=True, unique=True),
         ),
     ]

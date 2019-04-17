@@ -1,5 +1,6 @@
 import uuid
 from enum import Enum
+from typing import Dict, Optional, Set
 
 from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
@@ -13,23 +14,36 @@ from athena.edu.models import StudentGroup, Subject
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, username: str, password: str, **extra_fields):
+    def _create_user(
+        self, username: str, password: str, roles: Set[str], **extra_fields
+    ):
         if not username:
             raise ValueError("The given username must be set")
         username = self.model.normalize_username(username)
         user = self.model(username=username, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+
+        for role in roles:
+            r, _ = Role.objects.get_or_create(name=role)
+            user.roles.add(r)
+
         return user
 
-    def create_user(self, username: str, password=None, **extra_fields):
-        user = self._create_user(username, password, **extra_fields)
+    def create_user(
+        self,
+        username: str,
+        password=None,
+        roles: Optional[Set[str]] = None,
+        **extra_fields
+    ):
+        print(roles)
+        roles = roles or set()
+        user = self._create_user(username, password, roles, **extra_fields)
         return user
 
     def create_superuser(self, username: str, password: str, **extra_fields):
-        user = self._create_user(username, password, **extra_fields)
-        admin, _ = Role.objects.get_or_create(name="admin")
-        user.roles.add(admin)
+        user = self.create_user(username, password, {"admin"}, **extra_fields)
         return user
 
 
@@ -45,13 +59,13 @@ class User(AbstractBaseUser):
     second_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
     is_active = models.BooleanField(default=True)
-    roles = models.ManyToManyField('Role', related_name="users")
+    roles = models.ManyToManyField("Role", related_name="users")
 
     objects = UserManager()
 
     USERNAME_FIELD = "username"
 
-    def _contains_role(self, role: 'RolesEnum') -> bool:
+    def _contains_role(self, role: "RolesEnum") -> bool:
         try:
             self.roles.get(name=role.value[0])
         except Role.DoesNotExist:

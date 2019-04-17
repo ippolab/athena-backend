@@ -36,12 +36,12 @@ class UserViewSet(viewsets.ModelViewSet):
     def create(self, request, **kwargs):
         serializer = UserInCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        data = serializer.data
-        data.pop("password")
-        headers = self.get_success_headers(data=data)
+
+        data = serializer.validated_data
+        user = User.objects.create_user(**data)
+
         return Response(
-            data=data, status=status.HTTP_201_CREATED, headers=headers
+            data=UserInResponseSerializer(user).data, status=status.HTTP_201_CREATED
         )
 
 

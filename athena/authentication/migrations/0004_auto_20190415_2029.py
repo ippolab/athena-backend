@@ -6,31 +6,39 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('authentication', '0003_auto_20190415_1946'),
-    ]
+    dependencies = [("authentication", "0003_auto_20190415_1946")]
 
     operations = [
         migrations.CreateModel(
-            name='Admin',
+            name="Admin",
             fields=[
-                ('id', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True,
-                                            related_name='admin', serialize=False, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        primary_key=True,
+                        related_name="admin",
+                        serialize=False,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                )
             ],
         ),
-        migrations.RemoveField(
-            model_name='user',
-            name='is_staff',
-        ),
-        migrations.RemoveField(
-            model_name='user',
-            name='is_superuser',
-        ),
+        migrations.RemoveField(model_name="user", name="is_staff"),
+        migrations.RemoveField(model_name="user", name="is_superuser"),
         migrations.AlterField(
-            model_name='role',
-            name='name',
+            model_name="role",
+            name="name",
             field=models.CharField(
-                choices=[('student', 'student'), ('tutor', 'tutor'), ('teacher', 'teacher'), ('admin', 'admin')],
-                max_length=16, primary_key=True, serialize=False),
+                choices=[
+                    ("student", "student"),
+                    ("tutor", "tutor"),
+                    ("teacher", "teacher"),
+                    ("admin", "admin"),
+                ],
+                max_length=16,
+                primary_key=True,
+                serialize=False,
+            ),
         ),
     ]
