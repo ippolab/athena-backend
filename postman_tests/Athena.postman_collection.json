@@ -1,2430 +1,2261 @@
 {
 	"info": {
-      "_postman_id": "2a2d3513-28ed-4119-b5ca-5bd93f22b092",
+		"_postman_id": "cad9b9ea-4363-458c-8aa3-b1b7ae17a6bb",
 		"name": "Athena",
-      "description": "Athena API",
+		"description": "Athena API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
-  "item": [
-    {
-      "name": "Auth",
-      "item": [
-        {
-          "name": "Users",
-          "item": [
-            {
-              "name": "Create user",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n\t\"username\":\"name\",\n\t\"password\":\"pass\",\n\t\"first_name\":\"Иван\",\n\t\"second_name\":\"Иванов\",\n\t\"last_name\":\"Иванович\",\n\t\"roles\":[\n\t\t\"student\"\n\t\t]\n}"
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/users/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "users",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Get all users",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/users/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "users",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Edit user",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "PATCH",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n\t\"first_name\":\"Иван\",\n\t\"second_name\":\"Иванов\",\n\t\"last_name\":\"Иванович\",\n\t\"roles\":[\n\t\t\"admin\"\n\t\t]\n}"
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/users/{{user_id}}/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "users",
-                    "{{user_id}}",
-                    ""
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Edit user",
-                  "originalRequest": {
-                    "method": "PATCH",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "name": "Content-Type",
-                        "value": "application/json",
-                        "type": "text"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n\t\"first_name\":\"Иван\",\n\t\"second_name\":\"Иванов\",\n\t\"last_name\":\"Иванович\",\n\t\"roles\":[\n\t\t\"admin\"\n\t\t]\n}"
-                    },
-                    "url": {
-                      "raw": "{{domain}}/api/auth/users/{{user_id}}/",
-                      "host": [
-                        "{{domain}}"
-                      ],
-                      "path": [
-                        "api",
-                        "auth",
-                        "users",
-                        "{{user_id}}",
-                        ""
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Date",
-                      "value": "Mon, 15 Apr 2019 23:52:48 GMT"
-                    },
-                    {
-                      "key": "Server",
-                      "value": "WSGIServer/0.2 CPython/3.7.2"
-                    },
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    },
-                    {
-                      "key": "Allow",
-                      "value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
-                    },
-                    {
-                      "key": "X-Frame-Options",
-                      "value": "SAMEORIGIN"
-                    },
-                    {
-                      "key": "Content-Length",
-                      "value": "163"
-                    },
-                    {
-                      "key": "Vary",
-                      "value": "Origin"
-                    }
-                  ],
-                  "cookie": [],
-                  "body": "{\n    \"id\": \"2b99507b-9783-44ad-9000-478e6150a9f5\",\n    \"username\": \"admin\",\n    \"firstName\": \"Иван\",\n    \"secondName\": \"Иванов\",\n    \"lastName\": \"Иванович\",\n    \"roles\": [\n        \"admin\"\n    ]\n}"
-                }
-              ]
-            },
-            {
-              "name": "Delete user",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "DELETE",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/users/{{user_id}}/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "users",
-                    "{{user_id}}",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            }
-          ],
-          "_postman_isSubFolder": true
-        },
-        {
-          "name": "Students",
-          "item": [
-            {
-              "name": "Create student",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"user\": \"cc483bb9-400d-5e04-8804-05f36838f32e\",\n    \"cipher\": \"17И01231\"\n}"
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/students/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "students",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Get all students",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/students/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "students",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Edit student",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"cipher\": \"17И01234\",\n    \"studentGroup\": \"{{student_group_id}}\"\n}"
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/students/{{student_id}}/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "students",
-                    "{{student_id}}",
-                    ""
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Edit student",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "name": "Content-Type",
-                        "value": "application/json",
-                        "type": "text"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n    \"cipher\": \"17И01234\",\n    \"studentGroup\": \"{{student_group_id}}\"\n}"
-                    },
-                    "url": {
-                      "raw": "{{domain}}/api/auth/students/{{student_id}}/",
-                      "host": [
-                        "{{domain}}"
-                      ],
-                      "path": [
-                        "api",
-                        "auth",
-                        "students",
-                        "{{student_id}}",
-                        ""
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Date",
-                      "value": "Mon, 15 Apr 2019 23:41:19 GMT"
-                    },
-                    {
-                      "key": "Server",
-                      "value": "WSGIServer/0.2 CPython/3.7.2"
-                    },
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    },
-                    {
-                      "key": "Allow",
-                      "value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
-                    },
-                    {
-                      "key": "X-Frame-Options",
-                      "value": "SAMEORIGIN"
-                    },
-                    {
-                      "key": "Content-Length",
-                      "value": "120"
-                    },
-                    {
-                      "key": "Vary",
-                      "value": "Origin"
-                    }
-                  ],
-                  "cookie": [],
-                  "body": "{\n    \"id\": \"f6fa5190-804b-4465-9d4c-e156d456d51d\",\n    \"cipher\": \"17И01234\",\n    \"studentGroup\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\"\n}"
-                }
-              ]
-            },
-            {
-              "name": "Delete student",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "DELETE",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/students/{{student_id}}/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "students",
-                    "{{student_id}}",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            }
-          ],
-          "_postman_isSubFolder": true
-        },
-        {
-          "name": "Tutors",
-          "item": [
-            {
-              "name": "Get all tutors",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/tutors/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "tutors",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Create tutor",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"user\": \"cc483bb9-400d-5e04-8804-05f36838f32e\"\n}"
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/tutor/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "tutor",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Edit tutor",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "type": "text",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"user\": \"cc483bb9-400d-5e04-8804-05f36838f32e\"\n}"
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/tutors/{{tutor_id}}/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "tutors",
-                    "{{tutor_id}}",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Delete tutor",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "DELETE",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/tutors/{{tutor_id}}/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "tutors",
-                    "{{tutor_id}}",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            }
-          ],
-          "_postman_isSubFolder": true
-        },
-        {
-          "name": "Teachers",
-          "item": [
-            {
-              "name": "Get all teachers",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/teachers/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "teachers",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Create teacher",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "type": "text",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/teachers/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "teachers",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Edit teacher",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "type": "text",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/teachers/{{teacher_id}}/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "teachers",
-                    "{{teacher_id}}",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Delete teacher",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "DELETE",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/teachers/{{teacher_id}}/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "teachers",
-                    "{{teacher_id}}",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            }
-          ],
-          "_postman_isSubFolder": true
-        },
-        {
-          "name": "Login",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"admin\"\n}"
-            },
-            "url": {
-              "raw": "{{domain}}/api/auth/login/",
-              "host": [
-                "{{domain}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "login",
-                ""
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Login",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"admin\"\n}"
-                },
-                "url": {
-                  "raw": "{{domain}}/api/auth/login/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "auth",
-                    "login",
-                    ""
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "Date",
-                  "value": "Mon, 15 Apr 2019 23:52:59 GMT"
-                },
-                {
-                  "key": "Server",
-                  "value": "WSGIServer/0.2 CPython/3.7.2"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Allow",
-                  "value": "POST, OPTIONS"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "SAMEORIGIN"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "351"
-                },
-                {
-                  "key": "Vary",
-                  "value": "Origin"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoic2xpZGluZyIsImV4cCI6MTU1NTk3NzE3OSwianRpIjoiY2Q4OGMxM2NhMDgyNGFhZWFhMjJjOTQ1ODAzYjMzZTMiLCJyZWZyZXNoX2V4cCI6MTU1NTk3NzE3OSwidXNlcl9pZCI6IjJiOTk1MDdiLTk3ODMtNDRhZC05MDAwLTQ3OGU2MTUwYTlmNSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlcyI6WyJhZG1pbiJdfQ.5YiEhdnrmmTZXrHKzLukTuL84IiU9ShJXkx744EijWE\"\n}"
-            }
-          ]
-        },
-        {
-          "name": "Get profile",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{access_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": {
-              "raw": "{{domain}}/api/auth/profile/me/",
-              "host": [
-                "{{domain}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "profile",
-                "me",
-                ""
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get all roles",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{access_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": {
-              "raw": "{{domain}}/api/auth/roles/",
-              "host": [
-                "{{domain}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "roles",
-                ""
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Edu",
-      "item": [
-        {
-          "name": "Specialities",
-          "item": [
-            {
-              "name": "Get all specialities",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/edu/specialities/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "edu",
-                    "specialities",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Create speciality",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.02\"\n}"
-                },
-                "url": {
-                  "raw": "{{domain}}/api/edu/specialities/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "edu",
-                    "specialities",
-                    ""
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Create speciality",
-                  "originalRequest": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "name": "Content-Type",
-                        "value": "application/json",
-                        "type": "text"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.02\"\n}"
-                    },
-                    "url": {
-                      "raw": "{{domain}}/api/edu/specialities/",
-                      "host": [
-                        "{{domain}}"
-                      ],
-                      "path": [
-                        "api",
-                        "edu",
-                        "specialities",
-                        ""
-                      ]
-                    }
-                  },
-                  "status": "Created",
-                  "code": 201,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Date",
-                      "value": "Mon, 15 Apr 2019 19:44:22 GMT"
-                    },
-                    {
-                      "key": "Server",
-                      "value": "WSGIServer/0.2 CPython/3.7.2"
-                    },
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    },
-                    {
-                      "key": "Allow",
-                      "value": "GET, POST, HEAD, OPTIONS"
-                    },
-                    {
-                      "key": "X-Frame-Options",
-                      "value": "SAMEORIGIN"
-                    },
-                    {
-                      "key": "Content-Length",
-                      "value": "116"
-                    },
-                    {
-                      "key": "Vary",
-                      "value": "Origin"
-                    }
-                  ],
-                  "cookie": [],
-                  "body": "{\n    \"id\": \"c55e92ce-1166-4faf-9222-85bcff426af4\",\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.02\"\n}"
-                }
-              ]
-            },
-            {
-              "name": "Edit speciality",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "type": "text",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.04\"\n}"
-                },
-                "url": {
-                  "raw": "{{domain}}/api/edu/specialities/{{speciality_id}}/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "edu",
-                    "specialities",
-                    "{{speciality_id}}",
-                    ""
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Edit speciality",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "name": "Content-Type",
-                        "type": "text",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.04\"\n}"
-                    },
-                    "url": {
-                      "raw": "{{domain}}/api/edu/specialities/{{speciality_id}}/",
-                      "host": [
-                        "{{domain}}"
-                      ],
-                      "path": [
-                        "api",
-                        "edu",
-                        "specialities",
-                        "{{speciality_id}}",
-                        ""
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Date",
-                      "value": "Mon, 15 Apr 2019 20:52:32 GMT"
-                    },
-                    {
-                      "key": "Server",
-                      "value": "WSGIServer/0.2 CPython/3.7.2"
-                    },
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    },
-                    {
-                      "key": "Allow",
-                      "value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
-                    },
-                    {
-                      "key": "X-Frame-Options",
-                      "value": "SAMEORIGIN"
-                    },
-                    {
-                      "key": "Content-Length",
-                      "value": "116"
-                    },
-                    {
-                      "key": "Vary",
-                      "value": "Origin"
-                    }
-                  ],
-                  "cookie": [],
-                  "body": "{\n    \"id\": \"c55e92ce-1166-4faf-9222-85bcff426af4\",\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.04\"\n}"
-                }
-              ]
-            },
-            {
-              "name": "Delete speciality",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "DELETE",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/edu/specialities/{{speciality_id}}/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "edu",
-                    "specialities",
-                    "{{speciality_id}}",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            }
-          ],
-          "_postman_isSubFolder": true
-        },
-        {
-          "name": "Subjects",
-          "item": [
-            {
-              "name": "Create subject",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "type": "text",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":2\n}"
-                },
-                "url": {
-                  "raw": "{{domain}}/api/edu/subjects/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "edu",
-                    "subjects",
-                    ""
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Create subject",
-                  "originalRequest": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "name": "Content-Type",
-                        "type": "text",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":2\n}"
-                    },
-                    "url": {
-                      "raw": "{{domain}}/api/edu/subjects/",
-                      "host": [
-                        "{{domain}}"
-                      ],
-                      "path": [
-                        "api",
-                        "edu",
-                        "subjects",
-                        ""
-                      ]
-                    }
-                  },
-                  "status": "Created",
-                  "code": 201,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Date",
-                      "value": "Sun, 07 Apr 2019 14:20:35 GMT"
-                    },
-                    {
-                      "key": "Server",
-                      "value": "WSGIServer/0.2 CPython/3.7.2"
-                    },
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    },
-                    {
-                      "key": "Allow",
-                      "value": "GET, POST, HEAD, OPTIONS"
-                    },
-                    {
-                      "key": "X-Frame-Options",
-                      "value": "SAMEORIGIN"
-                    },
-                    {
-                      "key": "Content-Length",
-                      "value": "74"
-                    },
-                    {
-                      "key": "Vary",
-                      "value": "Origin"
-                    }
-                  ],
-                  "cookie": [],
-                  "body": "{\n    \"id\": \"df0c4bd5-4d39-4ba1-a5b4-3493b8394311\",\n    \"name\": \"ООП\",\n    \"semester\": 2\n}"
-                }
-              ]
-            },
-            {
-              "name": "Get all subjects",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/edu/subjects/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "edu",
-                    "subjects",
-                    ""
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Get all subjects",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": ""
-                    },
-                    "url": {
-                      "raw": "{{domain}}/api/edu/subjects/",
-                      "host": [
-                        "{{domain}}"
-                      ],
-                      "path": [
-                        "api",
-                        "edu",
-                        "subjects",
-                        ""
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Date",
-                      "value": "Sun, 07 Apr 2019 14:20:50 GMT"
-                    },
-                    {
-                      "key": "Server",
-                      "value": "WSGIServer/0.2 CPython/3.7.2"
-                    },
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    },
-                    {
-                      "key": "Allow",
-                      "value": "GET, POST, HEAD, OPTIONS"
-                    },
-                    {
-                      "key": "X-Frame-Options",
-                      "value": "SAMEORIGIN"
-                    },
-                    {
-                      "key": "Content-Length",
-                      "value": "151"
-                    },
-                    {
-                      "key": "Vary",
-                      "value": "Origin"
-                    }
-                  ],
-                  "cookie": [],
-                  "body": "[\n    {\n        \"id\": \"0edba675-3602-4fbf-ae0b-d5b17e2ad1a5\",\n        \"name\": \"ООП\",\n        \"semester\": 3\n    },\n    {\n        \"id\": \"df0c4bd5-4d39-4ba1-a5b4-3493b8394311\",\n        \"name\": \"ООП\",\n        \"semester\": 2\n    }\n]"
-                }
-              ]
-            },
-            {
-              "name": "Edit subject",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "type": "text",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":\"3\"\n}"
-                },
-                "url": {
-                  "raw": "{{domain}}/api/edu/subjects/{{subject_id}}/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "edu",
-                    "subjects",
-                    "{{subject_id}}",
-                    ""
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Edit subject",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "name": "Content-Type",
-                        "type": "text",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":\"3\"\n}"
-                    },
-                    "url": {
-                      "raw": "{{domain}}/api/edu/subjects/{{subject_id}}/",
-                      "host": [
-                        "{{domain}}"
-                      ],
-                      "path": [
-                        "api",
-                        "edu",
-                        "subjects",
-                        "{{subject_id}}",
-                        ""
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Date",
-                      "value": "Sun, 07 Apr 2019 14:20:24 GMT"
-                    },
-                    {
-                      "key": "Server",
-                      "value": "WSGIServer/0.2 CPython/3.7.2"
-                    },
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    },
-                    {
-                      "key": "Allow",
-                      "value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
-                    },
-                    {
-                      "key": "X-Frame-Options",
-                      "value": "SAMEORIGIN"
-                    },
-                    {
-                      "key": "Content-Length",
-                      "value": "74"
-                    },
-                    {
-                      "key": "Vary",
-                      "value": "Origin"
-                    }
-                  ],
-                  "cookie": [],
-                  "body": "{\n    \"id\": \"0edba675-3602-4fbf-ae0b-d5b17e2ad1a5\",\n    \"name\": \"ООП\",\n    \"semester\": 3\n}"
-                }
-              ]
-            },
-            {
-              "name": "Delete subject",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "DELETE",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/edu/subjects/{{subject_id}}/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "edu",
-                    "subjects",
-                    "{{subject_id}}",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            }
-          ],
-          "_postman_isSubFolder": true
-        },
-        {
-          "name": "Students Groups",
-          "item": [
-            {
-              "name": "Create student group",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"30\"\n}"
-                },
-                "url": {
-                  "raw": "{{domain}}/api/edu/student-groups/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "edu",
-                    "student-groups",
-                    ""
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Get all subjects",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": ""
-                    },
-                    "url": {
-                      "raw": "{{domain}}/api/edu/subjects/",
-                      "host": [
-                        "{{domain}}"
-                      ],
-                      "path": [
-                        "api",
-                        "edu",
-                        "subjects",
-                        ""
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Date",
-                      "value": "Sun, 07 Apr 2019 14:20:50 GMT"
-                    },
-                    {
-                      "key": "Server",
-                      "value": "WSGIServer/0.2 CPython/3.7.2"
-                    },
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    },
-                    {
-                      "key": "Allow",
-                      "value": "GET, POST, HEAD, OPTIONS"
-                    },
-                    {
-                      "key": "X-Frame-Options",
-                      "value": "SAMEORIGIN"
-                    },
-                    {
-                      "key": "Content-Length",
-                      "value": "151"
-                    },
-                    {
-                      "key": "Vary",
-                      "value": "Origin"
-                    }
-                  ],
-                  "cookie": [],
-                  "body": "[\n    {\n        \"id\": \"0edba675-3602-4fbf-ae0b-d5b17e2ad1a5\",\n        \"name\": \"ООП\",\n        \"semester\": 3\n    },\n    {\n        \"id\": \"df0c4bd5-4d39-4ba1-a5b4-3493b8394311\",\n        \"name\": \"ООП\",\n        \"semester\": 2\n    }\n]"
-                },
-                {
-                  "name": "Create student group",
-                  "originalRequest": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "name": "Content-Type",
-                        "value": "application/json",
-                        "type": "text"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"30\"\n}"
-                    },
-                    "url": {
-                      "raw": "{{domain}}/api/edu/student-groups/",
-                      "host": [
-                        "{{domain}}"
-                      ],
-                      "path": [
-                        "api",
-                        "edu",
-                        "student-groups",
-                        ""
-                      ]
-                    }
-                  },
-                  "status": "Created",
-                  "code": 201,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Date",
-                      "value": "Mon, 15 Apr 2019 20:54:43 GMT"
-                    },
-                    {
-                      "key": "Server",
-                      "value": "WSGIServer/0.2 CPython/3.7.2"
-                    },
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    },
-                    {
-                      "key": "Allow",
-                      "value": "GET, POST, HEAD, OPTIONS"
-                    },
-                    {
-                      "key": "X-Frame-Options",
-                      "value": "SAMEORIGIN"
-                    },
-                    {
-                      "key": "Content-Length",
-                      "value": "135"
-                    },
-                    {
-                      "key": "Vary",
-                      "value": "Origin"
-                    }
-                  ],
-                  "cookie": [],
-                  "body": "{\n    \"id\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\",\n    \"name\": \"ИКБО-13-17\",\n    \"speciality\": \"c55e92ce-1166-4faf-9222-85bcff426af4\",\n    \"quantity\": 30\n}"
-                }
-              ]
-            },
-            {
-              "name": "Get all students groups",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/edu/student-groups/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "edu",
-                    "student-groups",
-                    ""
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Get all subjects",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": ""
-                    },
-                    "url": {
-                      "raw": "{{domain}}/api/edu/subjects/",
-                      "host": [
-                        "{{domain}}"
-                      ],
-                      "path": [
-                        "api",
-                        "edu",
-                        "subjects",
-                        ""
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Date",
-                      "value": "Sun, 07 Apr 2019 14:20:50 GMT"
-                    },
-                    {
-                      "key": "Server",
-                      "value": "WSGIServer/0.2 CPython/3.7.2"
-                    },
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    },
-                    {
-                      "key": "Allow",
-                      "value": "GET, POST, HEAD, OPTIONS"
-                    },
-                    {
-                      "key": "X-Frame-Options",
-                      "value": "SAMEORIGIN"
-                    },
-                    {
-                      "key": "Content-Length",
-                      "value": "151"
-                    },
-                    {
-                      "key": "Vary",
-                      "value": "Origin"
-                    }
-                  ],
-                  "cookie": [],
-                  "body": "[\n    {\n        \"id\": \"0edba675-3602-4fbf-ae0b-d5b17e2ad1a5\",\n        \"name\": \"ООП\",\n        \"semester\": 3\n    },\n    {\n        \"id\": \"df0c4bd5-4d39-4ba1-a5b4-3493b8394311\",\n        \"name\": \"ООП\",\n        \"semester\": 2\n    }\n]"
-                }
-              ]
-            },
-            {
-              "name": "Edit student group",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"31\"\n}"
-                },
-                "url": {
-                  "raw": "{{domain}}/api/edu/student-groups/{{student_group_id}}/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "edu",
-                    "student-groups",
-                    "{{student_group_id}}",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Delete student group",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{access_token}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "DELETE",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/edu/student-groups/{{student_group_id}}/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "edu",
-                    "student-groups",
-                    "{{student_group_id}}",
-                    ""
-                  ]
-                }
-              },
-              "response": []
-            }
-          ],
-          "_postman_isSubFolder": true
-        }
-      ]
-    },
-    {
-      "name": "Works",
-      "item": [
-        {
-          "name": "Create task",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{access_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"Лабораторная работа № 1\",\n    \"subject\": \"{{subject_id}}\",\n    \"student_group\": \"{{student_group_id}}\"\n}"
-            },
-            "url": {
-              "raw": "{{domain}}/api/works/tasks/",
-              "host": [
-                "{{domain}}"
-              ],
-              "path": [
-                "api",
-                "works",
-                "tasks",
-                ""
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Create task",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"name\": \"Лабораторная работа № 1\",\n    \"subject\": \"{{subject_id}}\",\n    \"student_group\": \"{{student_group_id}}\"\n}"
-                },
-                "url": {
-                  "raw": "{{domain}}/api/works/tasks/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "works",
-                    "tasks",
-                    ""
-                  ]
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "Date",
-                  "value": "Mon, 15 Apr 2019 23:19:01 GMT"
-                },
-                {
-                  "key": "Server",
-                  "value": "WSGIServer/0.2 CPython/3.7.2"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Allow",
-                  "value": "GET, POST, HEAD, OPTIONS"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "SAMEORIGIN"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "356"
-                },
-                {
-                  "key": "Vary",
-                  "value": "Origin"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"id\": \"4f04b018-bfcc-45c6-9d82-9426dfc458b5\",\n    \"name\": \"Лабораторная работа № 1\",\n    \"description\": \"\",\n    \"file\": null,\n    \"attachment\": null,\n    \"deadline\": null,\n    \"createDatetime\": \"2019-04-15T23:19:01.229223Z\",\n    \"editDatetime\": \"2019-04-15T23:19:01.229223Z\",\n    \"subject\": \"4fa0b764-8913-49d6-a455-8d6eb6d0c8ec\",\n    \"studentGroup\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\"\n}"
-            }
-          ]
-        },
-        {
-          "name": "Get all tasks",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{access_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": {
-              "raw": "{{domain}}/api/works/tasks/",
-              "host": [
-                "{{domain}}"
-              ],
-              "path": [
-                "api",
-                "works",
-                "tasks",
-                ""
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Get all tasks",
-              "originalRequest": {
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/works/tasks/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "works",
-                    "tasks",
-                    ""
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "Date",
-                  "value": "Mon, 15 Apr 2019 23:57:10 GMT"
-                },
-                {
-                  "key": "Server",
-                  "value": "WSGIServer/0.2 CPython/3.7.2"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Allow",
-                  "value": "GET, POST, HEAD, OPTIONS"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "SAMEORIGIN"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "715"
-                },
-                {
-                  "key": "Vary",
-                  "value": "Origin"
-                }
-              ],
-              "cookie": [],
-              "body": "[\n    {\n        \"id\": \"4f04b018-bfcc-45c6-9d82-9426dfc458b5\",\n        \"name\": \"Лабораторная работа № 1\",\n        \"description\": \"\",\n        \"file\": null,\n        \"attachment\": null,\n        \"deadline\": null,\n        \"createDatetime\": \"2019-04-15T23:19:01.229223Z\",\n        \"editDatetime\": \"2019-04-15T23:19:01.229223Z\",\n        \"subject\": \"4fa0b764-8913-49d6-a455-8d6eb6d0c8ec\",\n        \"studentGroup\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\"\n    },\n    {\n        \"id\": \"24cd4c28-1e04-438f-acaa-8166b719efdb\",\n        \"name\": \"Лабораторная работа № 2\",\n        \"description\": \"\",\n        \"file\": null,\n        \"attachment\": null,\n        \"deadline\": null,\n        \"createDatetime\": \"2019-04-15T23:46:52.383130Z\",\n        \"editDatetime\": \"2019-04-15T23:46:52.383130Z\",\n        \"subject\": \"4fa0b764-8913-49d6-a455-8d6eb6d0c8ec\",\n        \"studentGroup\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\"\n    }\n]"
-            }
-          ]
-        },
-        {
-          "name": "Delete task",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{access_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": {
-              "raw": "{{domain}}/api/works/tasks/{{task_id}}/",
-              "host": [
-                "{{domain}}"
-              ],
-              "path": [
-                "api",
-                "works",
-                "tasks",
-                "{{task_id}}",
-                ""
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Get all tasks",
-              "originalRequest": {
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{domain}}/api/works/tasks/",
-                  "host": [
-                    "{{domain}}"
-                  ],
-                  "path": [
-                    "api",
-                    "works",
-                    "tasks",
-                    ""
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "Date",
-                  "value": "Mon, 15 Apr 2019 23:57:10 GMT"
-                },
-                {
-                  "key": "Server",
-                  "value": "WSGIServer/0.2 CPython/3.7.2"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Allow",
-                  "value": "GET, POST, HEAD, OPTIONS"
-                },
-                {
-                  "key": "X-Frame-Options",
-                  "value": "SAMEORIGIN"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "715"
-                },
-                {
-                  "key": "Vary",
-                  "value": "Origin"
-                }
-              ],
-              "cookie": [],
-              "body": "[\n    {\n        \"id\": \"4f04b018-bfcc-45c6-9d82-9426dfc458b5\",\n        \"name\": \"Лабораторная работа № 1\",\n        \"description\": \"\",\n        \"file\": null,\n        \"attachment\": null,\n        \"deadline\": null,\n        \"createDatetime\": \"2019-04-15T23:19:01.229223Z\",\n        \"editDatetime\": \"2019-04-15T23:19:01.229223Z\",\n        \"subject\": \"4fa0b764-8913-49d6-a455-8d6eb6d0c8ec\",\n        \"studentGroup\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\"\n    },\n    {\n        \"id\": \"24cd4c28-1e04-438f-acaa-8166b719efdb\",\n        \"name\": \"Лабораторная работа № 2\",\n        \"description\": \"\",\n        \"file\": null,\n        \"attachment\": null,\n        \"deadline\": null,\n        \"createDatetime\": \"2019-04-15T23:46:52.383130Z\",\n        \"editDatetime\": \"2019-04-15T23:46:52.383130Z\",\n        \"subject\": \"4fa0b764-8913-49d6-a455-8d6eb6d0c8ec\",\n        \"studentGroup\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\"\n    }\n]"
-            }
-          ]
-        },
-        {
-          "name": "Create report",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{access_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "name",
-                  "value": "Отчет по лабораторной работе №3",
-                  "type": "text"
-                },
-                {
-                  "key": "task",
-                  "value": "{{task_id}}",
-                  "type": "text"
-                },
-                {
-                  "key": "student",
-                  "value": "{{student_id}}",
-                  "type": "text"
-                },
-                {
-                  "key": "file",
-                  "type": "file",
-                  "src": ""
-                }
-              ]
-            },
-            "url": {
-              "raw": "{{domain}}/api/works/reports/",
-              "host": [
-                "{{domain}}"
-              ],
-              "path": [
-                "api",
-                "works",
-                "reports",
-                ""
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get all reports",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{access_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "type": "text",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"Лабораторная работа № 1\",\n    \"subject\": \"{{subject_id}}\",\n    \"student_group\": \"{{student_group_id}}\"\n}"
-            },
-            "url": {
-              "raw": "{{domain}}/api/works/reports/",
-              "host": [
-                "{{domain}}"
-              ],
-              "path": [
-                "api",
-                "works",
-                "reports",
-                ""
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Edit report",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{access_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/x-www-form-urlencoded",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "name",
-                  "value": "Отчет по лабораторной работе №1",
-                  "type": "text",
-                  "disabled": true
-                },
-                {
-                  "key": "task",
-                  "value": " {{task_id}}",
-                  "type": "text",
-                  "disabled": true
-                },
-                {
-                  "key": "student",
-                  "value": " {{student_id}}",
-                  "type": "text",
-                  "disabled": true
-                },
-                {
-                  "key": "file",
-                  "type": "file",
-                  "src": ""
-                }
-              ]
-            },
-            "url": {
-              "raw": "{{domain}}/api/works/reports/{{report_id}}/",
-              "host": [
-                "{{domain}}"
-              ],
-              "path": [
-                "api",
-                "works",
-                "reports",
-                "{{report_id}}",
-                ""
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ],
-  "variable": [
-    {
-      "id": "5b8fb5f3-c8a4-4c7f-88e5-67d5140c1110",
-      "key": "{{basic_url}}",
-      "value": "localhost:8000",
-      "type": "string"
-    }
-  ]
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Login As Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "19825ee1-0f2b-411e-b389-221ca0929033",
+										"exec": [
+											"var responseJSON = JSON.parse(responseBody);",
+											"",
+											"tests[\"response contains 'token' property\"] = responseJSON.hasOwnProperty('token');",
+											"",
+											"if (tests[\"response contains 'token' property\"]) { ",
+											"    pm.globals.set(\"token\", responseJSON.token);",
+											"}",
+											"",
+											"tests[\"Global variable 'token' has been set\"] = pm.globals.get('token') === responseJSON.token;",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\": \"{{admin_username}}\",\n\t\"password\": \"{{admin_password}}\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/login/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Login",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"admin\"\n}"
+										},
+										"url": {
+											"raw": "{{domain}}/api/auth/login/",
+											"host": [
+												"{{domain}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"login",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 15 Apr 2019 23:52:59 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Allow",
+											"value": "POST, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "Content-Length",
+											"value": "351"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoic2xpZGluZyIsImV4cCI6MTU1NTk3NzE3OSwianRpIjoiY2Q4OGMxM2NhMDgyNGFhZWFhMjJjOTQ1ODAzYjMzZTMiLCJyZWZyZXNoX2V4cCI6MTU1NTk3NzE3OSwidXNlcl9pZCI6IjJiOTk1MDdiLTk3ODMtNDRhZC05MDAwLTQ3OGU2MTUwYTlmNSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlcyI6WyJhZG1pbiJdfQ.5YiEhdnrmmTZXrHKzLukTuL84IiU9ShJXkx744EijWE\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Get profile",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a236e34f-72db-4b9b-95c1-ff1df37ca202",
+										"exec": [
+											"var responseJSON = JSON.parse(responseBody);",
+											"",
+											"tests[\"response contains 'id' property\"] = responseJSON.hasOwnProperty('id');",
+											"tests[\"response contains 'username' property\"] = responseJSON.hasOwnProperty('username');",
+											"tests[\"response contains 'firstName' property\"] = responseJSON.hasOwnProperty('firstName');",
+											"tests[\"response contains 'secondName' property\"] = responseJSON.hasOwnProperty('secondName');",
+											"tests[\"response contains 'lastName' property\"] = responseJSON.hasOwnProperty('lastName');",
+											"",
+											"tests[\"response contains 'roles' property with 'admin' value\"] = responseJSON.hasOwnProperty('roles') && responseJSON.roles.includes('admin');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/profile/me/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"profile",
+										"me",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e067a480-58dc-4da8-9965-609ec5023351",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "968165af-1952-4580-b074-aea79e898a13",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Create user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b4409ad7-1f76-4e94-8c41-3ca421ead778",
+										"exec": [
+											"var responseJSON = JSON.parse(responseBody);",
+											"",
+											"tests[\"response contains 'id' property\"] = responseJSON.hasOwnProperty('id');",
+											"",
+											"if (tests[\"response contains 'id' property\"]) {",
+											"    pm.globals.set(\"user_id\", responseJSON.id);",
+											"}",
+											"",
+											"tests[\"response contains 'username' property\"] = responseJSON.hasOwnProperty('username');",
+											"tests[\"response contains 'firstName' property\"] = responseJSON.hasOwnProperty('firstName');",
+											"tests[\"response contains 'secondName' property\"] = responseJSON.hasOwnProperty('secondName');",
+											"tests[\"response contains 'lastName' property\"] = responseJSON.hasOwnProperty('lastName');",
+											"tests[\"response does not contains 'password' property\"] = !responseJSON.hasOwnProperty('password');",
+											"",
+											"tests[\"response contains 'roles' property\"] = responseJSON.hasOwnProperty('roles');"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "00a3b9fd-8a52-4ab5-983c-067bdcea4041",
+										"exec": [
+											"pm.globals.set(\"testuser_username\", \"testuser\");",
+											"pm.globals.set(\"testuser_password\", \"testuser\");",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"{{testuser_username}}\",\n\t\"password\":\"{{testuser_password}}\",\n\t\"first_name\":\"Иван\",\n\t\"second_name\":\"Иванов\",\n\t\"last_name\":\"Иванович\",\n\t\"roles\":[\n\t\t\"student\"\n\t\t]\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/users/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login as new user",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\": \"{{testuser_username}}\",\n\t\"password\": \"{{testuser_password}}\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/login/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "14771b91-2695-4f71-b090-dc67a56ff602",
+										"exec": [
+											"var responseJSON = JSON.parse(responseBody);",
+											"",
+											"for (let i = 0; i < responseJSON.length; i++) {",
+											"    let user = responseJSON[i];",
+											"    tests[`user ${i} in response contains 'id' property`] = user.hasOwnProperty('id');",
+											"    tests[`user ${i} in response contains 'username' property`] = user.hasOwnProperty('username');",
+											"    tests[`user ${i} in response contains 'firstName' property`] = user.hasOwnProperty('firstName');",
+											"    tests[`user ${i} in response contains 'secondName' property`] = user.hasOwnProperty('secondName');",
+											"    tests[`user ${i} in response contains 'lastName' property`] = user.hasOwnProperty('lastName');",
+											"",
+											"    tests[`user ${i} in response contains 'roles' property`] = user.hasOwnProperty('roles');",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/users/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c088062-bfb0-4748-aa39-fe245c8de921",
+										"exec": [
+											"var responseJSON = JSON.parse(responseBody);",
+											"",
+											"tests[\"response contains 'id' property equal to env var value\"] = responseJSON.hasOwnProperty('id') && responseJSON.id ===  pm.globals.get(\"user_id\");",
+											"",
+											"tests[\"response contains 'username' property\"] = responseJSON.hasOwnProperty('username');",
+											"tests[\"response contains 'firstName' property\"] = responseJSON.hasOwnProperty('firstName');",
+											"tests[\"response contains 'secondName' property\"] = responseJSON.hasOwnProperty('secondName');",
+											"tests[\"response contains 'lastName' property\"] = responseJSON.hasOwnProperty('lastName');",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"first_name\":\"Иван_{{testuser_username}}\",\n\t\"second_name\":\"Иванов_{{testuser_username}}\",\n\t\"last_name\":\"Иванович_{{testuser_username}}\",\n\t\"roles\":[\n\t\t\"admin\"\n\t\t]\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/users/{{user_id}}/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"users",
+										"{{user_id}}",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Edit user",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"first_name\":\"Иван\",\n\t\"second_name\":\"Иванов\",\n\t\"last_name\":\"Иванович\",\n\t\"roles\":[\n\t\t\"admin\"\n\t\t]\n}"
+										},
+										"url": {
+											"raw": "{{domain}}/api/auth/users/{{user_id}}/",
+											"host": [
+												"{{domain}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"users",
+												"{{user_id}}",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 15 Apr 2019 23:52:48 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "Content-Length",
+											"value": "163"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"2b99507b-9783-44ad-9000-478e6150a9f5\",\n    \"username\": \"admin\",\n    \"firstName\": \"Иван\",\n    \"secondName\": \"Иванов\",\n    \"lastName\": \"Иванович\",\n    \"roles\": [\n        \"admin\"\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d6ff8208-f2bd-4dc0-b7b1-633fc38be11d",
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/users/{{user_id}}/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"users",
+										"{{user_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Students",
+					"item": [
+						{
+							"name": "Get all students",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/students/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"students",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit student",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cipher\": \"17И01234\",\n    \"studentGroup\": \"{{student_group_id}}\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/students/{{student_id}}/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"students",
+										"{{student_id}}",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Edit student",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"cipher\": \"17И01234\",\n    \"studentGroup\": \"{{student_group_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{domain}}/api/auth/students/{{student_id}}/",
+											"host": [
+												"{{domain}}"
+											],
+											"path": [
+												"api",
+												"auth",
+												"students",
+												"{{student_id}}",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 15 Apr 2019 23:41:19 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "Content-Length",
+											"value": "120"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"f6fa5190-804b-4465-9d4c-e156d456d51d\",\n    \"cipher\": \"17И01234\",\n    \"studentGroup\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete student",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/students/{{student_id}}/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"students",
+										"{{student_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Tutors",
+					"item": [
+						{
+							"name": "Get all tutors",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/tutors/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"tutors",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create tutor",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user\": \"cc483bb9-400d-5e04-8804-05f36838f32e\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/tutor/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"tutor",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit tutor",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user\": \"cc483bb9-400d-5e04-8804-05f36838f32e\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/tutors/{{tutor_id}}/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"tutors",
+										"{{tutor_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete tutor",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/tutors/{{tutor_id}}/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"tutors",
+										"{{tutor_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Teachers",
+					"item": [
+						{
+							"name": "Get all teachers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/teachers/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"teachers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create teacher",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/teachers/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"teachers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit teacher",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/teachers/{{teacher_id}}/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"teachers",
+										"{{teacher_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete teacher",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/teachers/{{teacher_id}}/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"teachers",
+										"{{teacher_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Get all roles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain}}/api/auth/roles/",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"roles",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Edu",
+			"item": [
+				{
+					"name": "Specialities",
+					"item": [
+						{
+							"name": "Get all specialities",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/edu/specialities/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"edu",
+										"specialities",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create speciality",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.02\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/edu/specialities/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"edu",
+										"specialities",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create speciality",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.02\"\n}"
+										},
+										"url": {
+											"raw": "{{domain}}/api/edu/specialities/",
+											"host": [
+												"{{domain}}"
+											],
+											"path": [
+												"api",
+												"edu",
+												"specialities",
+												""
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 15 Apr 2019 19:44:22 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "Content-Length",
+											"value": "116"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"c55e92ce-1166-4faf-9222-85bcff426af4\",\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.02\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Edit speciality",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.04\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/edu/specialities/{{speciality_id}}/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"edu",
+										"specialities",
+										"{{speciality_id}}",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Edit speciality",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.04\"\n}"
+										},
+										"url": {
+											"raw": "{{domain}}/api/edu/specialities/{{speciality_id}}/",
+											"host": [
+												"{{domain}}"
+											],
+											"path": [
+												"api",
+												"edu",
+												"specialities",
+												"{{speciality_id}}",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 15 Apr 2019 20:52:32 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "Content-Length",
+											"value": "116"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"c55e92ce-1166-4faf-9222-85bcff426af4\",\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.04\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete speciality",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/edu/specialities/{{speciality_id}}/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"edu",
+										"specialities",
+										"{{speciality_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Subjects",
+					"item": [
+						{
+							"name": "Create subject",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":2\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/edu/subjects/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"edu",
+										"subjects",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create subject",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":2\n}"
+										},
+										"url": {
+											"raw": "{{domain}}/api/edu/subjects/",
+											"host": [
+												"{{domain}}"
+											],
+											"path": [
+												"api",
+												"edu",
+												"subjects",
+												""
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 07 Apr 2019 14:20:35 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "Content-Length",
+											"value": "74"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"df0c4bd5-4d39-4ba1-a5b4-3493b8394311\",\n    \"name\": \"ООП\",\n    \"semester\": 2\n}"
+								}
+							]
+						},
+						{
+							"name": "Get all subjects",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/edu/subjects/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"edu",
+										"subjects",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get all subjects",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{domain}}/api/edu/subjects/",
+											"host": [
+												"{{domain}}"
+											],
+											"path": [
+												"api",
+												"edu",
+												"subjects",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 07 Apr 2019 14:20:50 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "Content-Length",
+											"value": "151"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": \"0edba675-3602-4fbf-ae0b-d5b17e2ad1a5\",\n        \"name\": \"ООП\",\n        \"semester\": 3\n    },\n    {\n        \"id\": \"df0c4bd5-4d39-4ba1-a5b4-3493b8394311\",\n        \"name\": \"ООП\",\n        \"semester\": 2\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Edit subject",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":\"3\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/edu/subjects/{{subject_id}}/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"edu",
+										"subjects",
+										"{{subject_id}}",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Edit subject",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":\"3\"\n}"
+										},
+										"url": {
+											"raw": "{{domain}}/api/edu/subjects/{{subject_id}}/",
+											"host": [
+												"{{domain}}"
+											],
+											"path": [
+												"api",
+												"edu",
+												"subjects",
+												"{{subject_id}}",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 07 Apr 2019 14:20:24 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "Content-Length",
+											"value": "74"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"0edba675-3602-4fbf-ae0b-d5b17e2ad1a5\",\n    \"name\": \"ООП\",\n    \"semester\": 3\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete subject",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/edu/subjects/{{subject_id}}/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"edu",
+										"subjects",
+										"{{subject_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Students Groups",
+					"item": [
+						{
+							"name": "Create student group",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"30\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/edu/student-groups/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"edu",
+										"student-groups",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get all subjects",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{domain}}/api/edu/subjects/",
+											"host": [
+												"{{domain}}"
+											],
+											"path": [
+												"api",
+												"edu",
+												"subjects",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 07 Apr 2019 14:20:50 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "Content-Length",
+											"value": "151"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": \"0edba675-3602-4fbf-ae0b-d5b17e2ad1a5\",\n        \"name\": \"ООП\",\n        \"semester\": 3\n    },\n    {\n        \"id\": \"df0c4bd5-4d39-4ba1-a5b4-3493b8394311\",\n        \"name\": \"ООП\",\n        \"semester\": 2\n    }\n]"
+								},
+								{
+									"name": "Create student group",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"30\"\n}"
+										},
+										"url": {
+											"raw": "{{domain}}/api/edu/student-groups/",
+											"host": [
+												"{{domain}}"
+											],
+											"path": [
+												"api",
+												"edu",
+												"student-groups",
+												""
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 15 Apr 2019 20:54:43 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "Content-Length",
+											"value": "135"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\",\n    \"name\": \"ИКБО-13-17\",\n    \"speciality\": \"c55e92ce-1166-4faf-9222-85bcff426af4\",\n    \"quantity\": 30\n}"
+								}
+							]
+						},
+						{
+							"name": "Get all students groups",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/edu/student-groups/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"edu",
+										"student-groups",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get all subjects",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{domain}}/api/edu/subjects/",
+											"host": [
+												"{{domain}}"
+											],
+											"path": [
+												"api",
+												"edu",
+												"subjects",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 07 Apr 2019 14:20:50 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "Content-Length",
+											"value": "151"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": \"0edba675-3602-4fbf-ae0b-d5b17e2ad1a5\",\n        \"name\": \"ООП\",\n        \"semester\": 3\n    },\n    {\n        \"id\": \"df0c4bd5-4d39-4ba1-a5b4-3493b8394311\",\n        \"name\": \"ООП\",\n        \"semester\": 2\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Edit student group",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"31\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/edu/student-groups/{{student_group_id}}/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"edu",
+										"student-groups",
+										"{{student_group_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete student group",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/edu/student-groups/{{student_group_id}}/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"edu",
+										"student-groups",
+										"{{student_group_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Works",
+			"item": [
+				{
+					"name": "Create task",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Лабораторная работа № 1\",\n    \"subject\": \"{{subject_id}}\",\n    \"student_group\": \"{{student_group_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api/works/tasks/",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"works",
+								"tasks",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create task",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Лабораторная работа № 1\",\n    \"subject\": \"{{subject_id}}\",\n    \"student_group\": \"{{student_group_id}}\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/works/tasks/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"works",
+										"tasks",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 15 Apr 2019 23:19:01 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.7.2"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Content-Length",
+									"value": "356"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"4f04b018-bfcc-45c6-9d82-9426dfc458b5\",\n    \"name\": \"Лабораторная работа № 1\",\n    \"description\": \"\",\n    \"file\": null,\n    \"attachment\": null,\n    \"deadline\": null,\n    \"createDatetime\": \"2019-04-15T23:19:01.229223Z\",\n    \"editDatetime\": \"2019-04-15T23:19:01.229223Z\",\n    \"subject\": \"4fa0b764-8913-49d6-a455-8d6eb6d0c8ec\",\n    \"studentGroup\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all tasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain}}/api/works/tasks/",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"works",
+								"tasks",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all tasks",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/works/tasks/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"works",
+										"tasks",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 15 Apr 2019 23:57:10 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.7.2"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Content-Length",
+									"value": "715"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"4f04b018-bfcc-45c6-9d82-9426dfc458b5\",\n        \"name\": \"Лабораторная работа № 1\",\n        \"description\": \"\",\n        \"file\": null,\n        \"attachment\": null,\n        \"deadline\": null,\n        \"createDatetime\": \"2019-04-15T23:19:01.229223Z\",\n        \"editDatetime\": \"2019-04-15T23:19:01.229223Z\",\n        \"subject\": \"4fa0b764-8913-49d6-a455-8d6eb6d0c8ec\",\n        \"studentGroup\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\"\n    },\n    {\n        \"id\": \"24cd4c28-1e04-438f-acaa-8166b719efdb\",\n        \"name\": \"Лабораторная работа № 2\",\n        \"description\": \"\",\n        \"file\": null,\n        \"attachment\": null,\n        \"deadline\": null,\n        \"createDatetime\": \"2019-04-15T23:46:52.383130Z\",\n        \"editDatetime\": \"2019-04-15T23:46:52.383130Z\",\n        \"subject\": \"4fa0b764-8913-49d6-a455-8d6eb6d0c8ec\",\n        \"studentGroup\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Delete task",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{domain}}/api/works/tasks/{{task_id}}/",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"works",
+								"tasks",
+								"{{task_id}}",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all tasks",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/works/tasks/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"works",
+										"tasks",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 15 Apr 2019 23:57:10 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.7.2"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Content-Length",
+									"value": "715"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"4f04b018-bfcc-45c6-9d82-9426dfc458b5\",\n        \"name\": \"Лабораторная работа № 1\",\n        \"description\": \"\",\n        \"file\": null,\n        \"attachment\": null,\n        \"deadline\": null,\n        \"createDatetime\": \"2019-04-15T23:19:01.229223Z\",\n        \"editDatetime\": \"2019-04-15T23:19:01.229223Z\",\n        \"subject\": \"4fa0b764-8913-49d6-a455-8d6eb6d0c8ec\",\n        \"studentGroup\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\"\n    },\n    {\n        \"id\": \"24cd4c28-1e04-438f-acaa-8166b719efdb\",\n        \"name\": \"Лабораторная работа № 2\",\n        \"description\": \"\",\n        \"file\": null,\n        \"attachment\": null,\n        \"deadline\": null,\n        \"createDatetime\": \"2019-04-15T23:46:52.383130Z\",\n        \"editDatetime\": \"2019-04-15T23:46:52.383130Z\",\n        \"subject\": \"4fa0b764-8913-49d6-a455-8d6eb6d0c8ec\",\n        \"studentGroup\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create report",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Отчет по лабораторной работе №3",
+									"type": "text"
+								},
+								{
+									"key": "task",
+									"value": "{{task_id}}",
+									"type": "text"
+								},
+								{
+									"key": "student",
+									"value": "{{student_id}}",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/api/works/reports/",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"works",
+								"reports",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all reports",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Лабораторная работа № 1\",\n    \"subject\": \"{{subject_id}}\",\n    \"student_group\": \"{{student_group_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api/works/reports/",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"works",
+								"reports",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit report",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Отчет по лабораторной работе №1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "task",
+									"value": " {{task_id}}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "student",
+									"value": " {{student_id}}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/api/works/reports/{{report_id}}/",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"works",
+								"reports",
+								"{{report_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a0e92463-1935-458e-922c-15448030bcd0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "053c2a58-9075-44b1-9104-10e1a5d314fd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
 }

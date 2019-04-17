@@ -91,7 +91,7 @@ class User(AbstractBaseUser):
 
 
 class Student(Model):
-    cipher = models.CharField(max_length=15, unique=True, null=True)
+    cipher = models.CharField(max_length=15, unique=True, blank=True)
     id = models.OneToOneField(
         User, primary_key=True, related_name="student", on_delete=models.CASCADE
     )

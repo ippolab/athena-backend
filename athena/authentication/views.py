@@ -1,5 +1,5 @@
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import status, viewsets
+from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -45,19 +45,34 @@ class UserViewSet(viewsets.ModelViewSet):
         )
 
 
-class StudentViewSet(viewsets.ModelViewSet):
+class StudentViewSet(
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
     permission_classes = (IsAdmin,)
 
 
-class TutorViewSet(viewsets.ModelViewSet):
+class TutorViewSet(
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
     queryset = Tutor.objects.all()
     serializer_class = TutorSerializer
     permission_classes = (IsAdmin,)
 
 
-class TeacherViewSet(viewsets.ModelViewSet):
+class TeacherViewSet(
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
     permission_classes = (IsAdmin,)
