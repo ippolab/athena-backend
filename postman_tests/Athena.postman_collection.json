@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cad9b9ea-4363-458c-8aa3-b1b7ae17a6bb",
+      "_postman_id": "1f6cef1d-37d3-4542-bea2-ecef038a1631",
 		"name": "Athena",
 		"description": "Athena API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -13,7 +13,7 @@
 					"name": "Login",
 					"item": [
 						{
-							"name": "Login As Admin",
+                          "name": "Login as admin",
 							"event": [
 								{
 									"listen": "test",
@@ -63,7 +63,236 @@
 										"login",
 										""
 									]
+                                },
+                              "description": "Login. Very simple. Really."
+                            },
+                          "response": [
+                            {
+                              "name": "Login",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "name": "Content-Type",
+                                    "value": "application/json",
+                                    "type": "text"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"admin\"\n}"
+                                },
+                                "url": {
+                                  "raw": "{{domain}}/api/auth/login/",
+                                  "host": [
+                                    "{{domain}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "auth",
+                                    "login",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Date",
+                                  "value": "Mon, 15 Apr 2019 23:52:59 GMT"
+                                },
+                                {
+                                  "key": "Server",
+                                  "value": "WSGIServer/0.2 CPython/3.7.2"
+                                },
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                },
+                                {
+                                  "key": "Allow",
+                                  "value": "POST, OPTIONS"
+                                },
+                                {
+                                  "key": "X-Frame-Options",
+                                  "value": "SAMEORIGIN"
+                                },
+                                {
+                                  "key": "Content-Length",
+                                  "value": "351"
+                                },
+                                {
+                                  "key": "Vary",
+                                  "value": "Origin"
+                                }
+                              ],
+                              "cookie": [],
+                              "body": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoic2xpZGluZyIsImV4cCI6MTU1NTk3NzE3OSwianRpIjoiY2Q4OGMxM2NhMDgyNGFhZWFhMjJjOTQ1ODAzYjMzZTMiLCJyZWZyZXNoX2V4cCI6MTU1NTk3NzE3OSwidXNlcl9pZCI6IjJiOTk1MDdiLTk3ODMtNDRhZC05MDAwLTQ3OGU2MTUwYTlmNSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlcyI6WyJhZG1pbiJdfQ.5YiEhdnrmmTZXrHKzLukTuL84IiU9ShJXkx744EijWE\"\n}"
 								}
+                          ]
+                        },
+                      {
+                        "name": "Verify token",
+                        "event": [
+                          {
+                            "listen": "test",
+                            "script": {
+                              "id": "19825ee1-0f2b-411e-b389-221ca0929033",
+                              "exec": [
+                                ""
+                              ],
+                              "type": "text/javascript"
+                            }
+                          }
+                        ],
+                        "request": {
+                          "auth": {
+                            "type": "noauth"
+                          },
+                          "method": "POST",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "name": "Content-Type",
+                              "type": "text",
+                              "value": "application/json"
+                            }
+                          ],
+                          "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"token\": \"{{token}}\"\n}"
+                          },
+                          "url": {
+                            "raw": "{{domain}}/api/auth/login/verify/",
+                            "host": [
+                              "{{domain}}"
+                            ],
+                            "path": [
+                              "api",
+                              "auth",
+                              "login",
+                              "verify",
+                              ""
+                            ]
+                          },
+                          "description": "Login. Very simple. Really."
+                        },
+                        "response": [
+                          {
+                            "name": "Login",
+                            "originalRequest": {
+                              "method": "POST",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "name": "Content-Type",
+                                  "value": "application/json",
+                                  "type": "text"
+                                }
+                              ],
+                              "body": {
+                                "mode": "raw",
+                                "raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"admin\"\n}"
+                              },
+                              "url": {
+                                "raw": "{{domain}}/api/auth/login/",
+                                "host": [
+                                  "{{domain}}"
+                                ],
+                                "path": [
+                                  "api",
+                                  "auth",
+                                  "login",
+                                  ""
+                                ]
+                              }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                              {
+                                "key": "Date",
+                                "value": "Mon, 15 Apr 2019 23:52:59 GMT"
+                              },
+                              {
+                                "key": "Server",
+                                "value": "WSGIServer/0.2 CPython/3.7.2"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Allow",
+                                "value": "POST, OPTIONS"
+                              },
+                              {
+                                "key": "X-Frame-Options",
+                                "value": "SAMEORIGIN"
+                              },
+                              {
+                                "key": "Content-Length",
+                                "value": "351"
+                              },
+                              {
+                                "key": "Vary",
+                                "value": "Origin"
+                              }
+                            ],
+                            "cookie": [],
+                            "body": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoic2xpZGluZyIsImV4cCI6MTU1NTk3NzE3OSwianRpIjoiY2Q4OGMxM2NhMDgyNGFhZWFhMjJjOTQ1ODAzYjMzZTMiLCJyZWZyZXNoX2V4cCI6MTU1NTk3NzE3OSwidXNlcl9pZCI6IjJiOTk1MDdiLTk3ODMtNDRhZC05MDAwLTQ3OGU2MTUwYTlmNSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlcyI6WyJhZG1pbiJdfQ.5YiEhdnrmmTZXrHKzLukTuL84IiU9ShJXkx744EijWE\"\n}"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Refresh token",
+                        "event": [
+                          {
+                            "listen": "test",
+                            "script": {
+                              "id": "19825ee1-0f2b-411e-b389-221ca0929033",
+                              "exec": [
+                                ""
+                              ],
+                              "type": "text/javascript"
+                            }
+                          }
+                        ],
+                        "request": {
+                          "auth": {
+                            "type": "noauth"
+                          },
+                          "method": "POST",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "name": "Content-Type",
+                              "type": "text",
+                              "value": "application/json"
+                            }
+                          ],
+                          "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"token\": \"{{token}}\"\n}"
+                          },
+                          "url": {
+                            "raw": "{{domain}}/api/auth/login/refresh/",
+                            "host": [
+                              "{{domain}}"
+                            ],
+                            "path": [
+                              "api",
+                              "auth",
+                              "login",
+                              "refresh",
+                              ""
+                            ]
+                          },
+                          "description": "Login. Very simple. Really."
 							},
 							"response": [
 								{
@@ -181,7 +410,8 @@
 										"me",
 										""
 									]
-								}
+                                },
+                              "description": "Taking id for current user"
 							},
 							"response": []
 						}
@@ -223,6 +453,10 @@
 										"exec": [
 											"var responseJSON = JSON.parse(responseBody);",
 											"",
+                                          "pm.test(\"Successful POST request\", function () {",
+                                          "    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+                                          "});",
+                                          "",
 											"tests[\"response contains 'id' property\"] = responseJSON.hasOwnProperty('id');",
 											"",
 											"if (tests[\"response contains 'id' property\"]) {",
@@ -235,7 +469,8 @@
 											"tests[\"response contains 'lastName' property\"] = responseJSON.hasOwnProperty('lastName');",
 											"tests[\"response does not contains 'password' property\"] = !responseJSON.hasOwnProperty('password');",
 											"",
-											"tests[\"response contains 'roles' property\"] = responseJSON.hasOwnProperty('roles');"
+                                          "tests[\"response contains 'roles' property\"] = responseJSON.hasOwnProperty('roles');",
+                                          ""
 										],
 										"type": "text/javascript"
 									}
@@ -284,6 +519,20 @@
 						},
 						{
 							"name": "Login as new user",
+                          "event": [
+                            {
+                              "listen": "test",
+                              "script": {
+                                "id": "7a178493-69a5-42d1-afbd-1923891e5788",
+                                "exec": [
+                                  "pm.test(\"Successful POST request\", function () {",
+                                  "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+                                  "});"
+                                ],
+                                "type": "text/javascript"
+                              }
+                            }
+                          ],
 							"request": {
 								"auth": {
 									"type": "noauth"
@@ -293,8 +542,8 @@
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
+                                      "type": "text",
+                                      "value": "application/json"
 									}
 								],
 								"body": {
@@ -312,7 +561,8 @@
 										"login",
 										""
 									]
-								}
+                                },
+                              "description": "Check new user. Get error if not created."
 							},
 							"response": []
 						},
@@ -397,7 +647,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"first_name\":\"Иван_{{testuser_username}}\",\n\t\"second_name\":\"Иванов_{{testuser_username}}\",\n\t\"last_name\":\"Иванович_{{testuser_username}}\",\n\t\"roles\":[\n\t\t\"admin\"\n\t\t]\n}"
+                                  "raw": "{\n\t\"first_name\":\"{{testuser_username}}\",\n\t\"second_name\":\"{{testuser_username}}\",\n\t\"last_name\":\"{{testuser_username}}\",\n\t\"roles\":[\n\t\t\"admin\"\n\t\t]\n}"
 								},
 								"url": {
 									"raw": "{{domain}}/api/auth/users/{{user_id}}/",
@@ -529,6 +779,25 @@
 					"item": [
 						{
 							"name": "Get all students",
+                          "event": [
+                            {
+                              "listen": "test",
+                              "script": {
+                                "id": "235ca9ab-2306-4493-9480-70c6f4b2a7fb",
+                                "exec": [
+                                  "var responseJSON = JSON.parse(responseBody);",
+                                  "",
+                                  "for (let i = 0; i < responseJSON.length; i++) {",
+                                  "    let student = responseJSON[i];",
+                                  "    tests[`student ${i} in response contains 'id' property`] = student.hasOwnProperty('id');",
+                                  "    tests[`student ${i} in response contains 'cipher' property`] = student.hasOwnProperty('cipher');",
+                                  "    tests[`student ${i} in response contains 'studentGroup' property`] = student.hasOwnProperty('studentGroup');",
+                                  "}"
+                                ],
+                                "type": "text/javascript"
+                              }
+                            }
+                          ],
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -652,6 +921,18 @@
 						},
 						{
 							"name": "Delete student",
+                          "event": [
+                            {
+                              "listen": "test",
+                              "script": {
+                                "id": "d8acda92-f46a-4287-a5d7-982f1bc468f7",
+                                "exec": [
+                                  ""
+                                ],
+                                "type": "text/javascript"
+                              }
+                            }
+                          ],
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -660,7 +941,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/students/{{student_id}}/",
+                                  "raw": "{{domain}}/api/auth/students/{{user_id}}/",
 									"host": [
 										"{{domain}}"
 									],
@@ -668,7 +949,7 @@
 										"api",
 										"auth",
 										"students",
-										"{{student_id}}",
+                                      "{{user_id}}",
 										""
 									]
 								}
@@ -778,7 +1059,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/tutors/{{tutor_id}}/",
+                                  "raw": "{{domain}}/api/auth/tutors/{{user_id}}/",
 									"host": [
 										"{{domain}}"
 									],
@@ -786,7 +1067,7 @@
 										"api",
 										"auth",
 										"tutors",
-										"{{tutor_id}}",
+                                      "{{user_id}}",
 										""
 									]
 								}
@@ -896,7 +1177,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/teachers/{{teacher_id}}/",
+                                  "raw": "{{domain}}/api/auth/teachers/{{user_id}}/",
 									"host": [
 										"{{domain}}"
 									],
@@ -904,7 +1185,7 @@
 										"api",
 										"auth",
 										"teachers",
-										"{{teacher_id}}",
+                                      "{{user_id}}",
 										""
 									]
 								}
@@ -1538,34 +1819,41 @@
 							},
 							"response": [
 								{
-									"name": "Get all subjects",
+                                  "name": "Create student group",
 									"originalRequest": {
-										"method": "GET",
-										"header": [],
+                                      "method": "POST",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "name": "Content-Type",
+                                          "value": "application/json",
+                                          "type": "text"
+                                        }
+                                      ],
 										"body": {
 											"mode": "raw",
-											"raw": ""
+                                          "raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"30\"\n}"
 										},
 										"url": {
-											"raw": "{{domain}}/api/edu/subjects/",
+                                          "raw": "{{domain}}/api/edu/student-groups/",
 											"host": [
 												"{{domain}}"
 											],
 											"path": [
 												"api",
 												"edu",
-												"subjects",
+                                              "student-groups",
 												""
 											]
 										}
 									},
-									"status": "OK",
-									"code": 200,
+                                  "status": "Created",
+                                  "code": 201,
 									"_postman_previewlanguage": "json",
 									"header": [
 										{
 											"key": "Date",
-											"value": "Sun, 07 Apr 2019 14:20:50 GMT"
+                                          "value": "Mon, 15 Apr 2019 20:54:43 GMT"
 										},
 										{
 											"key": "Server",
@@ -1585,7 +1873,7 @@
 										},
 										{
 											"key": "Content-Length",
-											"value": "151"
+                                          "value": "135"
 										},
 										{
 											"key": "Vary",
@@ -1593,44 +1881,37 @@
 										}
 									],
 									"cookie": [],
-									"body": "[\n    {\n        \"id\": \"0edba675-3602-4fbf-ae0b-d5b17e2ad1a5\",\n        \"name\": \"ООП\",\n        \"semester\": 3\n    },\n    {\n        \"id\": \"df0c4bd5-4d39-4ba1-a5b4-3493b8394311\",\n        \"name\": \"ООП\",\n        \"semester\": 2\n    }\n]"
+                                  "body": "{\n    \"id\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\",\n    \"name\": \"ИКБО-13-17\",\n    \"speciality\": \"c55e92ce-1166-4faf-9222-85bcff426af4\",\n    \"quantity\": 30\n}"
 								},
 								{
-									"name": "Create student group",
+                                  "name": "Get all subjects",
 									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"name": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
+                                      "method": "GET",
+                                      "header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"30\"\n}"
+                                          "raw": ""
 										},
 										"url": {
-											"raw": "{{domain}}/api/edu/student-groups/",
+                                          "raw": "{{domain}}/api/edu/subjects/",
 											"host": [
 												"{{domain}}"
 											],
 											"path": [
 												"api",
 												"edu",
-												"student-groups",
+                                              "subjects",
 												""
 											]
 										}
 									},
-									"status": "Created",
-									"code": 201,
+                                  "status": "OK",
+                                  "code": 200,
 									"_postman_previewlanguage": "json",
 									"header": [
 										{
 											"key": "Date",
-											"value": "Mon, 15 Apr 2019 20:54:43 GMT"
+                                          "value": "Sun, 07 Apr 2019 14:20:50 GMT"
 										},
 										{
 											"key": "Server",
@@ -1650,7 +1931,7 @@
 										},
 										{
 											"key": "Content-Length",
-											"value": "135"
+                                          "value": "151"
 										},
 										{
 											"key": "Vary",
@@ -1658,7 +1939,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"id\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\",\n    \"name\": \"ИКБО-13-17\",\n    \"speciality\": \"c55e92ce-1166-4faf-9222-85bcff426af4\",\n    \"quantity\": 30\n}"
+                                  "body": "[\n    {\n        \"id\": \"0edba675-3602-4fbf-ae0b-d5b17e2ad1a5\",\n        \"name\": \"ООП\",\n        \"semester\": 3\n    },\n    {\n        \"id\": \"df0c4bd5-4d39-4ba1-a5b4-3493b8394311\",\n        \"name\": \"ООП\",\n        \"semester\": 2\n    }\n]"
 								}
 							]
 						},
