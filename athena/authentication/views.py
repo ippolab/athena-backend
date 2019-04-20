@@ -22,7 +22,7 @@ class TokenView(TokenObtainSlidingView):
     serializer_class = TokenSerializer
 
 
-class RoleViewSet(viewsets.ModelViewSet):
+class RoleViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
     permission_classes = (IsAdmin,)
@@ -45,34 +45,27 @@ class UserViewSet(viewsets.ModelViewSet):
         )
 
 
-class StudentViewSet(
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
-    viewsets.GenericViewSet,
-):
+class ProfileViewSet(mixins.ListModelMixin,
+                     mixins.RetrieveModelMixin,
+                     mixins.UpdateModelMixin,
+                     viewsets.GenericViewSet,
+                     ):
+    pass
+
+
+class StudentViewSet(ProfileViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
     permission_classes = (IsAdmin,)
 
 
-class TutorViewSet(
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
-    viewsets.GenericViewSet,
-):
+class TutorViewSet(ProfileViewSet):
     queryset = Tutor.objects.all()
     serializer_class = TutorSerializer
     permission_classes = (IsAdmin,)
 
 
-class TeacherViewSet(
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
-    viewsets.GenericViewSet,
-):
+class TeacherViewSet(ProfileViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
     permission_classes = (IsAdmin,)
