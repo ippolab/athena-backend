@@ -1,6 +1,6 @@
 {
 	"info": {
-      "_postman_id": "1f6cef1d-37d3-4542-bea2-ecef038a1631",
+      "_postman_id": "7191a9aa-8bc7-480d-a32f-4be3dd55a328",
 		"name": "Athena",
 		"description": "Athena API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -53,12 +53,11 @@
 									"raw": "{\n\t\"username\": \"{{admin_username}}\",\n\t\"password\": \"{{admin_password}}\"\n}"
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/login/",
+                                  "raw": "{{apiUrl}}/auth/login/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"login",
 										""
@@ -84,9 +83,9 @@
                                   "raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"admin\"\n}"
                                 },
                                 "url": {
-                                  "raw": "{{domain}}/api/auth/login/",
+                                  "raw": "{{apiUrl}}/api/auth/login/",
                                   "host": [
-                                    "{{domain}}"
+                                    "{{apiUrl}}"
                                   ],
                                   "path": [
                                     "api",
@@ -166,12 +165,11 @@
                             "raw": "{\n    \"token\": \"{{token}}\"\n}"
                           },
                           "url": {
-                            "raw": "{{domain}}/api/auth/login/verify/",
+                            "raw": "{{apiUrl}}/auth/login/verify/",
                             "host": [
-                              "{{domain}}"
+                              "{{apiUrl}}"
                             ],
                             "path": [
-                              "api",
                               "auth",
                               "login",
                               "verify",
@@ -198,9 +196,9 @@
                                 "raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"admin\"\n}"
                               },
                               "url": {
-                                "raw": "{{domain}}/api/auth/login/",
+                                "raw": "{{apiUrl}}/api/auth/login/",
                                 "host": [
-                                  "{{domain}}"
+                                  "{{apiUrl}}"
                                 ],
                                 "path": [
                                   "api",
@@ -280,12 +278,11 @@
                             "raw": "{\n    \"token\": \"{{token}}\"\n}"
                           },
                           "url": {
-                            "raw": "{{domain}}/api/auth/login/refresh/",
+                            "raw": "{{apiUrl}}/auth/login/refresh/",
                             "host": [
-                              "{{domain}}"
+                              "{{apiUrl}}"
                             ],
                             "path": [
-                              "api",
                               "auth",
                               "login",
                               "refresh",
@@ -312,9 +309,9 @@
 											"raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"admin\"\n}"
 										},
 										"url": {
-											"raw": "{{domain}}/api/auth/login/",
+                                          "raw": "{{apiUrl}}/api/auth/login/",
 											"host": [
-												"{{domain}}"
+                                              "{{apiUrl}}"
 											],
 											"path": [
 												"api",
@@ -399,12 +396,11 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/profile/me/",
+                                  "raw": "{{apiUrl}}/auth/profile/me/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"profile",
 										"me",
@@ -503,12 +499,11 @@
 									"raw": "{\n\t\"username\":\"{{testuser_username}}\",\n\t\"password\":\"{{testuser_password}}\",\n\t\"first_name\":\"Иван\",\n\t\"second_name\":\"Иванов\",\n\t\"last_name\":\"Иванович\",\n\t\"roles\":[\n\t\t\"student\"\n\t\t]\n}"
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/users/",
+                                  "raw": "{{apiUrl}}/auth/users/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"users",
 										""
@@ -551,12 +546,11 @@
 									"raw": "{\n\t\"username\": \"{{testuser_username}}\",\n\t\"password\": \"{{testuser_password}}\"\n}"
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/login/",
+                                  "raw": "{{apiUrl}}/auth/login/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"login",
 										""
@@ -599,12 +593,11 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/users/",
+                                  "raw": "{{apiUrl}}/auth/users/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"users",
 										""
@@ -650,12 +643,11 @@
                                   "raw": "{\n\t\"first_name\":\"{{testuser_username}}\",\n\t\"second_name\":\"{{testuser_username}}\",\n\t\"last_name\":\"{{testuser_username}}\",\n\t\"roles\":[\n\t\t\"admin\"\n\t\t]\n}"
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/users/{{user_id}}/",
+                                  "raw": "{{apiUrl}}/auth/users/{{user_id}}/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"users",
 										"{{user_id}}",
@@ -681,9 +673,9 @@
 											"raw": "{\n\t\"first_name\":\"Иван\",\n\t\"second_name\":\"Иванов\",\n\t\"last_name\":\"Иванович\",\n\t\"roles\":[\n\t\t\"admin\"\n\t\t]\n}"
 										},
 										"url": {
-											"raw": "{{domain}}/api/auth/users/{{user_id}}/",
+                                          "raw": "{{apiUrl}}/api/auth/users/{{user_id}}/",
 											"host": [
-												"{{domain}}"
+                                              "{{apiUrl}}"
 											],
 											"path": [
 												"api",
@@ -756,12 +748,11 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/users/{{user_id}}/",
+                                  "raw": "{{apiUrl}}/auth/users/{{user_id}}/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"users",
 										"{{user_id}}",
@@ -806,12 +797,11 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/students/",
+                                  "raw": "{{apiUrl}}/auth/students/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"students",
 										""
@@ -837,12 +827,11 @@
 									"raw": "{\n    \"cipher\": \"17И01234\",\n    \"studentGroup\": \"{{student_group_id}}\"\n}"
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/students/{{student_id}}/",
+                                  "raw": "{{apiUrl}}/auth/students/{{student_id}}/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"students",
 										"{{student_id}}",
@@ -868,9 +857,9 @@
 											"raw": "{\n    \"cipher\": \"17И01234\",\n    \"studentGroup\": \"{{student_group_id}}\"\n}"
 										},
 										"url": {
-											"raw": "{{domain}}/api/auth/students/{{student_id}}/",
+                                          "raw": "{{apiUrl}}/api/auth/students/{{student_id}}/",
 											"host": [
-												"{{domain}}"
+                                              "{{apiUrl}}"
 											],
 											"path": [
 												"api",
@@ -941,12 +930,11 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{domain}}/api/auth/students/{{user_id}}/",
+                                  "raw": "{{apiUrl}}/auth/students/{{user_id}}/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"students",
                                       "{{user_id}}",
@@ -972,12 +960,11 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/tutors/",
+                                  "raw": "{{apiUrl}}/auth/tutors/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"tutors",
 										""
@@ -1003,12 +990,11 @@
 									"raw": "{\n    \"user\": \"cc483bb9-400d-5e04-8804-05f36838f32e\"\n}"
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/tutor/",
+                                  "raw": "{{apiUrl}}/auth/tutor/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"tutor",
 										""
@@ -1034,12 +1020,11 @@
 									"raw": "{\n    \"user\": \"cc483bb9-400d-5e04-8804-05f36838f32e\"\n}"
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/tutors/{{tutor_id}}/",
+                                  "raw": "{{apiUrl}}/auth/tutors/{{tutor_id}}/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"tutors",
 										"{{tutor_id}}",
@@ -1059,12 +1044,11 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{domain}}/api/auth/tutors/{{user_id}}/",
+                                  "raw": "{{apiUrl}}/auth/tutors/{{user_id}}/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"tutors",
                                       "{{user_id}}",
@@ -1090,12 +1074,11 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/teachers/",
+                                  "raw": "{{apiUrl}}/auth/teachers/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"teachers",
 										""
@@ -1121,12 +1104,11 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/teachers/",
+                                  "raw": "{{apiUrl}}/auth/teachers/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"teachers",
 										""
@@ -1152,12 +1134,11 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/auth/teachers/{{teacher_id}}/",
+                                  "raw": "{{apiUrl}}/auth/teachers/{{teacher_id}}/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"teachers",
 										"{{teacher_id}}",
@@ -1177,12 +1158,11 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{domain}}/api/auth/teachers/{{user_id}}/",
+                                  "raw": "{{apiUrl}}/auth/teachers/{{user_id}}/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"auth",
 										"teachers",
                                       "{{user_id}}",
@@ -1205,12 +1185,11 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{domain}}/api/auth/roles/",
+                          "raw": "{{apiUrl}}/auth/roles/",
 							"host": [
-								"{{domain}}"
+                              "{{apiUrl}}"
 							],
 							"path": [
-								"api",
 								"auth",
 								"roles",
 								""
@@ -1237,12 +1216,11 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/edu/specialities/",
+                                  "raw": "{{apiUrl}}/edu/specialities/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"edu",
 										"specialities",
 										""
@@ -1268,12 +1246,11 @@
 									"raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.02\"\n}"
 								},
 								"url": {
-									"raw": "{{domain}}/api/edu/specialities/",
+                                  "raw": "{{apiUrl}}/edu/specialities/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"edu",
 										"specialities",
 										""
@@ -1298,9 +1275,9 @@
 											"raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.02\"\n}"
 										},
 										"url": {
-											"raw": "{{domain}}/api/edu/specialities/",
+                                          "raw": "{{apiUrl}}/api/edu/specialities/",
 											"host": [
-												"{{domain}}"
+                                              "{{apiUrl}}"
 											],
 											"path": [
 												"api",
@@ -1365,12 +1342,11 @@
 									"raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.04\"\n}"
 								},
 								"url": {
-									"raw": "{{domain}}/api/edu/specialities/{{speciality_id}}/",
+                                  "raw": "{{apiUrl}}/edu/specialities/{{speciality_id}}/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"edu",
 										"specialities",
 										"{{speciality_id}}",
@@ -1396,9 +1372,9 @@
 											"raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.04\"\n}"
 										},
 										"url": {
-											"raw": "{{domain}}/api/edu/specialities/{{speciality_id}}/",
+                                          "raw": "{{apiUrl}}/api/edu/specialities/{{speciality_id}}/",
 											"host": [
-												"{{domain}}"
+                                              "{{apiUrl}}"
 											],
 											"path": [
 												"api",
@@ -1457,12 +1433,11 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/edu/specialities/{{speciality_id}}/",
+                                  "raw": "{{apiUrl}}/edu/specialities/{{speciality_id}}/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"edu",
 										"specialities",
 										"{{speciality_id}}",
@@ -1495,12 +1470,11 @@
 									"raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":2\n}"
 								},
 								"url": {
-									"raw": "{{domain}}/api/edu/subjects/",
+                                  "raw": "{{apiUrl}}/edu/subjects/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"edu",
 										"subjects",
 										""
@@ -1525,9 +1499,9 @@
 											"raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":2\n}"
 										},
 										"url": {
-											"raw": "{{domain}}/api/edu/subjects/",
+                                          "raw": "{{apiUrl}}/api/edu/subjects/",
 											"host": [
-												"{{domain}}"
+                                              "{{apiUrl}}"
 											],
 											"path": [
 												"api",
@@ -1585,9 +1559,9 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/edu/subjects/",
+                                  "raw": "{{apiUrl}}/api/edu/subjects/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
 										"api",
@@ -1608,9 +1582,9 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "{{domain}}/api/edu/subjects/",
+                                          "raw": "{{apiUrl}}/api/edu/subjects/",
 											"host": [
-												"{{domain}}"
+                                              "{{apiUrl}}"
 											],
 											"path": [
 												"api",
@@ -1675,12 +1649,11 @@
 									"raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":\"3\"\n}"
 								},
 								"url": {
-									"raw": "{{domain}}/api/edu/subjects/{{subject_id}}/",
+                                  "raw": "{{apiUrl}}/edu/subjects/{{subject_id}}/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"edu",
 										"subjects",
 										"{{subject_id}}",
@@ -1706,9 +1679,9 @@
 											"raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":\"3\"\n}"
 										},
 										"url": {
-											"raw": "{{domain}}/api/edu/subjects/{{subject_id}}/",
+                                          "raw": "{{apiUrl}}/api/edu/subjects/{{subject_id}}/",
 											"host": [
-												"{{domain}}"
+                                              "{{apiUrl}}"
 											],
 											"path": [
 												"api",
@@ -1767,12 +1740,11 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/edu/subjects/{{subject_id}}/",
+                                  "raw": "{{apiUrl}}/edu/subjects/{{subject_id}}/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"edu",
 										"subjects",
 										"{{subject_id}}",
@@ -1805,12 +1777,11 @@
 									"raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"30\"\n}"
 								},
 								"url": {
-									"raw": "{{domain}}/api/edu/student-groups/",
+                                  "raw": "{{apiUrl}}/edu/student-groups/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"edu",
 										"student-groups",
 										""
@@ -1835,9 +1806,9 @@
                                           "raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"30\"\n}"
 										},
 										"url": {
-                                          "raw": "{{domain}}/api/edu/student-groups/",
+                                          "raw": "{{apiUrl}}/api/edu/student-groups/",
 											"host": [
-												"{{domain}}"
+                                              "{{apiUrl}}"
 											],
 											"path": [
 												"api",
@@ -1893,9 +1864,9 @@
                                           "raw": ""
 										},
 										"url": {
-                                          "raw": "{{domain}}/api/edu/subjects/",
+                                          "raw": "{{apiUrl}}/api/edu/subjects/",
 											"host": [
-												"{{domain}}"
+                                              "{{apiUrl}}"
 											],
 											"path": [
 												"api",
@@ -1953,12 +1924,11 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/edu/student-groups/",
+                                  "raw": "{{apiUrl}}/edu/student-groups/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"edu",
 										"student-groups",
 										""
@@ -1976,9 +1946,9 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "{{domain}}/api/edu/subjects/",
+                                          "raw": "{{apiUrl}}/api/edu/subjects/",
 											"host": [
-												"{{domain}}"
+                                              "{{apiUrl}}"
 											],
 											"path": [
 												"api",
@@ -2043,12 +2013,11 @@
 									"raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"31\"\n}"
 								},
 								"url": {
-									"raw": "{{domain}}/api/edu/student-groups/{{student_group_id}}/",
+                                  "raw": "{{apiUrl}}/edu/student-groups/{{student_group_id}}/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"edu",
 										"student-groups",
 										"{{student_group_id}}",
@@ -2075,12 +2044,11 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/edu/student-groups/{{student_group_id}}/",
+                                  "raw": "{{apiUrl}}/edu/student-groups/{{student_group_id}}/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
-										"api",
 										"edu",
 										"student-groups",
 										"{{student_group_id}}",
@@ -2115,12 +2083,11 @@
 							"raw": "{\n    \"name\": \"Лабораторная работа № 1\",\n    \"subject\": \"{{subject_id}}\",\n    \"student_group\": \"{{student_group_id}}\"\n}"
 						},
 						"url": {
-							"raw": "{{domain}}/api/works/tasks/",
+                          "raw": "{{apiUrl}}/works/tasks/",
 							"host": [
-								"{{domain}}"
+                              "{{apiUrl}}"
 							],
 							"path": [
-								"api",
 								"works",
 								"tasks",
 								""
@@ -2145,9 +2112,9 @@
 									"raw": "{\n    \"name\": \"Лабораторная работа № 1\",\n    \"subject\": \"{{subject_id}}\",\n    \"student_group\": \"{{student_group_id}}\"\n}"
 								},
 								"url": {
-									"raw": "{{domain}}/api/works/tasks/",
+                                  "raw": "{{apiUrl}}/api/works/tasks/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
 										"api",
@@ -2205,12 +2172,11 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{domain}}/api/works/tasks/",
+                          "raw": "{{apiUrl}}/works/tasks/",
 							"host": [
-								"{{domain}}"
+                              "{{apiUrl}}"
 							],
 							"path": [
-								"api",
 								"works",
 								"tasks",
 								""
@@ -2228,9 +2194,9 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/works/tasks/",
+                                  "raw": "{{apiUrl}}/api/works/tasks/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
 										"api",
@@ -2288,12 +2254,11 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{domain}}/api/works/tasks/{{task_id}}/",
+                          "raw": "{{apiUrl}}/works/tasks/{{task_id}}/",
 							"host": [
-								"{{domain}}"
+                              "{{apiUrl}}"
 							],
 							"path": [
-								"api",
 								"works",
 								"tasks",
 								"{{task_id}}",
@@ -2312,9 +2277,9 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{domain}}/api/works/tasks/",
+                                  "raw": "{{apiUrl}}/api/works/tasks/",
 									"host": [
-										"{{domain}}"
+                                      "{{apiUrl}}"
 									],
 									"path": [
 										"api",
@@ -2400,12 +2365,11 @@
 							]
 						},
 						"url": {
-							"raw": "{{domain}}/api/works/reports/",
+                          "raw": "{{apiUrl}}/works/reports/",
 							"host": [
-								"{{domain}}"
+                              "{{apiUrl}}"
 							],
 							"path": [
-								"api",
 								"works",
 								"reports",
 								""
@@ -2434,12 +2398,11 @@
 							"raw": "{\n    \"name\": \"Лабораторная работа № 1\",\n    \"subject\": \"{{subject_id}}\",\n    \"student_group\": \"{{student_group_id}}\"\n}"
 						},
 						"url": {
-							"raw": "{{domain}}/api/works/reports/",
+                          "raw": "{{apiUrl}}/works/reports/",
 							"host": [
-								"{{domain}}"
+                              "{{apiUrl}}"
 							],
 							"path": [
-								"api",
 								"works",
 								"reports",
 								""
@@ -2489,12 +2452,11 @@
 							]
 						},
 						"url": {
-							"raw": "{{domain}}/api/works/reports/{{report_id}}/",
+                          "raw": "{{apiUrl}}/works/reports/{{report_id}}/",
 							"host": [
-								"{{domain}}"
+                              "{{apiUrl}}"
 							],
 							"path": [
-								"api",
 								"works",
 								"reports",
 								"{{report_id}}",
