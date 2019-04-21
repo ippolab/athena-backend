@@ -20,5 +20,5 @@ class SpecialitySerializer(serializers.ModelSerializer):
 class StudentGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentGroup
-        fields = ("id", "name", "speciality", "quantity")
+        fields = ("id", "name", "speciality",)
         read_only_fields = ("id",)

@@ -24,7 +24,6 @@ class Subject(UUIDModel):
 
 class StudentGroup(UUIDModel):
     name = models.CharField(max_length=32, unique=True)
-    quantity = models.PositiveSmallIntegerField(default=0)
     speciality = models.ForeignKey(
         Speciality, related_name="groups", on_delete=models.CASCADE
     )
