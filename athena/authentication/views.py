@@ -1,6 +1,7 @@
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainSlidingView
@@ -25,13 +26,13 @@ class TokenView(TokenObtainSlidingView):
 class RoleViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
-    permission_classes = (IsAdmin,)
+    permission_classes = (IsAdmin, IsAuthenticated)
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserInResponseSerializer
-    permission_classes = (IsAdmin,)
+    permission_classes = (IsAdmin, IsAuthenticated)
 
     def create(self, request, **kwargs):
         serializer = UserInCreateSerializer(data=request.data)
@@ -45,30 +46,31 @@ class UserViewSet(viewsets.ModelViewSet):
         )
 
 
-class ProfileViewSet(mixins.ListModelMixin,
-                     mixins.RetrieveModelMixin,
-                     mixins.UpdateModelMixin,
-                     viewsets.GenericViewSet,
-                     ):
+class ProfileViewSet(
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
     pass
 
 
 class StudentViewSet(ProfileViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    permission_classes = (IsAdmin,)
+    permission_classes = (IsAdmin, IsAuthenticated)
 
 
 class TutorViewSet(ProfileViewSet):
     queryset = Tutor.objects.all()
     serializer_class = TutorSerializer
-    permission_classes = (IsAdmin,)
+    permission_classes = (IsAdmin, IsAuthenticated)
 
 
 class TeacherViewSet(ProfileViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
-    permission_classes = (IsAdmin,)
+    permission_classes = (IsAdmin, IsAuthenticated)
 
 
 @swagger_auto_schema(
