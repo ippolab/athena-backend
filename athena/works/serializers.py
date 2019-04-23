@@ -18,7 +18,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "subject",
             "student_group",
         )
-        read_only_fields = ("id",)
+        read_only_fields = ("id", "create_datetime", "edit_datetime",)
 
 
 class ReportSerializer(serializers.ModelSerializer):
@@ -38,4 +38,4 @@ class ReportSerializer(serializers.ModelSerializer):
             "tutor",
             "teacher",
         )
-        read_only_fields = ("id",)
+        read_only_fields = ("id", "create_datetime", "edit_datetime",)
