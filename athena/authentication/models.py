@@ -1,6 +1,6 @@
 import uuid
 from enum import Enum
-from typing import Dict, Optional, Set
+from typing import Optional, Set
 
 from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
@@ -96,7 +96,7 @@ class Student(Model):
         User, primary_key=True, related_name="student", on_delete=models.CASCADE
     )
     student_group = models.ForeignKey(
-        StudentGroup, related_name="students", null=True, on_delete=models.SET_NULL
+        StudentGroup, related_name="students", null=True, on_delete=models.PROTECT
     )
 
     def __str__(self):
