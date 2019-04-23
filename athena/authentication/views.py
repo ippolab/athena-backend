@@ -26,13 +26,13 @@ class TokenView(TokenObtainSlidingView):
 class RoleViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
-    permission_classes = (IsAdmin, IsAuthenticated)
+    permission_classes = (IsAuthenticated, IsAdmin,)
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserInResponseSerializer
-    permission_classes = (IsAdmin, IsAuthenticated)
+    permission_classes = (IsAuthenticated, IsAdmin,)
 
     def create(self, request, **kwargs):
         serializer = UserInCreateSerializer(data=request.data)
@@ -58,19 +58,19 @@ class ProfileViewSet(
 class StudentViewSet(ProfileViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    permission_classes = (IsAdmin, IsAuthenticated)
+    permission_classes = (IsAuthenticated, IsAdmin,)
 
 
 class TutorViewSet(ProfileViewSet):
     queryset = Tutor.objects.all()
     serializer_class = TutorSerializer
-    permission_classes = (IsAdmin, IsAuthenticated)
+    permission_classes = (IsAuthenticated, IsAdmin,)
 
 
 class TeacherViewSet(ProfileViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
-    permission_classes = (IsAdmin, IsAuthenticated)
+    permission_classes = (IsAuthenticated, IsAdmin,)
 
 
 @swagger_auto_schema(
