@@ -4,7 +4,7 @@ from django.dispatch import receiver
 from athena.authentication.models import Role, RolesEnum, User
 
 
-def create_roles(_sender, **_kwargs):
+def create_roles(sender, **_kwargs):
     """Create default roles in database when server start"""
 
     for role in RolesEnum:
@@ -13,7 +13,7 @@ def create_roles(_sender, **_kwargs):
 
 @receiver(m2m_changed, sender=User.roles.through)
 @receiver(post_save, sender=User)
-def create_related_profile(_sender, instance: User, *_args, **_kwargs):
+def create_related_profile(sender, instance: User, *args, **kwargs):
     """Use user roles to create profiles"""
 
     profiles = {role.value[0]: role.value[1] for role in RolesEnum}
