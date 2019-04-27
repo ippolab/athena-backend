@@ -5,7 +5,7 @@ from django.core.files.storage import FileSystemStorage
 
 
 class OverwriteStorage(FileSystemStorage):
-    def get_available_name(self, name, **kwargs):
+    def get_available_name(self, name, **_kwargs):
         if self.exists(name):
             os.remove(os.path.join(settings.MEDIA_ROOT, name))
         return name

@@ -9,56 +9,12 @@ services:
     container_name: athena_back
     depends_on:
       - db
-      - redis
-      - rabbit
     env_file:
       - .env
     ports:
       - "8000:8000"
-  celery:
-    build:
-      dockerfile: Dockerfile
-      context: .
-    container_name: athena_celery
-    depends_on:
-      - db
-      - redis
-      - rabbit
-    env_file:
-      - .env
-    command: celery worker -A athena --concurrency=4
-  celery-beat:
-    build:
-      dockerfile: Dockerfile
-      context: .
-    container_name: athena_celery_beat
-    depends_on:
-      - db
-      - redis
-      - rabbit
-    env_file:
-      - .env
-    command: celery beat -A athena
   db:
     image: postgres:11.2-alpine
     container_name: athena_pgdb
     env_file:
       - .env
-  redis:
-    image: redis:5.0.3-alpine
-    container_name: athena_redis
-  rabbit:
-    image: rabbitmq:3.7.13-management-alpine
-    container_name: athena_rabbitmq
-    hostname: rabbitmq
-    env_file:
-      - .env
-    ports:
-      - "15672:15672"
-  flower:
-    image: mher/flower
-    container_name: athena_flower
-    env_file:
-      - .env
-    ports:
-      - "8888:8888"

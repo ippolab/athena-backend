@@ -6,19 +6,20 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 
 from athena.authentication.permissions import IsAdmin, IsTeacher, IsTutor
+
 from .serializers import Report, ReportSerializer, Task, TaskSerializer
 
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = (IsAuthenticated, IsTutor | IsTeacher | IsAdmin,)
+    permission_classes = (IsAuthenticated, IsTutor | IsTeacher | IsAdmin)
 
 
 class ReportViewSet(viewsets.ModelViewSet):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
-    permission_classes = (IsAuthenticated, IsTutor | IsTeacher | IsAdmin,)
+    permission_classes = (IsAuthenticated, IsTutor | IsTeacher | IsAdmin)
 
     def get_queryset(self):
         user = self.request.user
