@@ -73,7 +73,7 @@ jobs:
           name: run postman tests
           command: |
             python manage.py runserver &
-            APIURL=http://localhost:8000/api ./postman_tests/run-api-tests.sh
+            ./postman_tests/run-api-tests.sh
   build-prod:
     docker:
       - image: circleci/python:3.7-node

@@ -17,8 +17,6 @@ djangorestframework-camel-case = "^1.0"
 gunicorn = "^19.9"
 psycopg2-binary = "^2.7"
 drf-yasg = "^1.13"
-redis = "^3.2"
-celery = {version = "^4.2",allows-prereleases = true}
 django-filter = "^2.1"
 django = "^2.2"
 

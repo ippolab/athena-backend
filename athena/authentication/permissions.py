@@ -3,20 +3,20 @@ from rest_framework.request import Request
 
 
 class IsAdmin(permissions.BasePermission):
-    def has_permission(self, request: Request, view):
+    def has_permission(self, request: Request, _view):
         return request.user.is_admin
 
 
 class IsTutor(permissions.BasePermission):
-    def has_permission(self, request: Request, view):
+    def has_permission(self, request: Request, _view):
         return request.user.is_tutor
 
 
 class IsStudent(permissions.BasePermission):
-    def has_permission(self, request: Request, view):
+    def has_permission(self, request: Request, _view):
         return request.user.is_student
 
 
 class IsTeacher(permissions.BasePermission):
-    def has_permission(self, request: Request, view):
+    def has_permission(self, request: Request, _view):
         return request.user.is_teacher

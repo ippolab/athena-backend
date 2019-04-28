@@ -4,7 +4,7 @@ from django.dispatch import receiver
 from athena.authentication.models import Role, RolesEnum, User
 
 
-def create_roles(sender, **kwargs):
+def create_roles(sender, **_kwargs):
     """Create default roles in database when server start"""
 
     for role in RolesEnum:

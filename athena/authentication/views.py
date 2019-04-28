@@ -1,9 +1,9 @@
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework_simplejwt.views import TokenObtainSlidingView
 
 from .models import Role, Student, Teacher, Tutor, User
 from .permissions import IsAdmin
@@ -11,27 +11,22 @@ from .serializers import (
     RoleSerializer,
     StudentSerializer,
     TeacherSerializer,
-    TokenSerializer,
     TutorSerializer,
     UserInCreateSerializer,
     UserInResponseSerializer,
 )
 
 
-class TokenView(TokenObtainSlidingView):
-    serializer_class = TokenSerializer
-
-
 class RoleViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
-    permission_classes = (IsAdmin,)
+    permission_classes = (IsAuthenticated, IsAdmin)
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserInResponseSerializer
-    permission_classes = (IsAdmin,)
+    permission_classes = (IsAuthenticated, IsAdmin)
 
     def create(self, request, **kwargs):
         serializer = UserInCreateSerializer(data=request.data)
@@ -45,30 +40,31 @@ class UserViewSet(viewsets.ModelViewSet):
         )
 
 
-class ProfileViewSet(mixins.ListModelMixin,
-                     mixins.RetrieveModelMixin,
-                     mixins.UpdateModelMixin,
-                     viewsets.GenericViewSet,
-                     ):
+class ProfileViewSet(
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
     pass
 
 
 class StudentViewSet(ProfileViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    permission_classes = (IsAdmin,)
+    permission_classes = (IsAuthenticated, IsAdmin)
 
 
 class TutorViewSet(ProfileViewSet):
     queryset = Tutor.objects.all()
     serializer_class = TutorSerializer
-    permission_classes = (IsAdmin,)
+    permission_classes = (IsAuthenticated, IsAdmin)
 
 
 class TeacherViewSet(ProfileViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
-    permission_classes = (IsAdmin,)
+    permission_classes = (IsAuthenticated, IsAdmin)
 
 
 @swagger_auto_schema(

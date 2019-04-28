@@ -1,6 +1,6 @@
 {
 	"info": {
-      "_postman_id": "7191a9aa-8bc7-480d-a32f-4be3dd55a328",
+		"_postman_id": "cad9b9ea-4363-458c-8aa3-b1b7ae17a6bb",
 		"name": "Athena",
 		"description": "Athena API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -13,7 +13,7 @@
 					"name": "Login",
 					"item": [
 						{
-                          "name": "Login as admin",
+							"name": "Login As Admin",
 							"event": [
 								{
 									"listen": "test",
@@ -22,13 +22,18 @@
 										"exec": [
 											"var responseJSON = JSON.parse(responseBody);",
 											"",
-											"tests[\"response contains 'token' property\"] = responseJSON.hasOwnProperty('token');",
+											"tests[\"response contains 'access' property\"] = responseJSON.hasOwnProperty('access');",
+											"tests[\"response contains 'refresh' property\"] = responseJSON.hasOwnProperty('refresh');",
 											"",
-											"if (tests[\"response contains 'token' property\"]) { ",
-											"    pm.globals.set(\"token\", responseJSON.token);",
+											"if (tests[\"response contains 'access' property\"]) { ",
+											"    pm.globals.set(\"token\", responseJSON.access);",
+											"}",
+											"if (tests[\"response contains 'refresh' property\"]) {",
+											"    pm.globals.set(\"refresh\", responseJSON.refresh);",
 											"}",
 											"",
-											"tests[\"Global variable 'token' has been set\"] = pm.globals.get('token') === responseJSON.token;",
+											"tests[\"Global variable 'token' has been set\"] = pm.globals.get('token') === responseJSON.access;",
+											"tests[\"Global variable 'refresh' has been set\"] = pm.globals.get('refresh') === responseJSON.refresh;",
 											""
 										],
 										"type": "text/javascript"
@@ -53,243 +58,17 @@
 									"raw": "{\n\t\"username\": \"{{admin_username}}\",\n\t\"password\": \"{{admin_password}}\"\n}"
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/login/",
+									"raw": "{{domain}}/api/auth/login/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"login",
 										""
 									]
-                                },
-                              "description": "Login. Very simple. Really."
-                            },
-                          "response": [
-                            {
-                              "name": "Login",
-                              "originalRequest": {
-                                "method": "POST",
-                                "header": [
-                                  {
-                                    "key": "Content-Type",
-                                    "name": "Content-Type",
-                                    "value": "application/json",
-                                    "type": "text"
-                                  }
-                                ],
-                                "body": {
-                                  "mode": "raw",
-                                  "raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"admin\"\n}"
-                                },
-                                "url": {
-                                  "raw": "{{apiUrl}}/api/auth/login/",
-                                  "host": [
-                                    "{{apiUrl}}"
-                                  ],
-                                  "path": [
-                                    "api",
-                                    "auth",
-                                    "login",
-                                    ""
-                                  ]
-                                }
-                              },
-                              "status": "OK",
-                              "code": 200,
-                              "_postman_previewlanguage": "json",
-                              "header": [
-                                {
-                                  "key": "Date",
-                                  "value": "Mon, 15 Apr 2019 23:52:59 GMT"
-                                },
-                                {
-                                  "key": "Server",
-                                  "value": "WSGIServer/0.2 CPython/3.7.2"
-                                },
-                                {
-                                  "key": "Content-Type",
-                                  "value": "application/json"
-                                },
-                                {
-                                  "key": "Allow",
-                                  "value": "POST, OPTIONS"
-                                },
-                                {
-                                  "key": "X-Frame-Options",
-                                  "value": "SAMEORIGIN"
-                                },
-                                {
-                                  "key": "Content-Length",
-                                  "value": "351"
-                                },
-                                {
-                                  "key": "Vary",
-                                  "value": "Origin"
-                                }
-                              ],
-                              "cookie": [],
-                              "body": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoic2xpZGluZyIsImV4cCI6MTU1NTk3NzE3OSwianRpIjoiY2Q4OGMxM2NhMDgyNGFhZWFhMjJjOTQ1ODAzYjMzZTMiLCJyZWZyZXNoX2V4cCI6MTU1NTk3NzE3OSwidXNlcl9pZCI6IjJiOTk1MDdiLTk3ODMtNDRhZC05MDAwLTQ3OGU2MTUwYTlmNSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlcyI6WyJhZG1pbiJdfQ.5YiEhdnrmmTZXrHKzLukTuL84IiU9ShJXkx744EijWE\"\n}"
 								}
-                          ]
-                        },
-                      {
-                        "name": "Verify token",
-                        "event": [
-                          {
-                            "listen": "test",
-                            "script": {
-                              "id": "19825ee1-0f2b-411e-b389-221ca0929033",
-                              "exec": [
-                                ""
-                              ],
-                              "type": "text/javascript"
-                            }
-                          }
-                        ],
-                        "request": {
-                          "auth": {
-                            "type": "noauth"
-                          },
-                          "method": "POST",
-                          "header": [
-                            {
-                              "key": "Content-Type",
-                              "name": "Content-Type",
-                              "type": "text",
-                              "value": "application/json"
-                            }
-                          ],
-                          "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"token\": \"{{token}}\"\n}"
-                          },
-                          "url": {
-                            "raw": "{{apiUrl}}/auth/login/verify/",
-                            "host": [
-                              "{{apiUrl}}"
-                            ],
-                            "path": [
-                              "auth",
-                              "login",
-                              "verify",
-                              ""
-                            ]
-                          },
-                          "description": "Login. Very simple. Really."
-                        },
-                        "response": [
-                          {
-                            "name": "Login",
-                            "originalRequest": {
-                              "method": "POST",
-                              "header": [
-                                {
-                                  "key": "Content-Type",
-                                  "name": "Content-Type",
-                                  "value": "application/json",
-                                  "type": "text"
-                                }
-                              ],
-                              "body": {
-                                "mode": "raw",
-                                "raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"admin\"\n}"
-                              },
-                              "url": {
-                                "raw": "{{apiUrl}}/api/auth/login/",
-                                "host": [
-                                  "{{apiUrl}}"
-                                ],
-                                "path": [
-                                  "api",
-                                  "auth",
-                                  "login",
-                                  ""
-                                ]
-                              }
-                            },
-                            "status": "OK",
-                            "code": 200,
-                            "_postman_previewlanguage": "json",
-                            "header": [
-                              {
-                                "key": "Date",
-                                "value": "Mon, 15 Apr 2019 23:52:59 GMT"
-                              },
-                              {
-                                "key": "Server",
-                                "value": "WSGIServer/0.2 CPython/3.7.2"
-                              },
-                              {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                              },
-                              {
-                                "key": "Allow",
-                                "value": "POST, OPTIONS"
-                              },
-                              {
-                                "key": "X-Frame-Options",
-                                "value": "SAMEORIGIN"
-                              },
-                              {
-                                "key": "Content-Length",
-                                "value": "351"
-                              },
-                              {
-                                "key": "Vary",
-                                "value": "Origin"
-                              }
-                            ],
-                            "cookie": [],
-                            "body": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoic2xpZGluZyIsImV4cCI6MTU1NTk3NzE3OSwianRpIjoiY2Q4OGMxM2NhMDgyNGFhZWFhMjJjOTQ1ODAzYjMzZTMiLCJyZWZyZXNoX2V4cCI6MTU1NTk3NzE3OSwidXNlcl9pZCI6IjJiOTk1MDdiLTk3ODMtNDRhZC05MDAwLTQ3OGU2MTUwYTlmNSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlcyI6WyJhZG1pbiJdfQ.5YiEhdnrmmTZXrHKzLukTuL84IiU9ShJXkx744EijWE\"\n}"
-                          }
-                        ]
-                      },
-                      {
-                        "name": "Refresh token",
-                        "event": [
-                          {
-                            "listen": "test",
-                            "script": {
-                              "id": "19825ee1-0f2b-411e-b389-221ca0929033",
-                              "exec": [
-                                ""
-                              ],
-                              "type": "text/javascript"
-                            }
-                          }
-                        ],
-                        "request": {
-                          "auth": {
-                            "type": "noauth"
-                          },
-                          "method": "POST",
-                          "header": [
-                            {
-                              "key": "Content-Type",
-                              "name": "Content-Type",
-                              "type": "text",
-                              "value": "application/json"
-                            }
-                          ],
-                          "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"token\": \"{{token}}\"\n}"
-                          },
-                          "url": {
-                            "raw": "{{apiUrl}}/auth/login/refresh/",
-                            "host": [
-                              "{{apiUrl}}"
-                            ],
-                            "path": [
-                              "auth",
-                              "login",
-                              "refresh",
-                              ""
-                            ]
-                          },
-                          "description": "Login. Very simple. Really."
 							},
 							"response": [
 								{
@@ -309,9 +88,9 @@
 											"raw": "{\n\t\"username\":\"admin\",\n\t\"password\":\"admin\"\n}"
 										},
 										"url": {
-                                          "raw": "{{apiUrl}}/api/auth/login/",
+											"raw": "{{domain}}/api/auth/login/",
 											"host": [
-                                              "{{apiUrl}}"
+												"{{domain}}"
 											],
 											"path": [
 												"api",
@@ -396,18 +175,103 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/profile/me/",
+									"raw": "{{domain}}/api/auth/profile/me/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"profile",
 										"me",
 										""
 									]
-                                },
-                              "description": "Taking id for current user"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify Token",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"token\": \"{{token}}\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/token/verify/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"token",
+										"verify",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "108e201d-38b6-4d31-a314-d8af452c14fb",
+										"exec": [
+											"var responseJSON = JSON.parse(responseBody);",
+											"",
+											"tests[\"response contains 'access' property\"] = responseJSON.hasOwnProperty('access');",
+											"",
+											"if (tests[\"response contains 'access' property\"]) { ",
+											"    pm.globals.set(\"token\", responseJSON.access);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"refresh\": \"{{refresh}}\"\n}"
+								},
+								"url": {
+									"raw": "{{domain}}/api/auth/token/refresh/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"token",
+										"refresh",
+										""
+									]
+								}
 							},
 							"response": []
 						}
@@ -449,10 +313,6 @@
 										"exec": [
 											"var responseJSON = JSON.parse(responseBody);",
 											"",
-                                          "pm.test(\"Successful POST request\", function () {",
-                                          "    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
-                                          "});",
-                                          "",
 											"tests[\"response contains 'id' property\"] = responseJSON.hasOwnProperty('id');",
 											"",
 											"if (tests[\"response contains 'id' property\"]) {",
@@ -465,8 +325,7 @@
 											"tests[\"response contains 'lastName' property\"] = responseJSON.hasOwnProperty('lastName');",
 											"tests[\"response does not contains 'password' property\"] = !responseJSON.hasOwnProperty('password');",
 											"",
-                                          "tests[\"response contains 'roles' property\"] = responseJSON.hasOwnProperty('roles');",
-                                          ""
+											"tests[\"response contains 'roles' property\"] = responseJSON.hasOwnProperty('roles');"
 										],
 										"type": "text/javascript"
 									}
@@ -499,11 +358,12 @@
 									"raw": "{\n\t\"username\":\"{{testuser_username}}\",\n\t\"password\":\"{{testuser_password}}\",\n\t\"first_name\":\"Иван\",\n\t\"second_name\":\"Иванов\",\n\t\"last_name\":\"Иванович\",\n\t\"roles\":[\n\t\t\"student\"\n\t\t]\n}"
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/users/",
+									"raw": "{{domain}}/api/auth/users/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"users",
 										""
@@ -514,20 +374,6 @@
 						},
 						{
 							"name": "Login as new user",
-                          "event": [
-                            {
-                              "listen": "test",
-                              "script": {
-                                "id": "7a178493-69a5-42d1-afbd-1923891e5788",
-                                "exec": [
-                                  "pm.test(\"Successful POST request\", function () {",
-                                  "    pm.expect(pm.response.code).to.be.oneOf([200]);",
-                                  "});"
-                                ],
-                                "type": "text/javascript"
-                              }
-                            }
-                          ],
 							"request": {
 								"auth": {
 									"type": "noauth"
@@ -537,8 +383,8 @@
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
-                                      "type": "text",
-                                      "value": "application/json"
+										"value": "application/json",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -546,17 +392,17 @@
 									"raw": "{\n\t\"username\": \"{{testuser_username}}\",\n\t\"password\": \"{{testuser_password}}\"\n}"
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/login/",
+									"raw": "{{domain}}/api/auth/login/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"login",
 										""
 									]
-                                },
-                              "description": "Check new user. Get error if not created."
+								}
 							},
 							"response": []
 						},
@@ -593,11 +439,12 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/users/",
+									"raw": "{{domain}}/api/auth/users/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"users",
 										""
@@ -640,14 +487,15 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\n\t\"first_name\":\"{{testuser_username}}\",\n\t\"second_name\":\"{{testuser_username}}\",\n\t\"last_name\":\"{{testuser_username}}\",\n\t\"roles\":[\n\t\t\"admin\"\n\t\t]\n}"
+									"raw": "{\n\t\"first_name\":\"Иван_{{testuser_username}}\",\n\t\"second_name\":\"Иванов_{{testuser_username}}\",\n\t\"last_name\":\"Иванович_{{testuser_username}}\",\n\t\"roles\":[\n\t\t\"admin\"\n\t\t]\n}"
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/users/{{user_id}}/",
+									"raw": "{{domain}}/api/auth/users/{{user_id}}/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"users",
 										"{{user_id}}",
@@ -673,9 +521,9 @@
 											"raw": "{\n\t\"first_name\":\"Иван\",\n\t\"second_name\":\"Иванов\",\n\t\"last_name\":\"Иванович\",\n\t\"roles\":[\n\t\t\"admin\"\n\t\t]\n}"
 										},
 										"url": {
-                                          "raw": "{{apiUrl}}/api/auth/users/{{user_id}}/",
+											"raw": "{{domain}}/api/auth/users/{{user_id}}/",
 											"host": [
-                                              "{{apiUrl}}"
+												"{{domain}}"
 											],
 											"path": [
 												"api",
@@ -748,11 +596,12 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/users/{{user_id}}/",
+									"raw": "{{domain}}/api/auth/users/{{user_id}}/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"users",
 										"{{user_id}}",
@@ -770,25 +619,6 @@
 					"item": [
 						{
 							"name": "Get all students",
-                          "event": [
-                            {
-                              "listen": "test",
-                              "script": {
-                                "id": "235ca9ab-2306-4493-9480-70c6f4b2a7fb",
-                                "exec": [
-                                  "var responseJSON = JSON.parse(responseBody);",
-                                  "",
-                                  "for (let i = 0; i < responseJSON.length; i++) {",
-                                  "    let student = responseJSON[i];",
-                                  "    tests[`student ${i} in response contains 'id' property`] = student.hasOwnProperty('id');",
-                                  "    tests[`student ${i} in response contains 'cipher' property`] = student.hasOwnProperty('cipher');",
-                                  "    tests[`student ${i} in response contains 'studentGroup' property`] = student.hasOwnProperty('studentGroup');",
-                                  "}"
-                                ],
-                                "type": "text/javascript"
-                              }
-                            }
-                          ],
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -797,11 +627,12 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/students/",
+									"raw": "{{domain}}/api/auth/students/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"students",
 										""
@@ -827,11 +658,12 @@
 									"raw": "{\n    \"cipher\": \"17И01234\",\n    \"studentGroup\": \"{{student_group_id}}\"\n}"
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/students/{{student_id}}/",
+									"raw": "{{domain}}/api/auth/students/{{student_id}}/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"students",
 										"{{student_id}}",
@@ -857,9 +689,9 @@
 											"raw": "{\n    \"cipher\": \"17И01234\",\n    \"studentGroup\": \"{{student_group_id}}\"\n}"
 										},
 										"url": {
-                                          "raw": "{{apiUrl}}/api/auth/students/{{student_id}}/",
+											"raw": "{{domain}}/api/auth/students/{{student_id}}/",
 											"host": [
-                                              "{{apiUrl}}"
+												"{{domain}}"
 											],
 											"path": [
 												"api",
@@ -910,18 +742,6 @@
 						},
 						{
 							"name": "Delete student",
-                          "event": [
-                            {
-                              "listen": "test",
-                              "script": {
-                                "id": "d8acda92-f46a-4287-a5d7-982f1bc468f7",
-                                "exec": [
-                                  ""
-                                ],
-                                "type": "text/javascript"
-                              }
-                            }
-                          ],
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -930,14 +750,15 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/students/{{user_id}}/",
+									"raw": "{{domain}}/api/auth/students/{{student_id}}/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"students",
-                                      "{{user_id}}",
+										"{{student_id}}",
 										""
 									]
 								}
@@ -960,11 +781,12 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/tutors/",
+									"raw": "{{domain}}/api/auth/tutors/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"tutors",
 										""
@@ -990,11 +812,12 @@
 									"raw": "{\n    \"user\": \"cc483bb9-400d-5e04-8804-05f36838f32e\"\n}"
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/tutor/",
+									"raw": "{{domain}}/api/auth/tutor/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"tutor",
 										""
@@ -1020,11 +843,12 @@
 									"raw": "{\n    \"user\": \"cc483bb9-400d-5e04-8804-05f36838f32e\"\n}"
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/tutors/{{tutor_id}}/",
+									"raw": "{{domain}}/api/auth/tutors/{{tutor_id}}/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"tutors",
 										"{{tutor_id}}",
@@ -1044,14 +868,15 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/tutors/{{user_id}}/",
+									"raw": "{{domain}}/api/auth/tutors/{{tutor_id}}/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"tutors",
-                                      "{{user_id}}",
+										"{{tutor_id}}",
 										""
 									]
 								}
@@ -1074,11 +899,12 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/teachers/",
+									"raw": "{{domain}}/api/auth/teachers/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"teachers",
 										""
@@ -1104,11 +930,12 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/teachers/",
+									"raw": "{{domain}}/api/auth/teachers/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"teachers",
 										""
@@ -1134,11 +961,12 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/teachers/{{teacher_id}}/",
+									"raw": "{{domain}}/api/auth/teachers/{{teacher_id}}/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"teachers",
 										"{{teacher_id}}",
@@ -1158,14 +986,15 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/auth/teachers/{{user_id}}/",
+									"raw": "{{domain}}/api/auth/teachers/{{teacher_id}}/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"teachers",
-                                      "{{user_id}}",
+										"{{teacher_id}}",
 										""
 									]
 								}
@@ -1185,11 +1014,12 @@
 							"raw": ""
 						},
 						"url": {
-                          "raw": "{{apiUrl}}/auth/roles/",
+							"raw": "{{domain}}/api/auth/roles/",
 							"host": [
-                              "{{apiUrl}}"
+								"{{domain}}"
 							],
 							"path": [
+								"api",
 								"auth",
 								"roles",
 								""
@@ -1216,11 +1046,12 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/edu/specialities/",
+									"raw": "{{domain}}/api/edu/specialities/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"edu",
 										"specialities",
 										""
@@ -1246,11 +1077,12 @@
 									"raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.02\"\n}"
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/edu/specialities/",
+									"raw": "{{domain}}/api/edu/specialities/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"edu",
 										"specialities",
 										""
@@ -1275,9 +1107,9 @@
 											"raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.02\"\n}"
 										},
 										"url": {
-                                          "raw": "{{apiUrl}}/api/edu/specialities/",
+											"raw": "{{domain}}/api/edu/specialities/",
 											"host": [
-                                              "{{apiUrl}}"
+												"{{domain}}"
 											],
 											"path": [
 												"api",
@@ -1342,11 +1174,12 @@
 									"raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.04\"\n}"
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/edu/specialities/{{speciality_id}}/",
+									"raw": "{{domain}}/api/edu/specialities/{{speciality_id}}/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"edu",
 										"specialities",
 										"{{speciality_id}}",
@@ -1372,9 +1205,9 @@
 											"raw": "{\n    \"name\": \"Программная инженерия\",\n    \"cipher\": \"09.03.04\"\n}"
 										},
 										"url": {
-                                          "raw": "{{apiUrl}}/api/edu/specialities/{{speciality_id}}/",
+											"raw": "{{domain}}/api/edu/specialities/{{speciality_id}}/",
 											"host": [
-                                              "{{apiUrl}}"
+												"{{domain}}"
 											],
 											"path": [
 												"api",
@@ -1433,11 +1266,12 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/edu/specialities/{{speciality_id}}/",
+									"raw": "{{domain}}/api/edu/specialities/{{speciality_id}}/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"edu",
 										"specialities",
 										"{{speciality_id}}",
@@ -1470,11 +1304,12 @@
 									"raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":2\n}"
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/edu/subjects/",
+									"raw": "{{domain}}/api/edu/subjects/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"edu",
 										"subjects",
 										""
@@ -1499,9 +1334,9 @@
 											"raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":2\n}"
 										},
 										"url": {
-                                          "raw": "{{apiUrl}}/api/edu/subjects/",
+											"raw": "{{domain}}/api/edu/subjects/",
 											"host": [
-                                              "{{apiUrl}}"
+												"{{domain}}"
 											],
 											"path": [
 												"api",
@@ -1559,9 +1394,9 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/api/edu/subjects/",
+									"raw": "{{domain}}/api/edu/subjects/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
 										"api",
@@ -1582,9 +1417,9 @@
 											"raw": ""
 										},
 										"url": {
-                                          "raw": "{{apiUrl}}/api/edu/subjects/",
+											"raw": "{{domain}}/api/edu/subjects/",
 											"host": [
-                                              "{{apiUrl}}"
+												"{{domain}}"
 											],
 											"path": [
 												"api",
@@ -1649,11 +1484,12 @@
 									"raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":\"3\"\n}"
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/edu/subjects/{{subject_id}}/",
+									"raw": "{{domain}}/api/edu/subjects/{{subject_id}}/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"edu",
 										"subjects",
 										"{{subject_id}}",
@@ -1679,9 +1515,9 @@
 											"raw": "{\n\t\"name\":\"ООП\",\n\t\"semester\":\"3\"\n}"
 										},
 										"url": {
-                                          "raw": "{{apiUrl}}/api/edu/subjects/{{subject_id}}/",
+											"raw": "{{domain}}/api/edu/subjects/{{subject_id}}/",
 											"host": [
-                                              "{{apiUrl}}"
+												"{{domain}}"
 											],
 											"path": [
 												"api",
@@ -1740,11 +1576,12 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/edu/subjects/{{subject_id}}/",
+									"raw": "{{domain}}/api/edu/subjects/{{subject_id}}/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"edu",
 										"subjects",
 										"{{subject_id}}",
@@ -1777,158 +1614,12 @@
 									"raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"30\"\n}"
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/edu/student-groups/",
+									"raw": "{{domain}}/api/edu/student-groups/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
-										"edu",
-										"student-groups",
-										""
-									]
-								}
-							},
-							"response": [
-								{
-                                  "name": "Create student group",
-									"originalRequest": {
-                                      "method": "POST",
-                                      "header": [
-                                        {
-                                          "key": "Content-Type",
-                                          "name": "Content-Type",
-                                          "value": "application/json",
-                                          "type": "text"
-                                        }
-                                      ],
-										"body": {
-											"mode": "raw",
-                                          "raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"30\"\n}"
-										},
-										"url": {
-                                          "raw": "{{apiUrl}}/api/edu/student-groups/",
-											"host": [
-                                              "{{apiUrl}}"
-											],
-											"path": [
-												"api",
-												"edu",
-                                              "student-groups",
-												""
-											]
-										}
-									},
-                                  "status": "Created",
-                                  "code": 201,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Date",
-                                          "value": "Mon, 15 Apr 2019 20:54:43 GMT"
-										},
-										{
-											"key": "Server",
-											"value": "WSGIServer/0.2 CPython/3.7.2"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Allow",
-											"value": "GET, POST, HEAD, OPTIONS"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "SAMEORIGIN"
-										},
-										{
-											"key": "Content-Length",
-                                          "value": "135"
-										},
-										{
-											"key": "Vary",
-											"value": "Origin"
-										}
-									],
-									"cookie": [],
-                                  "body": "{\n    \"id\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\",\n    \"name\": \"ИКБО-13-17\",\n    \"speciality\": \"c55e92ce-1166-4faf-9222-85bcff426af4\",\n    \"quantity\": 30\n}"
-								},
-								{
-                                  "name": "Get all subjects",
-									"originalRequest": {
-                                      "method": "GET",
-                                      "header": [],
-										"body": {
-											"mode": "raw",
-                                          "raw": ""
-										},
-										"url": {
-                                          "raw": "{{apiUrl}}/api/edu/subjects/",
-											"host": [
-                                              "{{apiUrl}}"
-											],
-											"path": [
-												"api",
-												"edu",
-                                              "subjects",
-												""
-											]
-										}
-									},
-                                  "status": "OK",
-                                  "code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Date",
-                                          "value": "Sun, 07 Apr 2019 14:20:50 GMT"
-										},
-										{
-											"key": "Server",
-											"value": "WSGIServer/0.2 CPython/3.7.2"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Allow",
-											"value": "GET, POST, HEAD, OPTIONS"
-										},
-										{
-											"key": "X-Frame-Options",
-											"value": "SAMEORIGIN"
-										},
-										{
-											"key": "Content-Length",
-                                          "value": "151"
-										},
-										{
-											"key": "Vary",
-											"value": "Origin"
-										}
-									],
-									"cookie": [],
-                                  "body": "[\n    {\n        \"id\": \"0edba675-3602-4fbf-ae0b-d5b17e2ad1a5\",\n        \"name\": \"ООП\",\n        \"semester\": 3\n    },\n    {\n        \"id\": \"df0c4bd5-4d39-4ba1-a5b4-3493b8394311\",\n        \"name\": \"ООП\",\n        \"semester\": 2\n    }\n]"
-								}
-							]
-						},
-						{
-							"name": "Get all students groups",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-                                  "raw": "{{apiUrl}}/edu/student-groups/",
-									"host": [
-                                      "{{apiUrl}}"
-									],
-									"path": [
+										"api",
 										"edu",
 										"student-groups",
 										""
@@ -1946,9 +1637,157 @@
 											"raw": ""
 										},
 										"url": {
-                                          "raw": "{{apiUrl}}/api/edu/subjects/",
+											"raw": "{{domain}}/api/edu/subjects/",
 											"host": [
-                                              "{{apiUrl}}"
+												"{{domain}}"
+											],
+											"path": [
+												"api",
+												"edu",
+												"subjects",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 07 Apr 2019 14:20:50 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "Content-Length",
+											"value": "151"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": \"0edba675-3602-4fbf-ae0b-d5b17e2ad1a5\",\n        \"name\": \"ООП\",\n        \"semester\": 3\n    },\n    {\n        \"id\": \"df0c4bd5-4d39-4ba1-a5b4-3493b8394311\",\n        \"name\": \"ООП\",\n        \"semester\": 2\n    }\n]"
+								},
+								{
+									"name": "Create student group",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"30\"\n}"
+										},
+										"url": {
+											"raw": "{{domain}}/api/edu/student-groups/",
+											"host": [
+												"{{domain}}"
+											],
+											"path": [
+												"api",
+												"edu",
+												"student-groups",
+												""
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 15 Apr 2019 20:54:43 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "Content-Length",
+											"value": "135"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"19c85e69-6d9d-4cc5-a41f-dcf16e293ade\",\n    \"name\": \"ИКБО-13-17\",\n    \"speciality\": \"c55e92ce-1166-4faf-9222-85bcff426af4\",\n    \"quantity\": 30\n}"
+								}
+							]
+						},
+						{
+							"name": "Get all students groups",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/api/edu/student-groups/",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"edu",
+										"student-groups",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get all subjects",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{domain}}/api/edu/subjects/",
+											"host": [
+												"{{domain}}"
 											],
 											"path": [
 												"api",
@@ -2013,11 +1852,12 @@
 									"raw": "{\n\t\"name\":\"ИКБО-13-17\",\n\t\"speciality\":\"{{speciality_id}}\",\n\t\"quantity\":\"31\"\n}"
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/edu/student-groups/{{student_group_id}}/",
+									"raw": "{{domain}}/api/edu/student-groups/{{student_group_id}}/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"edu",
 										"student-groups",
 										"{{student_group_id}}",
@@ -2044,11 +1884,12 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/edu/student-groups/{{student_group_id}}/",
+									"raw": "{{domain}}/api/edu/student-groups/{{student_group_id}}/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
+										"api",
 										"edu",
 										"student-groups",
 										"{{student_group_id}}",
@@ -2083,11 +1924,12 @@
 							"raw": "{\n    \"name\": \"Лабораторная работа № 1\",\n    \"subject\": \"{{subject_id}}\",\n    \"student_group\": \"{{student_group_id}}\"\n}"
 						},
 						"url": {
-                          "raw": "{{apiUrl}}/works/tasks/",
+							"raw": "{{domain}}/api/works/tasks/",
 							"host": [
-                              "{{apiUrl}}"
+								"{{domain}}"
 							],
 							"path": [
+								"api",
 								"works",
 								"tasks",
 								""
@@ -2112,9 +1954,9 @@
 									"raw": "{\n    \"name\": \"Лабораторная работа № 1\",\n    \"subject\": \"{{subject_id}}\",\n    \"student_group\": \"{{student_group_id}}\"\n}"
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/api/works/tasks/",
+									"raw": "{{domain}}/api/works/tasks/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
 										"api",
@@ -2172,11 +2014,12 @@
 							"raw": ""
 						},
 						"url": {
-                          "raw": "{{apiUrl}}/works/tasks/",
+							"raw": "{{domain}}/api/works/tasks/",
 							"host": [
-                              "{{apiUrl}}"
+								"{{domain}}"
 							],
 							"path": [
+								"api",
 								"works",
 								"tasks",
 								""
@@ -2194,9 +2037,9 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/api/works/tasks/",
+									"raw": "{{domain}}/api/works/tasks/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
 										"api",
@@ -2254,11 +2097,12 @@
 							"raw": ""
 						},
 						"url": {
-                          "raw": "{{apiUrl}}/works/tasks/{{task_id}}/",
+							"raw": "{{domain}}/api/works/tasks/{{task_id}}/",
 							"host": [
-                              "{{apiUrl}}"
+								"{{domain}}"
 							],
 							"path": [
+								"api",
 								"works",
 								"tasks",
 								"{{task_id}}",
@@ -2277,9 +2121,9 @@
 									"raw": ""
 								},
 								"url": {
-                                  "raw": "{{apiUrl}}/api/works/tasks/",
+									"raw": "{{domain}}/api/works/tasks/",
 									"host": [
-                                      "{{apiUrl}}"
+										"{{domain}}"
 									],
 									"path": [
 										"api",
@@ -2365,11 +2209,12 @@
 							]
 						},
 						"url": {
-                          "raw": "{{apiUrl}}/works/reports/",
+							"raw": "{{domain}}/api/works/reports/",
 							"host": [
-                              "{{apiUrl}}"
+								"{{domain}}"
 							],
 							"path": [
+								"api",
 								"works",
 								"reports",
 								""
@@ -2398,11 +2243,12 @@
 							"raw": "{\n    \"name\": \"Лабораторная работа № 1\",\n    \"subject\": \"{{subject_id}}\",\n    \"student_group\": \"{{student_group_id}}\"\n}"
 						},
 						"url": {
-                          "raw": "{{apiUrl}}/works/reports/",
+							"raw": "{{domain}}/api/works/reports/",
 							"host": [
-                              "{{apiUrl}}"
+								"{{domain}}"
 							],
 							"path": [
+								"api",
 								"works",
 								"reports",
 								""
@@ -2452,11 +2298,12 @@
 							]
 						},
 						"url": {
-                          "raw": "{{apiUrl}}/works/reports/{{report_id}}/",
+							"raw": "{{domain}}/api/works/reports/{{report_id}}/",
 							"host": [
-                              "{{apiUrl}}"
+								"{{domain}}"
 							],
 							"path": [
+								"api",
 								"works",
 								"reports",
 								"{{report_id}}",

@@ -1,6 +1,6 @@
 import uuid
 from enum import Enum
-from typing import Dict, Optional, Set
+from typing import Optional, Set
 
 from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
@@ -37,7 +37,6 @@ class UserManager(BaseUserManager):
         roles: Optional[Set[str]] = None,
         **extra_fields
     ):
-        print(roles)
         roles = roles or set()
         user = self._create_user(username, password, roles, **extra_fields)
         return user
@@ -91,7 +90,7 @@ class User(AbstractBaseUser):
 
 
 class Student(Model):
-    cipher = models.CharField(max_length=15, unique=True, blank=True)
+    cipher = models.CharField(max_length=15, unique=True, null=True)
     id = models.OneToOneField(
         User, primary_key=True, related_name="student", on_delete=models.CASCADE
     )

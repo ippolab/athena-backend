@@ -13,12 +13,13 @@ from .serializers import Report, ReportSerializer, Task, TaskSerializer
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+    permission_classes = (IsAuthenticated, IsTutor | IsTeacher | IsAdmin)
 
 
 class ReportViewSet(viewsets.ModelViewSet):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
-    permission_classes = (IsAdmin | IsTutor | IsTeacher,)
+    permission_classes = (IsAuthenticated, IsTutor | IsTeacher | IsAdmin)
 
     def get_queryset(self):
         user = self.request.user
