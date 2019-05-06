@@ -3,7 +3,7 @@ import os
 from django.core.validators import FileExtensionValidator
 from django.db import models
 
-from athena.authentication.models import Student, Teacher, Tutor
+from athena.authentication.models import Student, Teacher, Tutor, User
 from athena.core.models import UUIDModel
 from athena.core.storage import OverwriteStorage
 from athena.edu.models import Speciality, StudentGroup, Subject
@@ -12,33 +12,32 @@ from athena.edu.models import Speciality, StudentGroup, Subject
 def report_upload_to(instance: "Report", file_name: str):
     return os.path.join(
         "reports",
-        str(instance.task.create_datetime.year),
-        str(instance.student.student_group.speciality),  # todo check NoneType
+        str(instance.task.created_at.year),
+        str(instance.student.student_group.speciality),
         str(instance.task.subject),
         str(instance.student.student_group),
         str(instance.student),
         str(instance.task),
-        file_name,
     )
 
 
 def task_upload_to(instance: "Task", file_name: str):
     return os.path.join(
         "tasks",
-        str(instance.create_datetime.year),
-        str(instance.student_group.speciality),  # todo check NoneType
+        str(instance.created_at.year),
+        str(instance.student_group.speciality),
         str(instance.subject),
+        str(instance.student_group),
         str(instance),
-        file_name,
     )
 
 
 class Task(UUIDModel):
     name = models.CharField(max_length=127)
-    description = models.CharField(max_length=255, blank=True)
+    description = models.CharField(max_length=255, null=True)
     file = models.FileField(
         max_length=255,
-        upload_to=report_upload_to,
+        upload_to=task_upload_to,
         storage=OverwriteStorage(),
         validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
         null=True,
@@ -50,12 +49,12 @@ class Task(UUIDModel):
         validators=[FileExtensionValidator(allowed_extensions=["zip"])],
         null=True,
     )
-    deadline = models.DateTimeField(null=True)
-    create_datetime = models.DateTimeField(auto_now_add=True)
-    edit_datetime = models.DateTimeField(auto_now=True)
-    subject = models.ForeignKey(Subject, related_name="tasks", on_delete=models.CASCADE)
+    deadline = models.DateField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    subject = models.ForeignKey(Subject, related_name="tasks", on_delete=models.PROTECT)
     student_group = models.ForeignKey(
-        StudentGroup, related_name="tasks", on_delete=models.CASCADE
+        StudentGroup, related_name="tasks", on_delete=models.PROTECT
     )
 
     class Meta:
@@ -66,8 +65,6 @@ class Task(UUIDModel):
 
 
 class Report(UUIDModel):
-    STATUSES = (("A", "Accepted"), ("F", "To fix"), ("N", "Not done"))
-
     name = models.CharField(max_length=255)
     file = models.FileField(
         max_length=255,
@@ -83,20 +80,21 @@ class Report(UUIDModel):
         validators=[FileExtensionValidator(allowed_extensions=["zip"])],
         null=True,
     )
-    status = models.CharField(max_length=1, choices=STATUSES, default="N")
-    create_datetime = models.DateTimeField(auto_now_add=True)
-    edit_datetime = models.DateTimeField(null=True)
-    check_datetime = models.DateTimeField(null=True)
-    comment = models.CharField(max_length=255, blank=True)
+    status = models.CharField(
+        max_length=1,
+        choices=(("A", "Accepted"), ("D", "Done"), ("F", "To fix"), ("N", "Not done")),
+        default="N",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(null=True)
+    checked_at = models.DateTimeField(null=True)
+    comment = models.CharField(max_length=255, null=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="reports")
     student = models.ForeignKey(
-        Student, related_name="reports", on_delete=models.CASCADE
+        Student, related_name="reports", on_delete=models.PROTECT
     )
-    tutor = models.ForeignKey(
-        Tutor, related_name="reports", null=True, on_delete=models.CASCADE
-    )
-    teacher = models.ForeignKey(
-        Teacher, related_name="reports", null=True, on_delete=models.CASCADE
+    verified_by = models.ForeignKey(
+        User, related_name="reports", null=True, on_delete=models.PROTECT
     )
 
     class Meta:
