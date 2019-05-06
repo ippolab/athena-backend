@@ -13,6 +13,8 @@ from .views import (
     TutorViewSet,
     UserViewSet,
     get_profile_view,
+    set_password_owner_view,
+    set_password_admin_view,
 )
 
 router = routers.DefaultRouter()
@@ -27,6 +29,12 @@ urlpatterns = [
     path("token/refresh/", TokenRefreshView.as_view(), name="refresh"),
     path("token/verify/", TokenVerifyView.as_view(), name="verify"),
     path("profile/me/", get_profile_view, name="profile"),
+    path("profile/me/password/", set_password_owner_view, name="set-password-owner"),
+    path(
+        "profile/<str:username>/password/",
+        set_password_admin_view,
+        name="set-password-admin",
+    ),
 ]
 
 urlpatterns += router.urls
