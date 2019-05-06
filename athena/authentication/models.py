@@ -77,6 +77,10 @@ class User(AbstractBaseUser):
         return self._contains_role(RolesEnum.student)
 
     @property
+    def is_only_student(self) -> bool:
+        return self.is_student and self.roles.all().count() == 1
+
+    @property
     def is_tutor(self) -> bool:
         return self._contains_role(RolesEnum.tutor)
 
