@@ -1,4 +1,5 @@
 from django.http import HttpResponseBadRequest
+from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import mixins, status, viewsets
@@ -87,6 +88,7 @@ def set_password_owner_view(request):
         return HttpResponseBadRequest()
     request.user.set_password(new_pass)
     request.user.save()
+    return HttpResponse(status=200)
 
 
 @api_view(("POST",))
@@ -98,3 +100,4 @@ def set_password_admin_view(request, username):
     user = get_object_or_404(User, username=username)
     user.set_password(new_pass)
     user.save()
+    return HttpResponse(status=200)

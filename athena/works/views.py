@@ -11,7 +11,14 @@ from athena.authentication.permissions import (
     IsStudentAndReadOnly,
     IsStudentAndOwner,
 )
-from .serializers import Report, ReportInCreateSerializer, Task, TaskSerializer
+from .serializers import (
+    Report,
+    Task,
+    TaskSerializer,
+    ReportSerializer,
+    ReportInTutorRequestSerializer,
+    ReportInStudentRequestSerializer,
+)
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -28,7 +35,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 
 class ReportViewSet(viewsets.ModelViewSet):
     queryset = Report.objects.all()
-    serializer_class = ReportInCreateSerializer  # todo
+    serializer_class = ReportSerializer
     permission_classes = (IsStudentAndOwner | IsTutor | IsTeacher | IsAdmin,)
 
     def get_queryset(self):
@@ -36,6 +43,14 @@ class ReportViewSet(viewsets.ModelViewSet):
         if user.is_only_student:
             return user.student.reports.all()
         return self.queryset
+
+    def get_serializer_class(self):
+        if self.request.method in ("POST", "PATCH"):
+            if "status" in self.request.data and not self.request.user.is_only_student:
+                return ReportInTutorRequestSerializer
+            else:
+                return ReportInStudentRequestSerializer
+        return self.serializer_class
 
 
 def document_view(model):

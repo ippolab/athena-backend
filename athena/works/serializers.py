@@ -32,6 +32,12 @@ class TaskSerializer(serializers.ModelSerializer):
         return value
 
 
+class ReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Report
+        fields = "__all__"
+
+
 class ReportInCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Report
