@@ -12,93 +12,104 @@ import athena.works.models
 class Migration(migrations.Migration):
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('works', '0004_auto_20190416_0314'),
+        ("works", "0004_auto_20190416_0314"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='report',
-            old_name='check_datetime',
-            new_name='checked_at',
+            model_name="report", old_name="check_datetime", new_name="checked_at"
         ),
         migrations.RenameField(
-            model_name='report',
-            old_name='create_datetime',
-            new_name='created_at',
+            model_name="report", old_name="create_datetime", new_name="created_at"
         ),
         migrations.RenameField(
-            model_name='report',
-            old_name='edit_datetime',
-            new_name='updated_at',
+            model_name="report", old_name="edit_datetime", new_name="updated_at"
         ),
         migrations.RenameField(
-            model_name='task',
-            old_name='create_datetime',
-            new_name='created_at',
+            model_name="task", old_name="create_datetime", new_name="created_at"
         ),
         migrations.RenameField(
-            model_name='task',
-            old_name='edit_datetime',
-            new_name='updated_at',
+            model_name="task", old_name="edit_datetime", new_name="updated_at"
         ),
-        migrations.RemoveField(
-            model_name='report',
-            name='teacher',
-        ),
-        migrations.RemoveField(
-            model_name='report',
-            name='tutor',
-        ),
+        migrations.RemoveField(model_name="report", name="teacher"),
+        migrations.RemoveField(model_name="report", name="tutor"),
         migrations.AddField(
-            model_name='report',
-            name='verified_by',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='reports',
-                                    to=settings.AUTH_USER_MODEL),
+            model_name="report",
+            name="verified_by",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="reports",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='report',
-            name='comment',
+            model_name="report",
+            name="comment",
             field=models.CharField(max_length=255, null=True),
         ),
         migrations.AlterField(
-            model_name='report',
-            name='status',
-            field=models.CharField(choices=[('A', 'Accepted'), ('D', 'Done'), ('F', 'To fix'), ('N', 'Not done')],
-                                   default='N', max_length=1),
+            model_name="report",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("A", "Accepted"),
+                    ("D", "Done"),
+                    ("F", "To fix"),
+                    ("N", "Not done"),
+                ],
+                default="N",
+                max_length=1,
+            ),
         ),
         migrations.AlterField(
-            model_name='report',
-            name='student',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='reports',
-                                    to='authentication.Student'),
+            model_name="report",
+            name="student",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="reports",
+                to="authentication.Student",
+            ),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='deadline',
-            field=models.DateField(null=True),
+            model_name="task", name="deadline", field=models.DateField(null=True)
         ),
         migrations.AlterField(
-            model_name='task',
-            name='description',
+            model_name="task",
+            name="description",
             field=models.CharField(max_length=255, null=True),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='file',
-            field=models.FileField(max_length=255, null=True, storage=athena.core.storage.OverwriteStorage(),
-                                   upload_to=athena.works.models.task_upload_to, validators=[
-                    django.core.validators.FileExtensionValidator(allowed_extensions=['pdf'])]),
+            model_name="task",
+            name="file",
+            field=models.FileField(
+                max_length=255,
+                null=True,
+                storage=athena.core.storage.OverwriteStorage(),
+                upload_to=athena.works.models.task_upload_to,
+                validators=[
+                    django.core.validators.FileExtensionValidator(
+                        allowed_extensions=["pdf"]
+                    )
+                ],
+            ),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='student_group',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='tasks',
-                                    to='edu.StudentGroup'),
+            model_name="task",
+            name="student_group",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="tasks",
+                to="edu.StudentGroup",
+            ),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='subject',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='tasks',
-                                    to='edu.Subject'),
+            model_name="task",
+            name="subject",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="tasks",
+                to="edu.Subject",
+            ),
         ),
     ]

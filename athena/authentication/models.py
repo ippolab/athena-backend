@@ -94,10 +94,10 @@ class User(AbstractBaseUser):
 
 
 class Student(Model):
-    cipher = models.CharField(max_length=15, unique=True, null=True)
     id = models.OneToOneField(
         User, primary_key=True, related_name="student", on_delete=models.CASCADE
     )
+    cipher = models.CharField(max_length=15, unique=True, null=True)
     student_group = models.ForeignKey(
         StudentGroup, related_name="students", null=True, on_delete=models.SET_NULL
     )
