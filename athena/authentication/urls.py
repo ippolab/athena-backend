@@ -7,7 +7,6 @@ from rest_framework_simplejwt.views import (
 )
 
 from .views import (
-    RoleViewSet,
     StudentViewSet,
     TeacherViewSet,
     TutorViewSet,
@@ -18,7 +17,6 @@ from .views import (
 )
 
 router = routers.DefaultRouter()
-router.register("roles", RoleViewSet)
 router.register("users", UserViewSet)
 router.register("students", StudentViewSet)
 router.register("tutors", TutorViewSet)
