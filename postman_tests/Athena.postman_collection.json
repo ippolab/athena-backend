@@ -61,13 +61,13 @@
 									"raw": "{\n\t\"username\": \"{{admin_username}}\",\n\t\"password\": \"{{admin_password}}\"\n}"
 								},
 								"url": {
-									"raw": "{{apiUrl}}/auth/token/",
+									"raw": "{{apiUrl}}/auth/login/",
 									"host": [
 										"{{apiUrl}}"
 									],
 									"path": [
 										"auth",
-										"token",
+										"login",
 										""
 									]
 								},
