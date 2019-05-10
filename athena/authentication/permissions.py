@@ -31,15 +31,22 @@ class IsStudentAndReadOnly(permissions.BasePermission):
         )
 
 
-class IsStudentAndOwner(permissions.BasePermission):
-    def has_object_permission(self, request, view, obj):
+class IsOwner(permissions.BasePermission):
+    def has_permission(self, request: Request, view):
         return (
                 _is_auth(request)
-                and request.user.is_student
-                and obj.student == request.user
+                and view.kwargs["id"] == request.user.id
         )
 
 
 class IsTeacher(permissions.BasePermission):
     def has_permission(self, request: Request, view):
         return _is_auth(request) and request.user.is_teacher
+
+
+class IsNotListAction(permissions.BasePermission):
+    def has_permission(self, request: Request, view):
+        return (
+                _is_auth(request)
+                and not view.action == "list"
+        )

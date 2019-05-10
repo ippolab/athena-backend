@@ -9,8 +9,8 @@ from athena.authentication.permissions import (
     IsTeacher,
     IsTutor,
     IsStudentAndReadOnly,
-    IsStudentAndOwner,
-)
+    IsOwner,
+    IsStudent)
 from .serializers import (
     Report,
     Task,
@@ -36,7 +36,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 class ReportViewSet(viewsets.ModelViewSet):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
-    permission_classes = (IsStudentAndOwner | IsTutor | IsTeacher | IsAdmin,)
+    permission_classes = ((IsStudent & IsOwner) | IsTutor | IsTeacher | IsAdmin,)
 
     def get_queryset(self):
         user = self.request.user
@@ -45,7 +45,7 @@ class ReportViewSet(viewsets.ModelViewSet):
         return self.queryset
 
     def get_serializer_class(self):
-        if self.request.method in ("POST", "PATCH"):
+        if self.request.method in ("POST", "PUT", "PATCH"):
             if "status" in self.request.data and not self.request.user.is_only_student:
                 return ReportInTutorRequestSerializer
             else:

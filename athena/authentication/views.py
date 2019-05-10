@@ -7,22 +7,15 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from .models import Role, Student, Teacher, Tutor, User
-from .permissions import IsAdmin
+from .models import Student, Teacher, Tutor, User
+from .permissions import IsAdmin, IsOwner, IsStudent, IsTutor, IsTeacher, IsNotListAction
 from .serializers import (
-    RoleSerializer,
     StudentSerializer,
     TeacherSerializer,
     TutorSerializer,
     UserInCreateSerializer,
     UserInResponseSerializer,
 )
-
-
-class RoleViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Role.objects.all()
-    serializer_class = RoleSerializer
-    permission_classes = (IsAdmin,)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -54,19 +47,19 @@ class ProfileViewSet(
 class StudentViewSet(ProfileViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    permission_classes = (IsAdmin,)
+    permission_classes = ((IsStudent & IsOwner & IsNotListAction) | IsAdmin,)
 
 
 class TutorViewSet(ProfileViewSet):
     queryset = Tutor.objects.all()
     serializer_class = TutorSerializer
-    permission_classes = (IsAdmin,)
+    permission_classes = ((IsTutor & IsOwner & IsNotListAction) | IsAdmin,)
 
 
 class TeacherViewSet(ProfileViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
-    permission_classes = (IsAdmin,)
+    permission_classes = ((IsTeacher & IsOwner & IsNotListAction) | IsAdmin,)
 
 
 @swagger_auto_schema(
