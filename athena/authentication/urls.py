@@ -23,7 +23,7 @@ router.register("tutors", TutorViewSet)
 router.register("teachers", TeacherViewSet)
 
 urlpatterns = [
-    path("token/", TokenObtainPairView.as_view(), name="token"),
+    path("login/", TokenObtainPairView.as_view(), name="token"),
     path("token/refresh/", TokenRefreshView.as_view(), name="refresh"),
     path("token/verify/", TokenVerifyView.as_view(), name="verify"),
     path("profile/me/", get_profile_view, name="profile"),
