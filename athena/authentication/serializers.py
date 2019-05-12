@@ -3,12 +3,6 @@ from rest_framework import serializers
 from .models import Role, Student, Teacher, Tutor, User
 
 
-class RoleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Role
-        fields = ("name",)
-
-
 class UserInResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

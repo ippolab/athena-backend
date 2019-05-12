@@ -7,26 +7,32 @@ from rest_framework_simplejwt.views import (
 )
 
 from .views import (
-    RoleViewSet,
     StudentViewSet,
     TeacherViewSet,
     TutorViewSet,
     UserViewSet,
     get_profile_view,
+    set_password_owner_view,
+    set_password_admin_view,
 )
 
 router = routers.DefaultRouter()
-router.register("roles", RoleViewSet)
 router.register("users", UserViewSet)
 router.register("students", StudentViewSet)
 router.register("tutors", TutorViewSet)
 router.register("teachers", TeacherViewSet)
 
 urlpatterns = [
-    path("login/", TokenObtainPairView.as_view(), name="login"),
+    path("login/", TokenObtainPairView.as_view(), name="token"),
     path("token/refresh/", TokenRefreshView.as_view(), name="refresh"),
     path("token/verify/", TokenVerifyView.as_view(), name="verify"),
     path("profile/me/", get_profile_view, name="profile"),
+    path("profile/me/password/", set_password_owner_view, name="set-password-owner"),
+    path(
+        "profile/<str:username>/password/",
+        set_password_admin_view,
+        name="set-password-admin",
+    ),
 ]
 
 urlpatterns += router.urls

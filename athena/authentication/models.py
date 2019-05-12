@@ -35,7 +35,7 @@ class UserManager(BaseUserManager):
         username: str,
         password=None,
         roles: Optional[Set[str]] = None,
-        **extra_fields
+            **extra_fields,
     ):
         roles = roles or set()
         user = self._create_user(username, password, roles, **extra_fields)
@@ -77,6 +77,10 @@ class User(AbstractBaseUser):
         return self._contains_role(RolesEnum.student)
 
     @property
+    def is_only_student(self) -> bool:
+        return self.is_student and self.roles.all().count() == 1
+
+    @property
     def is_tutor(self) -> bool:
         return self._contains_role(RolesEnum.tutor)
 
@@ -90,29 +94,16 @@ class User(AbstractBaseUser):
 
 
 class Student(Model):
-    cipher = models.CharField(max_length=15, unique=True, null=True)
     id = models.OneToOneField(
         User, primary_key=True, related_name="student", on_delete=models.CASCADE
     )
+    cipher = models.CharField(max_length=15, unique=True, null=True)
     student_group = models.ForeignKey(
         StudentGroup, related_name="students", null=True, on_delete=models.SET_NULL
     )
 
     def __str__(self):
-        return "{} {} {}".format(
-            self.id.second_name, self.id.first_name, self.id.last_name
-        )
-
-
-class Tutor(Model):
-    id = models.OneToOneField(
-        User, primary_key=True, related_name="tutor", on_delete=models.CASCADE
-    )
-
-    def __str__(self):
-        return "{} {} {}".format(
-            self.id.second_name, self.id.first_name, self.id.last_name
-        )
+        return f"{self.cipher}. {self.id.second_name} {self.id.first_name} {self.id.last_name}"
 
 
 class Teacher(Model):
@@ -122,9 +113,17 @@ class Teacher(Model):
     subjects = models.ManyToManyField(Subject, related_name="teachers")
 
     def __str__(self):
-        return "{} {} {}".format(
-            self.id.second_name, self.id.first_name, self.id.last_name
-        )
+        return f"{self.id.second_name} {self.id.first_name} {self.id.last_name}"
+
+
+class Tutor(Model):
+    id = models.OneToOneField(
+        User, primary_key=True, related_name="tutor", on_delete=models.CASCADE
+    )
+    teachers = models.ManyToManyField(Teacher, related_name="tutors")
+
+    def __str__(self):
+        return f"{self.id.second_name} {self.id.first_name} {self.id.last_name}"
 
 
 class Admin(Model):
