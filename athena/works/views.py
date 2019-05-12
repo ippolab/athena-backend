@@ -1,4 +1,4 @@
-from django.http import FileResponse, Http404
+from django.http import FileResponse, Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
@@ -10,7 +10,8 @@ from athena.authentication.permissions import (
     IsTutor,
     IsStudentAndReadOnly,
     IsOwner,
-    IsStudent)
+    IsStudent,
+)
 from .serializers import (
     Report,
     Task,
@@ -18,6 +19,7 @@ from .serializers import (
     ReportSerializer,
     ReportInTutorRequestSerializer,
     ReportInStudentRequestSerializer,
+    ReportInCreateSerializer,
 )
 
 
@@ -38,6 +40,12 @@ class ReportViewSet(viewsets.ModelViewSet):
     serializer_class = ReportSerializer
     permission_classes = ((IsStudent & IsOwner) | IsTutor | IsTeacher | IsAdmin,)
 
+    def create(self, request):
+        if str(request.user.id) == request.data.get("student") or request.user.is_admin:
+            return super().create(request)
+
+        return HttpResponseBadRequest()
+
     def get_queryset(self):
         user = self.request.user
         if user.is_only_student:
@@ -45,11 +53,18 @@ class ReportViewSet(viewsets.ModelViewSet):
         return self.queryset
 
     def get_serializer_class(self):
-        if self.request.method in ("POST", "PUT", "PATCH"):
-            if "status" in self.request.data and not self.request.user.is_only_student:
+        user = self.request.user
+        if self.request.method in ("PUT", "PATCH"):
+            if "status" in self.request.data and (user.is_tutor or user.is_teacher):
                 return ReportInTutorRequestSerializer
-            else:
+            elif user.is_only_student:
                 return ReportInStudentRequestSerializer
+            else:
+                return self.serializer_class
+
+        elif self.request.method == "POST" and not user.is_admin:
+            return ReportInCreateSerializer
+
         return self.serializer_class
 
 

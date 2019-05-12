@@ -1,6 +1,11 @@
 from rest_framework import viewsets
 
-from athena.authentication.permissions import IsAdmin, IsTeacher, IsTutor, IsStudentAndReadOnly
+from athena.authentication.permissions import (
+    IsAdmin,
+    IsTeacher,
+    IsTutor,
+    IsStudentAndReadOnly,
+)
 from .serializers import (
     Speciality,
     SpecialitySerializer,

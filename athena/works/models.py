@@ -2,6 +2,8 @@ import os
 
 from django.core.validators import FileExtensionValidator
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 from athena.authentication.models import Student, Teacher, Tutor, User
 from athena.core.models import UUIDModel
@@ -10,6 +12,7 @@ from athena.edu.models import Speciality, StudentGroup, Subject
 
 
 def report_upload_to(instance: "Report", file_name: str):
+    extension = file_name.rsplit(".", 1)[-1]
     return os.path.join(
         "reports",
         str(instance.task.created_at.year),
@@ -17,23 +20,25 @@ def report_upload_to(instance: "Report", file_name: str):
         str(instance.task.subject),
         str(instance.student.student_group),
         str(instance.student),
-        str(instance.task),
+        f"{instance.task}.{instance.student}.{extension}",
     )
 
 
 def task_upload_to(instance: "Task", file_name: str):
+    extension = file_name.rsplit(".", 1)[-1]
     return os.path.join(
         "tasks",
         str(instance.created_at.year),
         str(instance.student_group.speciality),
         str(instance.subject),
         str(instance.student_group),
-        str(instance),
+        f"{instance}.{extension}",
     )
 
 
 class Task(UUIDModel):
     name = models.CharField(max_length=127)
+
     description = models.CharField(max_length=255, null=True)
     file = models.FileField(
         max_length=255,
@@ -61,7 +66,7 @@ class Task(UUIDModel):
         unique_together = ("name", "subject", "student_group")
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
 class Report(UUIDModel):
@@ -102,3 +107,25 @@ class Report(UUIDModel):
 
     def __str__(self):
         return self.name
+
+
+@receiver(pre_save, sender=Task)
+@receiver(pre_save, sender=Report)
+def update_files(sender, instance, **kwargs):
+    """ If task or report was renamed it delete old files."""
+    if instance.id:
+        old = sender.objects.get(id=instance.id)
+        storage = old.file.storage
+        if (
+                old.file
+                and old.file.name != instance.file.name
+                and storage.exists(old.file.path)
+        ):
+            storage.delete(old.file.path)
+
+        if (
+                old.attachment
+                and old.attachment.name != instance.attachment.name
+                and storage.exists(old.attachment.path)
+        ):
+            storage.delete(old.attachment.path)

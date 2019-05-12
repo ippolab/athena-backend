@@ -8,7 +8,14 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from .models import Student, Teacher, Tutor, User
-from .permissions import IsAdmin, IsOwner, IsStudent, IsTutor, IsTeacher, IsNotListAction
+from .permissions import (
+    IsAdmin,
+    IsOwner,
+    IsStudent,
+    IsTutor,
+    IsTeacher,
+    IsNotListAction,
+)
 from .serializers import (
     StudentSerializer,
     TeacherSerializer,

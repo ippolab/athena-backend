@@ -35,7 +35,7 @@ class UserManager(BaseUserManager):
         username: str,
         password=None,
         roles: Optional[Set[str]] = None,
-        **extra_fields
+            **extra_fields,
     ):
         roles = roles or set()
         user = self._create_user(username, password, roles, **extra_fields)
@@ -103,20 +103,7 @@ class Student(Model):
     )
 
     def __str__(self):
-        return "{} {} {}".format(
-            self.id.second_name, self.id.first_name, self.id.last_name
-        )
-
-
-class Tutor(Model):
-    id = models.OneToOneField(
-        User, primary_key=True, related_name="tutor", on_delete=models.CASCADE
-    )
-
-    def __str__(self):
-        return "{} {} {}".format(
-            self.id.second_name, self.id.first_name, self.id.last_name
-        )
+        return f"{self.cipher}. {self.id.second_name} {self.id.first_name} {self.id.last_name}"
 
 
 class Teacher(Model):
@@ -126,9 +113,17 @@ class Teacher(Model):
     subjects = models.ManyToManyField(Subject, related_name="teachers")
 
     def __str__(self):
-        return "{} {} {}".format(
-            self.id.second_name, self.id.first_name, self.id.last_name
-        )
+        return f"{self.id.second_name} {self.id.first_name} {self.id.last_name}"
+
+
+class Tutor(Model):
+    id = models.OneToOneField(
+        User, primary_key=True, related_name="tutor", on_delete=models.CASCADE
+    )
+    teachers = models.ManyToManyField(Teacher, related_name="tutors")
+
+    def __str__(self):
+        return f"{self.id.second_name} {self.id.first_name} {self.id.last_name}"
 
 
 class Admin(Model):

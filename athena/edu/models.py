@@ -21,10 +21,10 @@ class Speciality(UUIDModel):
     cipher = models.CharField(
         max_length=8,
         unique=True,
-        validators=[validators.RegexValidator(r"[\d{2}.\d{2}}.\d{2}")],
+        # validators=[validators.RegexValidator(r"\d{1-2}\.\d{1-2}\.\d{1-2}")], todo
     )
     name = models.CharField(max_length=64, unique=True)
-    speciality = models.ManyToManyField(Subject, related_name="specialities")
+    subjects = models.ManyToManyField(Subject, related_name="specialities")
 
     def __str__(self):
         return "{}. {}".format(self.cipher, self.name)
