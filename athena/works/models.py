@@ -2,8 +2,6 @@ import os
 
 from django.core.validators import FileExtensionValidator
 from django.db import models
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
 
 from athena.authentication.models import Student, Teacher, Tutor, User
 from athena.core.models import UUIDModel
@@ -108,24 +106,3 @@ class Report(UUIDModel):
     def __str__(self):
         return self.name
 
-
-@receiver(pre_save, sender=Task)
-@receiver(pre_save, sender=Report)
-def update_files(sender, instance, **kwargs):
-    """ If task or report was renamed it delete old files."""
-    if instance.id:
-        old = sender.objects.get(id=instance.id)
-        storage = old.file.storage
-        if (
-                old.file
-                and old.file.name != instance.file.name
-                and storage.exists(old.file.path)
-        ):
-            storage.delete(old.file.path)
-
-        if (
-                old.attachment
-                and old.attachment.name != instance.attachment.name
-                and storage.exists(old.attachment.path)
-        ):
-            storage.delete(old.attachment.path)
