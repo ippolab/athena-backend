@@ -46,9 +46,10 @@ class ReportSerializer(serializers.ModelSerializer):
 
 
 class ReportInCreateSerializer(ReportSerializer):
-    class Meta:
+    class Meta(ReportSerializer.Meta):
         model = Report
         fields = (
+            "id",
             "name",
             "file",
             "attachment",
@@ -68,7 +69,7 @@ class ReportInCreateSerializer(ReportSerializer):
 class ReportInTutorRequestSerializer(serializers.ModelSerializer):
     checked_at = serializers.DateTimeField(default=timezone.now, read_only=True)
 
-    class Meta:
+    class Meta(ReportSerializer.Meta):
         model = Report
         fields = ("status", "comment", "verified_by", "checked_at")
 
@@ -76,6 +77,6 @@ class ReportInTutorRequestSerializer(serializers.ModelSerializer):
 class ReportInStudentRequestSerializer(serializers.ModelSerializer):
     updated_at = serializers.DateTimeField(default=timezone.now, read_only=True)
 
-    class Meta:
+    class Meta(ReportSerializer.Meta):
         model = Report
         fields = ("name", "file", "attachment", "updated_at")
