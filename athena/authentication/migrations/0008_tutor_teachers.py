@@ -4,14 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('authentication', '0007_auto_20190427_2006'),
-    ]
+    dependencies = [("authentication", "0007_auto_20190427_2006")]
 
     operations = [
         migrations.AddField(
-            model_name='tutor',
-            name='teachers',
-            field=models.ManyToManyField(related_name='tutors', to='authentication.Teacher'),
-        ),
+            model_name="tutor",
+            name="teachers",
+            field=models.ManyToManyField(
+                related_name="tutors", to="authentication.Teacher"
+            ),
+        )
     ]

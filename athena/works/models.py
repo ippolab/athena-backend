@@ -2,6 +2,8 @@ import os
 
 from django.core.validators import FileExtensionValidator
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 from athena.authentication.models import Student, Teacher, Tutor, User
 from athena.core.models import UUIDModel
@@ -36,8 +38,21 @@ def task_upload_to(instance: "Task", file_name: str):
 
 class Task(UUIDModel):
     name = models.CharField(max_length=127)
-
     description = models.CharField(max_length=255, null=True)
+    deadline = models.DateField(null=True)
+    type = models.CharField(
+        max_length=15,
+        choices=(
+            ("final", "Final Qualifying Work"),
+            ("course", "Coursework"),
+            ("lab", "Laboratory"),
+            ("prac", "Practice"),
+            ("temp", "Template Calculation"),
+            ("ref", "Referat"),
+            ("home", "Homework"),
+        ),
+    )
+
     file = models.FileField(
         max_length=255,
         upload_to=task_upload_to,
@@ -52,13 +67,14 @@ class Task(UUIDModel):
         validators=[FileExtensionValidator(allowed_extensions=["zip"])],
         null=True,
     )
-    deadline = models.DateField(null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
     subject = models.ForeignKey(Subject, related_name="tasks", on_delete=models.PROTECT)
     student_group = models.ForeignKey(
         StudentGroup, related_name="tasks", on_delete=models.PROTECT
     )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ("name", "subject", "student_group")
@@ -69,6 +85,14 @@ class Task(UUIDModel):
 
 class Report(UUIDModel):
     name = models.CharField(max_length=255)
+    comment = models.CharField(max_length=255, null=True)
+    mark = models.CharField(max_length=8, null=True)
+    status = models.CharField(
+        max_length=1,
+        choices=(("A", "Accepted"), ("D", "Done"), ("F", "To fix"), ("N", "Not done")),
+        default="N",
+    )
+
     file = models.FileField(
         max_length=255,
         upload_to=report_upload_to,
@@ -83,15 +107,7 @@ class Report(UUIDModel):
         validators=[FileExtensionValidator(allowed_extensions=["zip"])],
         null=True,
     )
-    status = models.CharField(
-        max_length=1,
-        choices=(("A", "Accepted"), ("D", "Done"), ("F", "To fix"), ("N", "Not done")),
-        default="N",
-    )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(null=True)
-    checked_at = models.DateTimeField(null=True)
-    comment = models.CharField(max_length=255, null=True)
+
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="reports")
     student = models.ForeignKey(
         Student, related_name="reports", on_delete=models.PROTECT
@@ -100,9 +116,35 @@ class Report(UUIDModel):
         User, related_name="reports", null=True, on_delete=models.PROTECT
     )
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(null=True)
+    checked_at = models.DateTimeField(null=True)
+
     class Meta:
         unique_together = ("task", "student")
 
     def __str__(self):
-        return self.name
+        return f"{self.task.type}. {self.student}"
 
+
+@receiver(pre_save, sender=Task)
+@receiver(pre_save, sender=Report)
+def update_files(sender, instance, **kwargs):
+    """ If task or report was renamed it delete old files."""
+    # todo remove name check
+    if instance.id:
+        old = sender.objects.get(id=instance.id)
+        storage = old.file.storage
+        if (
+                old.file
+                and old.file.name != instance.file.name
+                and storage.exists(old.file.path)
+        ):
+            storage.delete(old.file.path)
+
+        if (
+                old.attachment
+                and old.attachment.name != instance.attachment.name
+                and storage.exists(old.attachment.path)
+        ):
+            storage.delete(old.attachment.path)

@@ -4,19 +4,15 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('edu', '0005_auto_20190507_0222'),
-    ]
+    dependencies = [("edu", "0005_auto_20190507_0222")]
 
     operations = [
         migrations.RenameField(
-            model_name='speciality',
-            old_name='speciality',
-            new_name='subjects',
+            model_name="speciality", old_name="speciality", new_name="subjects"
         ),
         migrations.AlterField(
-            model_name='speciality',
-            name='cipher',
+            model_name="speciality",
+            name="cipher",
             field=models.CharField(max_length=8, unique=True),
         ),
     ]

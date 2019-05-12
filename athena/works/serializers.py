@@ -34,6 +34,23 @@ class ReportSerializer(serializers.ModelSerializer):
         fields = "__all__"
         read_only_fields = ("id",)
 
+    def validate_name(self, value):
+        """
+        Check name. If null set name of task
+        """
+        if value == "" or not value:
+            return self.instance.task.type
+        return value
+
+    def validate_mark(self, value):
+        # todo
+        # final, course - 2-5
+        # lab, prac - 0-100, true/false
+        # temp, ref, home - any
+
+        # raise serializers.ValidationError("Student has not cipher")
+        return value
+
     def validate_student(self, value: Student):
         """
         Check that the student has group.
@@ -48,22 +65,7 @@ class ReportSerializer(serializers.ModelSerializer):
 class ReportInCreateSerializer(ReportSerializer):
     class Meta(ReportSerializer.Meta):
         model = Report
-        fields = (
-            "id",
-            "name",
-            "file",
-            "attachment",
-            "task",
-            "student",
-        )
-
-    def validate_name(self, value):
-        """
-        Check name. If null set name of task
-        """
-        if not value:
-            return self.instance.task.name
-        return value
+        fields = ("id", "name", "file", "attachment", "task", "student")
 
 
 class ReportInTutorRequestSerializer(serializers.ModelSerializer):
