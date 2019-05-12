@@ -48,14 +48,7 @@ class ReportSerializer(serializers.ModelSerializer):
 class ReportInCreateSerializer(ReportSerializer):
     class Meta(ReportSerializer.Meta):
         model = Report
-        fields = (
-            "id",
-            "name",
-            "file",
-            "attachment",
-            "task",
-            "student",
-        )
+        fields = ("id", "name", "file", "attachment", "task", "student")
 
     def validate_name(self, value):
         """

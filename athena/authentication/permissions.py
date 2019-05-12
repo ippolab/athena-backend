@@ -33,7 +33,7 @@ class IsStudentAndReadOnly(permissions.BasePermission):
 
 class IsOwner(permissions.BasePermission):
     def has_permission(self, request: Request, view):
-        return _is_auth(request) and view.kwargs["id"] == request.user.id
+        return _is_auth(request) and view.kwargs.get("pk", None) == str(request.user.id)
 
 
 class IsTeacher(permissions.BasePermission):
