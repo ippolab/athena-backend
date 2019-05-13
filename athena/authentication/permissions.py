@@ -25,9 +25,9 @@ class IsStudent(permissions.BasePermission):
 class IsStudentAndReadOnly(permissions.BasePermission):
     def has_permission(self, request: Request, view):
         return (
-                _is_auth(request)
-                and request.user.is_student
-                and request.method in SAFE_METHODS
+            _is_auth(request)
+            and request.user.is_student
+            and request.method in SAFE_METHODS
         )
 
 

@@ -10,11 +10,11 @@ from rest_framework.response import Response
 from .models import Student, Teacher, Tutor, User
 from .permissions import (
     IsAdmin,
+    IsNotListAction,
     IsOwner,
     IsStudent,
-    IsTutor,
     IsTeacher,
-    IsNotListAction,
+    IsTutor,
 )
 from .serializers import (
     StudentSerializer,

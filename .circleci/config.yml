@@ -73,7 +73,7 @@ jobs:
           name: run postman tests
           command: |
             python manage.py runserver &
-            ./postman_tests/run-api-tests.sh
+            ./postman/run-api-tests.sh
   build-prod:
     docker:
       - image: circleci/python:3.7-node
