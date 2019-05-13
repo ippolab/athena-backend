@@ -1,8 +1,8 @@
-.. |backend_master_build| image:: https://circleci.com/gh/IppoLab/Athena-backend/tree/master.svg?style=svg
-    :target: https://circleci.com/gh/IppoLab/Athena-backend/tree/master
+.. |backend_master_build| image:: https://circleci.com/gh/ippolab/athena-backend/tree/master.svg?style=svg
+    :target: https://circleci.com/gh/ippolab/athena-backend/tree/master
 
-.. |backend_dev_build| image:: https://circleci.com/gh/IppoLab/Athena-backend/tree/dev.svg?style=svg
-    :target: https://circleci.com/gh/IppoLab/Athena-backend/tree/dev
+.. |backend_dev_build| image:: https://circleci.com/gh/ippolab/athena-backend/tree/dev.svg?style=svg
+    :target: https://circleci.com/gh/ippolab/athena-backend/tree/dev
 
 .. _poetry: https://github.com/sdispater/poetry
 .. _docker: https://www.docker.com/get-started
@@ -101,6 +101,3 @@ Makefile commands
     compose-athena-connect - connect to athena container
     docker-dev             - build dev image for athena
     docker-master          - build image for athena with default tag
-
-
-
