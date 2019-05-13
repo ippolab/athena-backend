@@ -35,7 +35,7 @@ class UserManager(BaseUserManager):
         username: str,
         password=None,
         roles: Optional[Set[str]] = None,
-            **extra_fields,
+        **extra_fields,
     ):
         roles = roles or set()
         user = self._create_user(username, password, roles, **extra_fields)

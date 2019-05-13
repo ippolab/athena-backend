@@ -6,20 +6,21 @@ from rest_framework.request import Request
 
 from athena.authentication.permissions import (
     IsAdmin,
-    IsTeacher,
-    IsTutor,
-    IsStudentAndReadOnly,
     IsOwner,
     IsStudent,
+    IsStudentAndReadOnly,
+    IsTeacher,
+    IsTutor,
 )
+
 from .serializers import (
     Report,
+    ReportInCreateSerializer,
+    ReportInStudentRequestSerializer,
+    ReportInTutorRequestSerializer,
+    ReportSerializer,
     Task,
     TaskSerializer,
-    ReportSerializer,
-    ReportInTutorRequestSerializer,
-    ReportInStudentRequestSerializer,
-    ReportInCreateSerializer,
 )
 
 

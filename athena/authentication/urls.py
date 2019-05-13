@@ -12,8 +12,8 @@ from .views import (
     TutorViewSet,
     UserViewSet,
     get_profile_view,
-    set_password_owner_view,
     set_password_admin_view,
+    set_password_owner_view,
 )
 
 router = routers.DefaultRouter()
