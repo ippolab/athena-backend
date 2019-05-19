@@ -1,4 +1,5 @@
 import uuid
+from typing import Any
 
 from django.http import FileResponse, Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
@@ -42,11 +43,40 @@ class ReportViewSet(viewsets.ModelViewSet):
     serializer_class = ReportSerializer
     permission_classes = (IsStudent | IsTutor | IsTeacher | IsAdmin,)
 
-    def create(self, request):
-        if str(request.user.id) == request.data.get("student") or request.user.is_admin:
-            return super().create(request)
+    def create(self, request: Request, *args: Any, **kwargs: Any):
+        if "student" in request.data:
+            if (
+                    str(request.user.id) == request.data.get("student")
+                    or request.user.is_admin
+            ):
+                return super().create(request)
+            else:
+                return HttpResponseBadRequest()
 
-        return HttpResponseBadRequest()
+        if not request.user.is_student:
+            return HttpResponseBadRequest()
+
+        request.data["student"] = request.user.id
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=201, headers=headers)
+
+    def update(self, request: Request, *args: Any, **kwargs: Any):
+        instance = self.get_object()
+        serializer = self.get_serializer(
+            instance, data=request.data, context={"user": request.user}
+        )
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        if getattr(instance, "_prefetched_objects_cache", None):
+            # If 'prefetch_related' has been applied to a queryset, we need to
+            # forcibly invalidate the prefetch cache on the instance.
+            instance._prefetched_objects_cache = {}
+
+        return Response(serializer.data)
 
     def get_queryset(self):
         user = self.request.user
@@ -59,7 +89,7 @@ class ReportViewSet(viewsets.ModelViewSet):
         if self.request.method in ("PUT", "PATCH"):
             if "status" in self.request.data and (user.is_tutor or user.is_teacher):
                 return ReportInTutorRequestSerializer
-            elif user.is_only_student:
+            elif user.is_student:
                 return ReportInStudentRequestSerializer
             else:
                 return self.serializer_class
