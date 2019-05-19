@@ -1,26 +1,27 @@
+import uuid
+
 from django.http import FileResponse, Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
+from rest_framework.response import Response
 
 from athena.authentication.permissions import (
     IsAdmin,
-    IsOwner,
-    IsStudent,
-    IsStudentAndReadOnly,
     IsTeacher,
     IsTutor,
+    IsStudentAndReadOnly,
+    IsStudent,
 )
-
 from .serializers import (
     Report,
-    ReportInCreateSerializer,
-    ReportInStudentRequestSerializer,
-    ReportInTutorRequestSerializer,
-    ReportSerializer,
     Task,
     TaskSerializer,
+    ReportSerializer,
+    ReportInTutorRequestSerializer,
+    ReportInStudentRequestSerializer,
+    ReportInCreateSerializer,
 )
 
 
@@ -39,7 +40,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 class ReportViewSet(viewsets.ModelViewSet):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
-    permission_classes = ((IsStudent & IsOwner) | IsTutor | IsTeacher | IsAdmin,)
+    permission_classes = (IsStudent | IsTutor | IsTeacher | IsAdmin,)
 
     def create(self, request):
         if str(request.user.id) == request.data.get("student") or request.user.is_admin:
@@ -87,3 +88,14 @@ def document_view(model):
         raise Http404()
 
     return view
+
+
+@api_view(["GET"])
+def report_from_task_view(request: Request, task_pk: uuid):
+    if request.user.is_student:
+        report = get_object_or_404(Report, task=task_pk, student__id=request.user.id)
+    else:
+        raise Http404()
+
+    serializer = ReportSerializer(report)
+    return Response(data=serializer.data)
