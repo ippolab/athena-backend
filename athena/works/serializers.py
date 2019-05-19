@@ -23,7 +23,7 @@ class TaskSerializer(serializers.ModelSerializer):
         read_only_fields = ("id",)
 
     def validate_deadline(self, value):
-        if value <= datetime.datetime.today():
+        if value <= datetime.date.today():
             raise serializers.ValidationError("Deadline cant be <= today")
         return value
 
