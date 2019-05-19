@@ -22,6 +22,9 @@ class TaskSerializer(serializers.ModelSerializer):
         )
         read_only_fields = ("id",)
 
+    def validate_name(self, value: str):
+        return value.strip()
+
     def validate_deadline(self, value):
         if value <= datetime.date.today():
             raise serializers.ValidationError("Deadline cant be <= today")
@@ -36,7 +39,7 @@ class ReportSerializer(serializers.ModelSerializer):
 
     def validate_student(self, value: Student):
         """
-        Check that the student has group.
+        Check that the student has group and cipher.
         """
         if not value.student_group:
             raise serializers.ValidationError("Student has not group")
@@ -47,29 +50,25 @@ class ReportSerializer(serializers.ModelSerializer):
 
 class ReportInCreateSerializer(ReportSerializer):
     class Meta(ReportSerializer.Meta):
-        model = Report
-        fields = ("id", "name", "file", "attachment", "task", "student")
+        fields = ("id", "task", "name", "file", "attachment", "student")
+        extra_kwargs = {"name": {"default": ""}}
+        order_by = ("task", "student", "name")
 
-    def validate_name(self, value):
-        """
-        Check name. If null set name of task
-        """
-        if not value:
-            return self.instance.task.name
-        return value
+    # def validate_name(self, value: str): todo set task.name
+    #     if value.strip() == "":
+    #         return self.instance.task.name #None
 
 
 class ReportInTutorRequestSerializer(serializers.ModelSerializer):
-    checked_at = serializers.DateTimeField(default=timezone.now, read_only=True)
+    checked_at = serializers.HiddenField(default=timezone.now)
+    verified_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta(ReportSerializer.Meta):
-        model = Report
         fields = ("status", "comment", "verified_by", "checked_at")
 
 
 class ReportInStudentRequestSerializer(serializers.ModelSerializer):
-    updated_at = serializers.DateTimeField(default=timezone.now, read_only=True)
+    updated_at = serializers.HiddenField(default=timezone.now)
 
     class Meta(ReportSerializer.Meta):
-        model = Report
         fields = ("name", "file", "attachment", "updated_at")
