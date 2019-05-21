@@ -15,7 +15,7 @@ from .permissions import (
     IsStudent,
     IsTeacher,
     IsTutor,
-)
+    IsStudentAndReadOnly)
 from .serializers import (
     StudentSerializer,
     TeacherSerializer,
@@ -28,7 +28,7 @@ from .serializers import (
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserInResponseSerializer
-    permission_classes = (IsAdmin,)
+    permission_classes = (IsStudentAndReadOnly & IsOwner | IsAdmin,)
 
     def create(self, request, **kwargs):
         serializer = UserInCreateSerializer(data=request.data)
