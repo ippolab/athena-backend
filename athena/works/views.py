@@ -55,7 +55,7 @@ class ReportViewSet(viewsets.ModelViewSet):
 
         if not request.user.is_student:
             return HttpResponseBadRequest()
-
+        # todo check is student
         request.data["student"] = request.user.id
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -66,7 +66,7 @@ class ReportViewSet(viewsets.ModelViewSet):
     def update(self, request: Request, *args: Any, **kwargs: Any):
         instance = self.get_object()
         serializer = self.get_serializer(
-            instance, data=request.data, context={"user": request.user}
+            instance, data=request.data
         )
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
@@ -127,5 +127,5 @@ def report_from_task_view(request: Request, task_pk: uuid):
     else:
         raise Http404()
 
-    serializer = ReportSerializer(report)
+    serializer = ReportSerializer(report, context={"request": request})
     return Response(data=serializer.data)
