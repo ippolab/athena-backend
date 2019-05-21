@@ -25,15 +25,10 @@ class IsStudent(permissions.BasePermission):
 class IsStudentAndReadOnly(permissions.BasePermission):
     def has_permission(self, request: Request, view):
         return (
-            _is_auth(request)
-            and request.user.is_student
-            and request.method in SAFE_METHODS
+                _is_auth(request)
+                and request.user.is_student
+                and request.method in SAFE_METHODS
         )
-
-
-class IsOwner(permissions.BasePermission):
-    def has_permission(self, request: Request, view):
-        return _is_auth(request) and view.kwargs.get("pk", None) == str(request.user.id)
 
 
 class IsTeacher(permissions.BasePermission):
@@ -41,6 +36,19 @@ class IsTeacher(permissions.BasePermission):
         return _is_auth(request) and request.user.is_teacher
 
 
+class IsOwner(permissions.BasePermission):
+    def has_permission(self, request: Request, view):
+        return _is_auth(request) and view.kwargs.get("pk", None) == str(request.user.id)
+
+
 class IsNotListAction(permissions.BasePermission):
     def has_permission(self, request: Request, view):
         return _is_auth(request) and not view.action == "list"
+
+
+class IsReadOnly(permissions.BasePermission):
+    def has_permission(self, request: Request, view):
+        return (
+                _is_auth(request)
+                and request.method in SAFE_METHODS
+        )
