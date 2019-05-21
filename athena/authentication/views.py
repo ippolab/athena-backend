@@ -28,7 +28,7 @@ from .serializers import (
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserInResponseSerializer
-    permission_classes = (IsStudentAndReadOnly & IsOwner | IsAdmin,)
+    permission_classes = (IsStudentAndReadOnly | IsAdmin,)
 
     def create(self, request, **kwargs):
         serializer = UserInCreateSerializer(data=request.data)
@@ -60,13 +60,13 @@ class StudentViewSet(ProfileViewSet):
 class TutorViewSet(ProfileViewSet):
     queryset = Tutor.objects.all()
     serializer_class = TutorSerializer
-    permission_classes = ((IsTutor & IsOwner & IsNotListAction) | IsAdmin,)
+    permission_classes = (IsStudentAndReadOnly | IsAdmin,)
 
 
 class TeacherViewSet(ProfileViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
-    permission_classes = ((IsTeacher & IsOwner & IsNotListAction) | IsAdmin,)
+    permission_classes = (IsStudentAndReadOnly | IsAdmin,)
 
 
 @swagger_auto_schema(
