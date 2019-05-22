@@ -14,7 +14,11 @@ def report_upload_to(instance: "Report", file_name: str):
     extension = file_name.rsplit(".", 1)[-1]
     return os.path.join(
         "reports",
-        str(datetime.date.today().year if not instance.created_at else instance.created_at.year),
+        str(
+            datetime.date.today().year
+            if not instance.created_at
+            else instance.created_at.year
+        ),
         str(instance.student.student_group.speciality),
         str(instance.task.subject),
         str(instance.student.student_group),
@@ -27,7 +31,11 @@ def task_upload_to(instance: "Task", file_name: str):
     extension = file_name.rsplit(".", 1)[-1]
     return os.path.join(
         "tasks",
-        str(datetime.date.today().year if not instance.created_at else instance.created_at.year),
+        str(
+            datetime.date.today().year
+            if not instance.created_at
+            else instance.created_at.year
+        ),
         str(instance.student_group.speciality),
         str(instance.subject),
         str(instance.student_group),
