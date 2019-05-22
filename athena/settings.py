@@ -2,6 +2,7 @@ import os
 from datetime import timedelta
 
 import dotenv
+from corsheaders.defaults import default_headers
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 try:
@@ -43,11 +44,13 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+if DEBUG:
+    MIDDLEWARE.append("request_logging.middleware.LoggingMiddleware")
+
 ROOT_URLCONF = "athena.urls"
 
 MEDIA_ROOT = os.getenv("MEDIA_ROOT", os.path.join(BASE_DIR, "media"))
 MEDIA_URL = "/media/"
-
 
 TEMPLATES = [
     {
@@ -104,6 +107,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.getenv("STATIC_ROOT", os.path.join(BASE_DIR, "static"))
 
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_HEADERS = default_headers + ("x-athena-authorization",)
 
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
@@ -115,7 +119,7 @@ REST_FRAMEWORK = {
         "djangorestframework_camel_case.parser.CamelCaseJSONParser",
     ),
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "athena.authentication.backend.AthenaAuthenticationBackend",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
@@ -138,3 +142,17 @@ SWAGGER_SETTINGS = {
 }
 
 REDOC_SETTINGS = {"SPEC_URL": ("schema-json", {"format": ".json"})}
+
+if DEBUG:
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "handlers": {"console": {"class": "logging.StreamHandler"}},
+        "loggers": {
+            "django.request": {
+                "handlers": ["console"],
+                "level": "DEBUG",  # change debug level as appropiate
+                "propagate": False,
+            }
+        },
+    }

@@ -1,7 +1,8 @@
 from django.urls import path
 from rest_framework import routers
 
-from athena.works.models import Task, Report
+from athena.works.models import Report, Task
+
 from .views import ReportViewSet, TaskViewSet, document_view, report_from_task_view
 
 router = routers.DefaultRouter()
