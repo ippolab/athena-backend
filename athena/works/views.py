@@ -10,19 +10,20 @@ from rest_framework.response import Response
 
 from athena.authentication.permissions import (
     IsAdmin,
+    IsStudent,
+    IsStudentAndReadOnly,
     IsTeacher,
     IsTutor,
-    IsStudentAndReadOnly,
-    IsStudent,
 )
+
 from .serializers import (
     Report,
+    ReportInCreateSerializer,
+    ReportInStudentRequestSerializer,
+    ReportInTutorRequestSerializer,
+    ReportSerializer,
     Task,
     TaskSerializer,
-    ReportSerializer,
-    ReportInTutorRequestSerializer,
-    ReportInStudentRequestSerializer,
-    ReportInCreateSerializer,
 )
 
 
@@ -46,8 +47,8 @@ class ReportViewSet(viewsets.ModelViewSet):
     def create(self, request: Request, *args: Any, **kwargs: Any):
         if "student" in request.data:
             if (
-                    str(request.user.id) == request.data.get("student")
-                    or request.user.is_admin
+                str(request.user.id) == request.data.get("student")
+                or request.user.is_admin
             ):
                 return super().create(request)
             else:
@@ -63,11 +64,9 @@ class ReportViewSet(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=201, headers=headers)
 
-    def update(self, request: Request, *args: Any, **kwargs: Any):
+    def update(self, request: Request, *args, **kwargs):
         instance = self.get_object()
-        serializer = self.get_serializer(
-            instance, data=request.data
-        )
+        serializer = self.get_serializer(instance, data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
 

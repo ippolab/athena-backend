@@ -8,20 +8,17 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from .models import Student, Teacher, Tutor, User
-from .permissions import IsAdmin, IsReadOnly
-from .serializers import (
-    StudentSerializer,
-    TeacherSerializer,
-    TutorSerializer,
-    UserInCreateSerializer,
-    UserInResponseSerializer,
-)
+from .permissions import (IsAdmin, IsNotListAction, IsOwner, IsStudent,
+                          IsStudentAndReadOnly)
+from .serializers import (StudentSerializer, TeacherSerializer,
+                          TutorSerializer, UserInCreateSerializer,
+                          UserInResponseSerializer)
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserInResponseSerializer
-    permission_classes = (IsReadOnly | IsAdmin,)
+    permission_classes = (IsStudentAndReadOnly | IsAdmin,)
 
     def create(self, request, **kwargs):
         serializer = UserInCreateSerializer(data=request.data)
@@ -47,19 +44,19 @@ class ProfileViewSet(
 class StudentViewSet(ProfileViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    permission_classes = (IsReadOnly | IsAdmin,)
+    permission_classes = ((IsStudent & IsOwner & IsNotListAction) | IsAdmin,)
 
 
 class TutorViewSet(ProfileViewSet):
     queryset = Tutor.objects.all()
     serializer_class = TutorSerializer
-    permission_classes = (IsReadOnly | IsAdmin,)
+    permission_classes = (IsStudentAndReadOnly | IsAdmin,)
 
 
 class TeacherViewSet(ProfileViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
-    permission_classes = (IsReadOnly | IsAdmin,)
+    permission_classes = (IsStudentAndReadOnly | IsAdmin,)
 
 
 @swagger_auto_schema(
