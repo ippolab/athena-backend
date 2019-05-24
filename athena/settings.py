@@ -93,6 +93,8 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 500 * 1024 * 1024  # 500 MB
+
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = os.getenv("TIMEZONE", "Europe/Moscow")
