@@ -15,7 +15,6 @@ from athena.authentication.permissions import (
     IsTeacher,
     IsTutor,
 )
-
 from .serializers import (
     Report,
     ReportInCreateSerializer,
@@ -63,19 +62,6 @@ class ReportViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=201, headers=headers)
-
-    def update(self, request: Request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-
-        if getattr(instance, "_prefetched_objects_cache", None):
-            # If 'prefetch_related' has been applied to a queryset, we need to
-            # forcibly invalidate the prefetch cache on the instance.
-            instance._prefetched_objects_cache = {}
-
-        return Response(serializer.data)
 
     def get_queryset(self):
         user = self.request.user
