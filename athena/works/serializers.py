@@ -4,7 +4,6 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from athena.authentication.models import Student
-
 from .models import Report, Task
 
 
@@ -70,6 +69,7 @@ class ReportInTutorRequestSerializer(serializers.ModelSerializer):
 
 class ReportInStudentRequestSerializer(serializers.ModelSerializer):
     updated_at = serializers.HiddenField(default=timezone.now)
+    status = serializers.HiddenField(default="N")
 
     class Meta(ReportSerializer.Meta):
-        fields = ("name", "file", "attachment", "updated_at")
+        fields = ("name", "status", "file", "attachment", "updated_at")
