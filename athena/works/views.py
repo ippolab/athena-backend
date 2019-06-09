@@ -1,5 +1,4 @@
 import uuid
-from typing import Any
 
 from django.http import FileResponse, Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
@@ -7,6 +6,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.response import Response
+from typing import Any
 
 from athena.authentication.permissions import (
     IsAdmin,
@@ -15,6 +15,7 @@ from athena.authentication.permissions import (
     IsTeacher,
     IsTutor,
 )
+from athena.works.filters import TaskFilter
 from .serializers import (
     Report,
     ReportInCreateSerializer,
@@ -30,6 +31,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = (IsStudentAndReadOnly | IsTutor | IsTeacher | IsAdmin,)
+    filterset_class = TaskFilter
 
     def get_queryset(self):
         user = self.request.user
